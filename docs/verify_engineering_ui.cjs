@@ -1,0 +1,74 @@
+// Native local Edge verification. Creates a new, clearly named demonstration project.
+const {chromium}=require('C:/Users/13411/.cache/codex-runtimes/codex-primary-runtime/dependencies/node/node_modules/playwright');
+(async()=>{
+ const browser=await chromium.launch({headless:true,channel:'msedge'});
+ const page=await browser.newPage({viewport:{width:1600,height:1000}});
+ const errors=[];page.on('pageerror',e=>errors.push(e.message));
+ try {
+  await page.goto(process.env.DEVICE_STUDY_URL||'http://127.0.0.1:8765');
+  const created=page.waitForResponse(r=>r.url().endsWith('/api/projects')&&r.request().method()==='POST');
+  await page.getByRole('button',{name:'新建工程',exact:true}).click();
+  const newProject=await (await created).json();
+  await page.waitForFunction(id=>document.querySelector('select')?.value===id,newProject.id);
+  await page.locator('#project-info input').first().fill('课题1台账与目标联调工程');
+  await page.locator('#project-info select').selectOption('乡镇级');
+  await page.getByRole('button',{name:'保存工程',exact:true}).click();
+  await page.getByText(/工程已保存 · 版本/).waitFor();
+  await page.getByRole('button',{name:'02数据管理',exact:true}).click();
+  await page.getByRole('button',{name:'负荷与保供目标',exact:true}).click();
+  await page.getByRole('button',{name:'新增负荷与保供目标',exact:true}).click();
+  await page.getByRole('textbox',{name:'编号 1',exact:true}).fill('hospital-1');
+  await page.getByRole('textbox',{name:'名称 1',exact:true}).fill('卫生院（人工联调）');
+  await page.getByRole('spinbutton',{name:'接入节点 1',exact:true}).fill('2');
+  await page.locator('tbody select').selectOption('基本保障');
+  await page.getByRole('button',{name:'校验并保存台账',exact:true}).click();
+  await page.getByText('台账已校验保存为版本 1，历史版本保留。',{exact:true}).waitFor();
+  await page.getByRole('button',{name:'03保供场景生成',exact:true}).click();
+  await page.getByRole('heading',{name:'课题1 · 11类典型保供场景',exact:true}).waitFor();
+  await page.locator('article').filter({has:page.getByRole('heading',{name:'工程设备与分类保供目标',exact:true})}).locator('select').selectOption('乡镇级-西部-50');
+  await page.getByRole('button',{name:'将模板目标应用到负荷草稿',exact:true}).click();
+  await page.getByRole('button',{name:'校验并保存台账',exact:true}).click();
+  await page.getByText('台账已校验保存为版本 2，历史版本保留。',{exact:true}).waitFor();
+  await page.getByRole('button',{name:'分类目标与优先级',exact:true}).last().click();
+  await page.getByRole('button',{name:'计算需求与优先级',exact:true}).click();
+  await page.getByText(/综合优先级 0\.860000/).waitFor();
+  await page.screenshot({path:'docs/分类目标与优先级验证.png',fullPage:true});
+  await page.reload();
+  await page.getByText('当前工程：课题1台账与目标联调工程 · 版本 2',{exact:true}).waitFor();
+  await page.getByRole('button',{name:'02数据管理',exact:true}).click();
+  await page.getByRole('button',{name:'负荷与保供目标',exact:true}).click();
+  await page.getByRole('textbox',{name:'编号 1',exact:true}).waitFor();
+  if(await page.getByRole('spinbutton',{name:'目标时长 / h 1',exact:true}).inputValue()!=='72')throw Error('Regional target failed to persist');
+  await page.screenshot({path:'docs/工程台账与保供目标验证.png',fullPage:true});
+  await page.getByRole('button',{name:'11系统与接口',exact:true}).click();
+  await page.getByRole('heading',{name:'软件完整功能规划与验收台账',exact:true}).waitFor();
+  await page.getByText(/显示66项。/).waitFor();
+  if(await page.locator('tr').count()!==67)throw Error('Expected 66 plan requirements');
+  await page.screenshot({path:'docs/完整功能规划与验收台账验证.png',fullPage:true});
+  await page.getByRole('button',{name:'10方案与报告',exact:true}).click();
+  await page.getByRole('button',{name:'质效评价',exact:true}).click();
+  await page.getByRole('heading',{name:'经济—安全质效评价 · 熵权-CRITIC-TOPSIS',exact:true}).waitFor();
+  const criteriaTable=page.locator('table').first();
+  for(let n=0;n<8;n++)await criteriaTable.getByRole('button',{name:'删除',exact:true}).last().click();
+  const first=criteriaTable.locator('tr').nth(1);
+  await first.locator('input').nth(0).fill('cost');
+  await first.locator('input').nth(1).fill('成本');
+  await first.locator('select').selectOption('cost');
+  await first.locator('input').nth(2).fill('元');
+  const second=criteriaTable.locator('tr').nth(2);
+  await second.locator('input').nth(1).fill('保供率');
+  await second.locator('input').nth(3).fill('0.95');
+  for(const [i,values] of [[1,[100,1]],[2,[200,.8]]]){
+   await page.getByRole('spinbutton',{name:'方案'+i+' 成本',exact:true}).fill(String(values[0]));
+   await page.getByRole('spinbutton',{name:'方案'+i+' 保供率',exact:true}).fill(String(values[1]));
+   await page.getByRole('textbox',{name:'方案'+i+' 数据来源',exact:true}).fill('人工构造的数学联调数据，无工程含义');
+  }
+  await page.getByRole('button',{name:'计算并归档质效评价',exact:true}).click();
+  await page.getByRole('heading',{name:'归档评价结果 · 经济—安全质效评价',exact:true}).waitFor();
+  await page.getByText('硬约束或校核未通过',{exact:true}).waitFor();
+  await page.getByText('仍有必要项目未校核',{exact:true}).waitFor();
+  await page.screenshot({path:'docs/经济安全质效评价验证.png',fullPage:true});
+  if(errors.length)throw Error(errors.join('\n'));
+  console.log('PASS: inventory, regional goal, PPT priority, persistence, 66 requirements, TOPSIS ranking and safety gates; no page errors.');
+ } catch(e) {console.error((await page.locator('body').innerText()).slice(-6000));throw e} finally {await browser.close()}
+})().catch(e=>{console.error(e);process.exit(1)});

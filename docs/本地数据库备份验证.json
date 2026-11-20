@@ -1,0 +1,18 @@
+{
+  "format": "terminal-power-platform.sqlite-backup",
+  "version": 1,
+  "created": "2026-10-24T11:14:18",
+  "database": "platform.db",
+  "sha256": "4985bfa1f63b42817b845768d2c24be4a401d65dd8aaa511a1780c53760cf43b",
+  "integrity_check": "ok",
+  "table_counts": {
+    "runs": 433,
+    "drafts": 1,
+    "plans": 16,
+    "projects": 88,
+    "scenarios": 244,
+    "random_batches": 49,
+    "production_sequences": 21
+  },
+  "scope": "全部已保存工程、场景、生产序列、计算和草稿；不含浏览器未保存修改、软件代码、Python环境与外部原始文件"
+}

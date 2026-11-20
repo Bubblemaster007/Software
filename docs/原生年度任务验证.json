@@ -1,0 +1,108 @@
+{
+  "job_id": "4d610f6a0b264aa59d564b1f88ac089a",
+  "scope": "合成年度源荷、零风速占位、首36小时人为事件，仅验证8760小时原生后台接口，不证明正式灾害发生概率或年度实证",
+  "initial": {
+    "id": "4d610f6a0b264aa59d564b1f88ac089a",
+    "project_id": "77bbfc9259b44a9497c2382673a22d5e",
+    "project_revision": 3,
+    "created": "2026-10-27T02:44:08",
+    "status": "queued",
+    "input_sha256": "e7011b0721bf312c2bc9f1f10e91944c7f5aebfdddb21a8f123d48d595423535",
+    "seed": 42,
+    "event_samples": 2,
+    "hours": 8760,
+    "scope": "原生论文下游入口；不生成或认证SC-RCRB。支路失效率沿用原代码风速条件测试公式，事件阶段固定6/6/12/12小时；不等于实测风险。规划仍为简化枚举。",
+    "pid": 22564,
+    "process_identity": "134375138483840405"
+  },
+  "final": {
+    "id": "4d610f6a0b264aa59d564b1f88ac089a",
+    "project_id": "77bbfc9259b44a9497c2382673a22d5e",
+    "project_revision": 3,
+    "created": "2026-10-27T02:44:08",
+    "status": "succeeded",
+    "input_sha256": "e7011b0721bf312c2bc9f1f10e91944c7f5aebfdddb21a8f123d48d595423535",
+    "seed": 42,
+    "event_samples": 2,
+    "hours": 8760,
+    "scope": "原生论文下游入口；不生成或认证SC-RCRB。支路失效率沿用原代码风速条件测试公式，事件阶段固定6/6/12/12小时；不等于实测风险。规划仍为简化枚举。",
+    "pid": 12224,
+    "process_identity": "134375138483977173",
+    "started": "2026-10-27T02:44:08",
+    "completed": "2026-10-27T02:45:14",
+    "result": {
+      "method": "platform imported source/load/weather; original topic2 downstream",
+      "requested": null,
+      "embedded": null,
+      "embedding_complete": null,
+      "annual_status": "complete_dispatch",
+      "valid_event_count": 1,
+      "event_stage_status": "C:\\Users\\13411\\Desktop\\software\\data\\native_jobs\\4d610f6a0b264aa59d564b1f88ac089a\\outputs\\event_stage_status.csv",
+      "weather_pairing": "reference calendar weather; generated extreme wind/solar may not be meteorologically consistent",
+      "phase_boundary_basis": "test split of generated 36-hour window, not inferred physical disaster phases",
+      "line_failure_model": "weather-conditional test rates, not calibrated fragility curves",
+      "random_seed": 42,
+      "conditional_event_samples": 2,
+      "config_effective": {
+        "topology_dir": "C:\\Users\\13411\\Desktop\\software\\vendor\\topic2\\data\\case33",
+        "network": {
+          "branch_limit_kw": 5000,
+          "grid_limit_kw": 4000.0,
+          "emergency_limit_kw": 300.0,
+          "storage_power_kw": 500.0,
+          "storage_energy_kwh": 2000.0,
+          "soc_initial_ratio": 0.8,
+          "soc_min_ratio": 0.1,
+          "soc_max_ratio": 0.95,
+          "eta_charge": 0.92,
+          "eta_discharge": 0.9,
+          "critical_ratio": 0.2,
+          "important_ratio": 0.35,
+          "wind_node": 18,
+          "pv_node": 30,
+          "voltage_min_pu": 0.95,
+          "voltage_max_pu": 1.05,
+          "linear_voltage_guard_pu": 0.955,
+          "base_voltage_kv": 12.66
+        }
+      },
+      "input_hash_sha256": "1401c4800ba65c846ef43d9b9f7533bd5f08120db232b4d18bf1e34ce13c1e43",
+      "nodes_sha256": "b37508cb6081d0f28cff8f8fe22d68c6c1de99770c30aa1e43ecc233b8f49b17",
+      "lines_sha256": "aa93f6ff258decff48431b883400c06666c935def976591f65b9f4004a314119",
+      "metrics": {
+        "loss_of_load_probability": 0.0,
+        "loss_of_load_expectation_hours": 0.0,
+        "curtailment_probability": 0.0771689497716895,
+        "max_power_deficit_kw": 0.0,
+        "max_curtailment_kw": 294.8564846125371,
+        "expected_energy_deficit_kwh": 0.0,
+        "expected_curtailment_energy_kwh": 72645.31443272694,
+        "critical_load_supply_ratio": 0.9999999999999999,
+        "important_load_restoration_ratio": 1.0000000000000002,
+        "mobile_reachability": 1.0,
+        "island_required_hours": 0.0
+      },
+      "chapter3": {
+        "annual_random_production_sequence": "C:\\Users\\13411\\Desktop\\software\\data\\native_jobs\\4d610f6a0b264aa59d564b1f88ac089a\\outputs\\annual_random_production_sequence.csv",
+        "resource_failures": "C:\\Users\\13411\\Desktop\\software\\data\\native_jobs\\4d610f6a0b264aa59d564b1f88ac089a\\outputs\\resource_failures.csv"
+      },
+      "chapter4": {
+        "metrics": "C:\\Users\\13411\\Desktop\\software\\data\\native_jobs\\4d610f6a0b264aa59d564b1f88ac089a\\outputs\\balance\\metrics.json",
+        "hourly_balance": "C:\\Users\\13411\\Desktop\\software\\data\\native_jobs\\4d610f6a0b264aa59d564b1f88ac089a\\outputs\\balance\\hourly_balance.csv",
+        "event_phase_metrics": "C:\\Users\\13411\\Desktop\\software\\data\\native_jobs\\4d610f6a0b264aa59d564b1f88ac089a\\outputs\\event_phase_metrics.csv"
+      },
+      "chapter6": {
+        "planning_result_json": "C:\\Users\\13411\\Desktop\\software\\data\\native_jobs\\4d610f6a0b264aa59d564b1f88ac089a\\outputs\\planning.json"
+      }
+    }
+  },
+  "verification": {
+    "hourly_rows": 8760,
+    "max_physical_residual_kw": 6.821210263296962e-13,
+    "metrics_eens_matches_hourly": true,
+    "ac_voltage_and_grid_checks_passed": true,
+    "valid_event_count": 1,
+    "artifact_count": 16,
+    "archive_bytes": 1890653
+  }
+}

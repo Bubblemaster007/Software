@@ -1,0 +1,9 @@
+<script setup lang="ts">
+import {ref,computed,onMounted} from 'vue';
+const plan=ref<any>(null);const error=ref('');const menu=ref('');const status=ref('');
+const rows=computed(()=>plan.value?.requirements.filter((r:any)=>(!menu.value||r.menu===menu.value)&&(!status.value||r.status===status.value))||[]);
+const menus=computed<string[]>(()=>[...new Set<string>((plan.value?.requirements||[]).map((r:any)=>r.menu))]);
+onMounted(async()=>{try{const r=await fetch('/api/development-plan');if(!r.ok)throw Error('规划读取失败');plan.value=await r.json()}catch(e){error.value=String(e)}});
+</script>
+<template><article><h3>软件完整功能规划与验收台账</h3><p v-if="error" class="error">{{error}}</p><template v-if="plan"><p>版本 {{plan.version}} · {{plan.updated}} · {{plan.requirements.length}}项需求。{{plan.note}}</p><p>依据：36页任务书、完整65页四课题中期PPT、14页界面设计及当前菜单。</p><div class="actions"><label>业务菜单 <select v-model="menu"><option value="">全部菜单</option><option v-for="m in menus">{{m}}</option></select></label><label>当前状态 <select v-model="status"><option value="">全部状态</option><option v-for="(_,key) in plan.counts">{{key}}</option></select></label><a href="/api/development-plan/document">下载完整开发规划</a></div><p>显示{{rows.length}}项。状态须由实际代码、测试和模型证据更新，不能按页面或文件存在自动认定。</p><div class="scroll"><table><tr><th>ID / 菜单</th><th>目标功能</th><th>当前状态</th><th>输入</th><th>输出与行为</th><th>验收条件</th></tr><tr v-for="r in rows" :key="r.id"><td>{{r.id}}<br>{{r.menu}}</td><td>{{r.name}}</td><td>{{r.status}}</td><td>{{r.inputs}}</td><td>{{r.outputs}}</td><td>{{r.acceptance}}</td></tr></table></div></template></article></template>
+<style scoped>.actions{display:flex;gap:18px;flex-wrap:wrap;margin:18px 0}select{padding:8px;border:1px solid #c8dcdf}.scroll{overflow:auto;max-height:680px}table{min-width:1100px}th{position:sticky;top:0}td{min-width:110px;vertical-align:top}td:nth-child(n+4){min-width:190px}</style>

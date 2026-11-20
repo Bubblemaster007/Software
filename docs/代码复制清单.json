@@ -1,0 +1,669 @@
+{
+  "source": "C:\\Users\\13411\\Desktop\\ProjectCode\\Project",
+  "files": [
+    {
+      "file": "annual_background_generator.py",
+      "sha256": "5274ea94aed6b39976ad869f7ed4fd2fabe062b19c52ae82366a967bb9173a15"
+    },
+    {
+      "file": "chapter2_pipeline.py",
+      "sha256": "a415de688c3ff92bb879ca40ffcf014d4f8dad9b4fbe563f5d197dad740ddeac"
+    },
+    {
+      "file": "config.yaml",
+      "sha256": "40e1a5ba9535194307e2a25f4955583a15117e8b4d9fa5cea2a7ac11e1cfa63f"
+    },
+    {
+      "file": "data_schema.py",
+      "sha256": "6d57cb89407cf8ab33a7c86bd054b56dba57f0b0d9aa147c3fb2b538be1dd853"
+    },
+    {
+      "file": "demo_chapter2_run.py",
+      "sha256": "b64092323828eacbcbf44792b944e40b2dec38a609a83a50ec6efa008787fd4e"
+    },
+    {
+      "file": "load_uncertainty_model.py",
+      "sha256": "b5304c26fe9a637abc3c52b687c5d5e34e8fb07e881d3bac781ae0fcbcd75e9d"
+    },
+    {
+      "file": "README.md",
+      "sha256": "0f674cc1d1ad298853463f442a18490511503179096670ffa841a286d1735d2a"
+    },
+    {
+      "file": "README_代码包.md",
+      "sha256": "ee5b41f0a033d4514d171ed73eab7afe631d0a768f3466761a0087235a00b937"
+    },
+    {
+      "file": "renewable_uncertainty_model.py",
+      "sha256": "b126abfa8669a0543c6e57adc9a10ebd1862ffc4928ee51451bca5651eeae4a7"
+    },
+    {
+      "file": "requirements-tested.txt",
+      "sha256": "396d9255a63ab2550b0403302ee008729e873d21ad529d8db7c2e71b6d291a03"
+    },
+    {
+      "file": "requirements.txt",
+      "sha256": "147eb5fad6930583edf8102bd8e134bb920d89844319988ef12de15ba9e104ce"
+    },
+    {
+      "file": "run_full_pipeline.py",
+      "sha256": "ce84945e709f6adf7476979046483ae611d986c348a6778da960a6610b504bf5"
+    },
+    {
+      "file": "source_load_coupling.py",
+      "sha256": "f3f4276be2b574ee1210e11df7fcb45f64d9394a7f3d0ef5dbd0b9645dabb4ca"
+    },
+    {
+      "file": "电力电量平衡分析README.md",
+      "sha256": "170987d6ccb60ac7da0ea91a83326285c09ebe3e73fcb8923efd9663d1acb4f5"
+    },
+    {
+      "file": "configs\\current_paper_case33.json",
+      "sha256": "40e1a5ba9535194307e2a25f4955583a15117e8b4d9fa5cea2a7ac11e1cfa63f"
+    },
+    {
+      "file": "ExtremeScene_extreme_generation_package_clean_20260706_133018\\PACKAGE_MANIFEST.txt",
+      "sha256": "b88226511576913dd121d1982b0fd6e4e6bef940fa756d64c1dbeb8b48185f87"
+    },
+    {
+      "file": "ExtremeScene_extreme_generation_package_clean_20260706_133018\\README.md",
+      "sha256": "285b5255db0ddfcacd8a267511d2b0a585d84078cf0d9753409ed2bc681a08d4"
+    },
+    {
+      "file": "ExtremeScene_extreme_generation_package_clean_20260706_133018\\修改说明.txt",
+      "sha256": "1fa701ad7451d94055981ffb017bf839fa1b54be4d3816e1491aeebfc12d8f10"
+    },
+    {
+      "file": "phase_balance_analysis\\README.md",
+      "sha256": "bc6d87a2d103cf949ab3643a364d0ea311a5f18525e78baf590d8f6e4ff6cb2d"
+    },
+    {
+      "file": "phase_balance_analysis\\run_phase_balance_analysis.py",
+      "sha256": "a13b509b36c56eb947ddcce69471d423fdb1ac87fa651be621d1f0a3ab3145d6"
+    },
+    {
+      "file": "phase_balance_analysis\\__init__.py",
+      "sha256": "bf3b1182faa373fd2dc736126c1d6849a58b3d76b30fb1319e6ed90ee5036391"
+    },
+    {
+      "file": "scripts\\make_demo_data.py",
+      "sha256": "95fcc2148f8589ec709c4532bb6e6025aa2497c2d14b3cc30e95d9bd28de41a8"
+    },
+    {
+      "file": "scripts\\prepare_case33.py",
+      "sha256": "a121a2a46c4bb46d0a9bfc3f3dbf5e1b9dfdd0e1dda9b2fe242fdea20219d0cd"
+    },
+    {
+      "file": "scripts\\run_chapter2.py",
+      "sha256": "cedcca6b86a97bfeec3b60f3496341b2969e54fbc3e02c911daedf29d21a5672"
+    },
+    {
+      "file": "scripts\\run_chapter3.py",
+      "sha256": "1222c61a47b3bbbcea99185115f09bcfac47767ff39028462355459604b06ed8"
+    },
+    {
+      "file": "scripts\\run_chapter4.py",
+      "sha256": "5c53c5c48a6e6f89e89f014f0361dc1436eeb53cf5399fb3ed8c75a4898addeb"
+    },
+    {
+      "file": "scripts\\run_chapter5_6.py",
+      "sha256": "64e430da10fef10b17a7c016b5c109255d099e368deca41323036480470dde5a"
+    },
+    {
+      "file": "scripts\\run_current_paper_method.py",
+      "sha256": "2a4064ba6bd0ba36e0d80f4b78600b7131db368e0e60f223303d01b967428bb3"
+    },
+    {
+      "file": "scripts\\run_paper_reference_case33.py",
+      "sha256": "009c35f5fe4b0ab0aa427cb1819b71bd260e1367a0f2a888bb3cf1af50f67d7b"
+    },
+    {
+      "file": "scripts\\run_paper_scenario_stage.py",
+      "sha256": "1eb919a574796db76a216b468a5779840a931e03e7c3874a4e2c1e64fc509a1b"
+    },
+    {
+      "file": "src\\__init__.py",
+      "sha256": "45b8b7365a41c6774eaf1eacf8279f134351f64abf260e26faa5636d1d9d5b47"
+    },
+    {
+      "file": "tests\\conftest.py",
+      "sha256": "41e39995ba46695feb780fcc8777015c422e88643c1fc1995e6d7a2e62eeedf9"
+    },
+    {
+      "file": "tests\\test_balance_p0_unittest.py",
+      "sha256": "a43ce3e96570cb71edddf1eefd7fc3396359162d7ab1a798d9f90b2a8521c447"
+    },
+    {
+      "file": "tests\\test_case33_network_balance.py",
+      "sha256": "145699a25644862547dd045113426ff356ec72d2e450e33dcfc8f74b1bdfbc48"
+    },
+    {
+      "file": "tests\\test_chapter2_pipeline.py",
+      "sha256": "b8e4696fe28c04cc587eb2807996ec85975270d3807d3175b5238bcb515e0b92"
+    },
+    {
+      "file": "tests\\test_chapter3_coupling.py",
+      "sha256": "97c5b98d33cffa3e309a6e05dbe376b794c3a0beac5a12446671f73233c48948"
+    },
+    {
+      "file": "tests\\test_current_paper_downstream.py",
+      "sha256": "8e5469072f7f6a321a7f6e8d66ee4547a9d7dfcb1546450fb37e052828cedb03"
+    },
+    {
+      "file": "tests\\test_full_pipeline.py",
+      "sha256": "069c11e1c7e4a83a0b28e0055a435374a44add0624dc7492c2222cb48b38ee72"
+    },
+    {
+      "file": "tests\\test_paired_sensitivity.py",
+      "sha256": "986d5eed4ceb19bd9bbf1af18cc35372eff88b9fbea3274fc836b71f7211f8a2"
+    },
+    {
+      "file": "tests\\test_schema.py",
+      "sha256": "fe529afb29918ca6e629d1c18bd77d0885c7f2f38337c5df4bbc6db6b932fe1d"
+    },
+    {
+      "file": "tests\\test_sequential_resource_states.py",
+      "sha256": "e264b19e121d6aa97c0a35101ebd62eba4554f2365c98a9a21df4b1cb3643106"
+    },
+    {
+      "file": "tests\\test_wind_event_selection.py",
+      "sha256": "5351e072671ed8b8ab7ee250a88951173cf22b1ab65f9431d57ce86e5dad5319"
+    },
+    {
+      "file": "topic2_remaining_code\\annual_sequence_embedder.py",
+      "sha256": "fef64d46f89c2065405769df635cfa994aa585f108f90e5d69269fe9f6d0ec0e"
+    },
+    {
+      "file": "topic2_remaining_code\\coupled_condition_builder.py",
+      "sha256": "0e85a2e83da226417bfa49f2388fe79aee582007cce9f3d0cc8724a935aed1e2"
+    },
+    {
+      "file": "topic2_remaining_code\\demo_run.py",
+      "sha256": "d7f1bb0aa5c509b2583c63b5e5dfe90cd62c33d9901d250f6a7881c7dedc1e5d"
+    },
+    {
+      "file": "topic2_remaining_code\\fault_probability_model.py",
+      "sha256": "ce455216cae65a62993cd2c3c5f10820ceea3b45b1748fa073a34cc104989890"
+    },
+    {
+      "file": "topic2_remaining_code\\README.md",
+      "sha256": "4cf6c8676e519bff24d26a6793791db04b8b9654232a5d4dbbd230f3e570ab88"
+    },
+    {
+      "file": "topic2_remaining_code\\requirements.txt",
+      "sha256": "48155bbd1c9e04413103c1e4b4701879cb8b0ed6161b452f285324241e4bf7df"
+    },
+    {
+      "file": "topic2_remaining_code\\resilience_reliability_planner.py",
+      "sha256": "f135f68c53130d8f9a4028311df11529115eae0b11000f9cf19084a0f6dee762"
+    },
+    {
+      "file": "topic2_remaining_code\\strategy_trigger.py",
+      "sha256": "29d1c12a98bbb9c9cb391f4974c2bd710569efaa7896b4c8e7197c4a390bc85e"
+    },
+    {
+      "file": "data\\case33\\baseline_summary.json",
+      "sha256": "44eede230ff97895f6c307d1a80ab2cd7a106aed009de382cd63e6c4104c5bdd"
+    },
+    {
+      "file": "data\\case33\\case33bw.m",
+      "sha256": "60c5d6312a89607e76c86cb62268b548f37d81f1f037c1ff53aca1a8ecaf83c1"
+    },
+    {
+      "file": "data\\case33\\lines.csv",
+      "sha256": "aa93f6ff258decff48431b883400c06666c935def976591f65b9f4004a314119"
+    },
+    {
+      "file": "data\\case33\\nodes.csv",
+      "sha256": "b37508cb6081d0f28cff8f8fe22d68c6c1de99770c30aa1e43ecc233b8f49b17"
+    },
+    {
+      "file": "data\\case33\\README.md",
+      "sha256": "79d0c933560912554973f05ac59c8f33ae9f830ca42ef6fc98b1d5ad0940c6ea"
+    },
+    {
+      "file": "ExtremeScene_extreme_generation_package_clean_20260706_133018\\code\\annual_embedding.py",
+      "sha256": "0ee6eaa2726d6fad87a70f08101cff01096a250e36de4157b050bd221e1c436f"
+    },
+    {
+      "file": "ExtremeScene_extreme_generation_package_clean_20260706_133018\\code\\annual_embedding_ablation.py",
+      "sha256": "66f0ca39605b909351f90a42446d329196b971e1e3c87802d0c923aa186b7cf8"
+    },
+    {
+      "file": "ExtremeScene_extreme_generation_package_clean_20260706_133018\\code\\annual_embedding_sweep.py",
+      "sha256": "8d6c8e80e835eaa8665427259d45b6ee0fe13e08e9e34dc6395d49cea6ccd244"
+    },
+    {
+      "file": "ExtremeScene_extreme_generation_package_clean_20260706_133018\\code\\augment_extreme_trainset.py",
+      "sha256": "dc18daf41b44681d2bfa719da611d04f6e28f8fcc8c9f19613c986264b0460ea"
+    },
+    {
+      "file": "ExtremeScene_extreme_generation_package_clean_20260706_133018\\code\\augment_risk_shapelet_trainset.py",
+      "sha256": "4b89b5003ef756d90d6f2b7db897dd759a43c07f7809282f92df96843e3a65c0"
+    },
+    {
+      "file": "ExtremeScene_extreme_generation_package_clean_20260706_133018\\code\\build_duration_aware_riskfirst_compare.py",
+      "sha256": "aa016f51bacd26d1254a3dcfbdf4f7cff4b242b4266e1af9cecd44bd795497bb"
+    },
+    {
+      "file": "ExtremeScene_extreme_generation_package_clean_20260706_133018\\code\\build_final_full_baseline_compare.py",
+      "sha256": "0453929c3dff6d77a42df81f5cd775f4d740ca2ef6b1a30d3499004183dce2d3"
+    },
+    {
+      "file": "ExtremeScene_extreme_generation_package_clean_20260706_133018\\code\\build_main_four_method_compare.py",
+      "sha256": "ac597d0cee19bd6bef0cd05411abb5b855ea401a0d0036a93674f38406d67f9f"
+    },
+    {
+      "file": "ExtremeScene_extreme_generation_package_clean_20260706_133018\\code\\build_pretrain_windows.py",
+      "sha256": "2806113d1c4b69b57e9e119ca09b173e0562f2c722a78f3e9f83211e060ff3b8"
+    },
+    {
+      "file": "ExtremeScene_extreme_generation_package_clean_20260706_133018\\code\\check_proposed_risk.py",
+      "sha256": "ee4c4838f030bcef0cb51c7002180729f7ebe4bd7aecabb75f4a2b17d90565bc"
+    },
+    {
+      "file": "ExtremeScene_extreme_generation_package_clean_20260706_133018\\code\\data_interface.py",
+      "sha256": "12f67ec939d06825fc8eb9d195053b72ac1801b9928345a16fbb4c01c9839899"
+    },
+    {
+      "file": "ExtremeScene_extreme_generation_package_clean_20260706_133018\\code\\diagnose_extreme_samples.py",
+      "sha256": "6b7dd03512da3743ad8ee13b216daef06526d8233367fb86cad4e84962884387"
+    },
+    {
+      "file": "ExtremeScene_extreme_generation_package_clean_20260706_133018\\code\\evaluate_generation.py",
+      "sha256": "8b5cdea43d48f6f815999b785dde269842194175555a7bea5537db4a61b3eade"
+    },
+    {
+      "file": "ExtremeScene_extreme_generation_package_clean_20260706_133018\\code\\evt_fit.py",
+      "sha256": "9d6cef306f9a78211ebe91ab4157e7dd705e78d7cd6953f246c98f9f854549d0"
+    },
+    {
+      "file": "ExtremeScene_extreme_generation_package_clean_20260706_133018\\code\\Extreme_Extract.py",
+      "sha256": "9cdb999b7531f9635b3d4c29a2853f7982138e36ec58b3e62effe02ce02bf893"
+    },
+    {
+      "file": "ExtremeScene_extreme_generation_package_clean_20260706_133018\\code\\generate_scenarios.py",
+      "sha256": "1f943fa89389cbb997609186611ec57704a278ba34444f8a2653e126f61a8d46"
+    },
+    {
+      "file": "ExtremeScene_extreme_generation_package_clean_20260706_133018\\code\\hierarchical_diffusion.py",
+      "sha256": "d6ddbf7f809aa6aba5d1196e1f527802da0df458bf23fcd92ef61895cca5cf7f"
+    },
+    {
+      "file": "ExtremeScene_extreme_generation_package_clean_20260706_133018\\code\\plot_annual_history_comparison.py",
+      "sha256": "3ca53018106cff3373534a5a5bd76fb169b73cbd5a15a43b2b365af2f9ffa45d"
+    },
+    {
+      "file": "ExtremeScene_extreme_generation_package_clean_20260706_133018\\code\\prepare_openenergyhub_caiso.py",
+      "sha256": "13291f0254d2cfb5981efbed1bc152f96e3da08274b519bf7bd2c55dfa79d66a"
+    },
+    {
+      "file": "ExtremeScene_extreme_generation_package_clean_20260706_133018\\code\\risk_classifier.py",
+      "sha256": "2255595ac04b194dd8d91e2ca80efc3bec47f8b47b8ac5d6adfb310cae5165a0"
+    },
+    {
+      "file": "ExtremeScene_extreme_generation_package_clean_20260706_133018\\code\\risk_evt_transfer_augmentation.py",
+      "sha256": "faa347c4c4b450940fd01d22bcef6bc225df038eaabb8d05d400c25d70bfc1e1"
+    },
+    {
+      "file": "ExtremeScene_extreme_generation_package_clean_20260706_133018\\code\\risk_metrics.py",
+      "sha256": "111c6af576246f8451c5da9e0d64c5372bdfaddbd6b1225e92f46862d7e3cbd2"
+    },
+    {
+      "file": "ExtremeScene_extreme_generation_package_clean_20260706_133018\\code\\risk_ranking_utils.py",
+      "sha256": "aa57eb1cec8251053a747697dfb6e57d45841355960631b06e946a73771e7db7"
+    },
+    {
+      "file": "ExtremeScene_extreme_generation_package_clean_20260706_133018\\code\\risk_screening.py",
+      "sha256": "eea1de88f4bd384d428352efbe4ab11600691df58c13b0ea1fcf8bebc01db2c4"
+    },
+    {
+      "file": "ExtremeScene_extreme_generation_package_clean_20260706_133018\\code\\risk_shapelet_augmentation_utils.py",
+      "sha256": "080c7b01e7a2c3ead8858275a60f410796a8b755f0505e137fb324ff7ea95299"
+    },
+    {
+      "file": "ExtremeScene_extreme_generation_package_clean_20260706_133018\\code\\run_caiso_targeted_model_pool.py",
+      "sha256": "e6f24b2a833f1985b6979bd9327ad8285265a889e2485e6f67ef80e27c409d21"
+    },
+    {
+      "file": "ExtremeScene_extreme_generation_package_clean_20260706_133018\\code\\run_copula_guided_residual_diffusion.py",
+      "sha256": "025f47c510e2a841c265229c96feb2d344c5afe30573f2c619e5bc6022252fb6"
+    },
+    {
+      "file": "ExtremeScene_extreme_generation_package_clean_20260706_133018\\code\\run_epoch_tuning.py",
+      "sha256": "f365c5193331202349ba75dd60d31bbb782556d87814b6bd7de6840ea6d70da2"
+    },
+    {
+      "file": "ExtremeScene_extreme_generation_package_clean_20260706_133018\\code\\run_evt_copula.py",
+      "sha256": "6d6095ab5b7634b692206f45d26f1b4b5578c0511571924e71c936a2002bb70c"
+    },
+    {
+      "file": "ExtremeScene_extreme_generation_package_clean_20260706_133018\\code\\run_evt_transfer_experiment.py",
+      "sha256": "645976c3e05db804e27aa3eb01797ba0685094d84dbe2074937f755b303fdb4a"
+    },
+    {
+      "file": "ExtremeScene_extreme_generation_package_clean_20260706_133018\\code\\run_expanded_model_pool_experiments.py",
+      "sha256": "042c3a566561defae277ea617e6ef9943637d846ad59f33158f91486fce936c1"
+    },
+    {
+      "file": "ExtremeScene_extreme_generation_package_clean_20260706_133018\\code\\run_experiments.py",
+      "sha256": "9baaa25d3facfaa8cf8b139aa6a7c2179f2f455bb0c8bacadd1aa8079253da35"
+    },
+    {
+      "file": "ExtremeScene_extreme_generation_package_clean_20260706_133018\\code\\run_extreme_conditioned_gaussian_copula.py",
+      "sha256": "71fefa8ea107b2b7a2ad13c8796d692ec8cec97fe06d0db59942431a926c5457"
+    },
+    {
+      "file": "ExtremeScene_extreme_generation_package_clean_20260706_133018\\code\\run_gan_augmented_tailweighted_copula.py",
+      "sha256": "4d00ab5f9d3356c2262934aaee95d608e6a340c2be1bbdc5519b5663c8f1621c"
+    },
+    {
+      "file": "ExtremeScene_extreme_generation_package_clean_20260706_133018\\code\\run_hard_mask_candidate_selection.py",
+      "sha256": "2546404f579e51a30dda927aba4f43ae3ffb61e62f44c135d0320e56118999f3"
+    },
+    {
+      "file": "ExtremeScene_extreme_generation_package_clean_20260706_133018\\code\\run_jirp_v2_redefinition.py",
+      "sha256": "3ba1a12285ab1b4fc5b7c3ae58d01a9d49fe7b54d5deb328311c211ddd09823a"
+    },
+    {
+      "file": "ExtremeScene_extreme_generation_package_clean_20260706_133018\\code\\run_joint_profile_diffusion_experiment.py",
+      "sha256": "f41bd132dfaa69462628d38b454f6dbf3cc872e21abf7c901f3a3dcb875fd6eb"
+    },
+    {
+      "file": "ExtremeScene_extreme_generation_package_clean_20260706_133018\\code\\run_jrpd_maskprior_tuning.py",
+      "sha256": "68c18f360b4a00292f20dac8cbbd00f0054c7788d2db49d5fe4f818121cbbd36"
+    },
+    {
+      "file": "ExtremeScene_extreme_generation_package_clean_20260706_133018\\code\\run_jrpd_ramp_event_tuning.py",
+      "sha256": "2d520717cf0aed42e73bf0b2b78421d2d35d31a77c2598fd91c28c168af4c0be"
+    },
+    {
+      "file": "ExtremeScene_extreme_generation_package_clean_20260706_133018\\code\\run_jrpd_tuning.py",
+      "sha256": "dfe292924c8e2ae09ca873dfae06ed0699f88f2d65cb04babcddfd0086e7d295"
+    },
+    {
+      "file": "ExtremeScene_extreme_generation_package_clean_20260706_133018\\code\\run_method_pool_risk_target_selection.py",
+      "sha256": "9d9f655907e0a6f5694c5c5a1666298d2f423f5bdb21654c8092821c55a98d7d"
+    },
+    {
+      "file": "ExtremeScene_extreme_generation_package_clean_20260706_133018\\code\\run_model_pool_experiments.py",
+      "sha256": "1a19ba8fd4b33b8954fe848e7b5426d8629be10b0b1cea891971a7d44164f1b3"
+    },
+    {
+      "file": "ExtremeScene_extreme_generation_package_clean_20260706_133018\\code\\run_month_evt_copula_risk_selection.py",
+      "sha256": "8fc2e85ec8d2236c340b88c1c6ab07e61f67d479b44f8c6b7552f7a7132a48c0"
+    },
+    {
+      "file": "ExtremeScene_extreme_generation_package_clean_20260706_133018\\code\\run_openenergyhub_threshold_sweep.py",
+      "sha256": "ea67704cb1799c92141a566d7ed8cf2dcff0fd9ea35fd2141b06c3d7a3c69b79"
+    },
+    {
+      "file": "ExtremeScene_extreme_generation_package_clean_20260706_133018\\code\\run_paper_pipeline.py",
+      "sha256": "1c3d37c1dceabc0f59c2dd6cdfedd15bff87f1ea17bcb81753ae758e614abb96"
+    },
+    {
+      "file": "ExtremeScene_extreme_generation_package_clean_20260706_133018\\code\\run_pretrain_aug_experiments.py",
+      "sha256": "25806dd8e6c09cf661ea579abfb952a619f8489d1747af77987ffa60429fa8e0"
+    },
+    {
+      "file": "ExtremeScene_extreme_generation_package_clean_20260706_133018\\code\\run_ramp_window_diagnostic.py",
+      "sha256": "a993bf947228197ddcdab0c54061989077a95c3ad62b3d68d89b59651f5ee375"
+    },
+    {
+      "file": "ExtremeScene_extreme_generation_package_clean_20260706_133018\\code\\run_ramp_window_retrain.py",
+      "sha256": "de0b569a31c65119c691ebe38b5383ef7e27aeb745f3de239d3c60fce0a6d443"
+    },
+    {
+      "file": "ExtremeScene_extreme_generation_package_clean_20260706_133018\\code\\run_riskfirst_seed_advantage_sweep.py",
+      "sha256": "b06ea5b409a6735840aa656559c611a588e368552a8997354279b5b70044dd00"
+    },
+    {
+      "file": "ExtremeScene_extreme_generation_package_clean_20260706_133018\\code\\run_riskfirst_tcn_quantile.py",
+      "sha256": "a8bc9e9492a2d2d48c1efa3d06a632b85a5aea5ba5b94e35771c81e34c91ff57"
+    },
+    {
+      "file": "ExtremeScene_extreme_generation_package_clean_20260706_133018\\code\\run_risk_profile_flowmatching_compare.py",
+      "sha256": "582114c0d8a635625daf634576645de79e5091780e3ef0f2a7ef76a1e9cb3fc3"
+    },
+    {
+      "file": "ExtremeScene_extreme_generation_package_clean_20260706_133018\\code\\run_shape_ramp_tuning.py",
+      "sha256": "7af4bd31e38d239b4fde0e5ea5884a61b94b59ede404462145679b24ef257bc7"
+    },
+    {
+      "file": "ExtremeScene_extreme_generation_package_clean_20260706_133018\\code\\run_simple_evt_risk_diffusion.py",
+      "sha256": "8399b10d397efbcdc1c54c9c25e3226e445c652f97ee8b8c075c8b3cd9b7c5af"
+    },
+    {
+      "file": "ExtremeScene_extreme_generation_package_clean_20260706_133018\\code\\run_simple_evt_risk_ramp_improvements.py",
+      "sha256": "db6ea6b5eadc81017ee6c19b3ad3f66369f469cb5500a4459512db2ec1174487"
+    },
+    {
+      "file": "ExtremeScene_extreme_generation_package_clean_20260706_133018\\code\\run_stage2_jirp_tail_experiments.py",
+      "sha256": "e4b11e0596c9d7f62c7833fff6d9fa84a7f46c7fb924688564f8b5e17352facc"
+    },
+    {
+      "file": "ExtremeScene_extreme_generation_package_clean_20260706_133018\\code\\run_tailweighted_month_evt_copula.py",
+      "sha256": "05cb49817a6540029d53d95cb125117ebef032afa0d931086b6789190c28d945"
+    },
+    {
+      "file": "ExtremeScene_extreme_generation_package_clean_20260706_133018\\code\\run_tail_enhancement_experiments.py",
+      "sha256": "655dba07d93ca085deb9402a1a0b7d5f4d8fe64474d6fbbb8334560b04fe7611"
+    },
+    {
+      "file": "ExtremeScene_extreme_generation_package_clean_20260706_133018\\code\\run_targeted_expanded_pool_multiseed.py",
+      "sha256": "326b058293a6872dca398dab07cf84f141e533e0f424b6df632c47f285306767"
+    },
+    {
+      "file": "ExtremeScene_extreme_generation_package_clean_20260706_133018\\code\\run_three_method_trials.py",
+      "sha256": "d6b470107fa926b9a65ed126f02e5f0dcd27c233956a48b3b328eaeecc23d553"
+    },
+    {
+      "file": "ExtremeScene_extreme_generation_package_clean_20260706_133018\\code\\run_tuning_experiments.py",
+      "sha256": "05a400797223c70294eee90e132118c58df3d6ffd6a82dcb80e549a5d6f1f4c1"
+    },
+    {
+      "file": "ExtremeScene_extreme_generation_package_clean_20260706_133018\\code\\run_valprotected_gan_augmented_tailweighted_copula.py",
+      "sha256": "8f685ba0d130ffde9be74004b1eddd54d81267efcbbe4e4e1ba62254443b81dc"
+    },
+    {
+      "file": "ExtremeScene_extreme_generation_package_clean_20260706_133018\\code\\run_window_sensitivity.py",
+      "sha256": "807e39564ac99480e917b47d0fcb15fe22f308b672014a9530d1ee8f98d63989"
+    },
+    {
+      "file": "ExtremeScene_extreme_generation_package_clean_20260706_133018\\code\\sample_metrics.py",
+      "sha256": "33213845de59a8c9df15a6e9cbc2056c831926a004980e7f68277ba54516229c"
+    },
+    {
+      "file": "ExtremeScene_extreme_generation_package_clean_20260706_133018\\code\\summarize_results.py",
+      "sha256": "aacd083c086057cacdb1e4ca82c9f2b1c4b8bb0d46003c61fe1be4ed19a0451a"
+    },
+    {
+      "file": "ExtremeScene_extreme_generation_package_clean_20260706_133018\\code\\train_hierarchical_evt_diffusion.py",
+      "sha256": "e54b5a3eb05fb32393c061c20055f4713d3005143515591a6816eb204e57f5e4"
+    },
+    {
+      "file": "ExtremeScene_extreme_generation_package_clean_20260706_133018\\configs\\evt_transfer_experiments.yaml",
+      "sha256": "c3dc0725cf32efe235931e4115f1b4287376c9e846ed2781ad2dad9299b97ce1"
+    },
+    {
+      "file": "ExtremeScene_extreme_generation_package_clean_20260706_133018\\baselines\\enhanced_gan_extreme_repro\\demo_mock_run.py",
+      "sha256": "3052cdc59a679809edf3b124cfa7b69bfaa6cb9e6a44d5ab6b3976386762bfd4"
+    },
+    {
+      "file": "ExtremeScene_extreme_generation_package_clean_20260706_133018\\baselines\\enhanced_gan_extreme_repro\\enhanced_gan_extreme.py",
+      "sha256": "7279ff64a3dbcafc5f4de92d6a15cd1174a43ecbdd82df15e70e2f039584f3ea"
+    },
+    {
+      "file": "ExtremeScene_extreme_generation_package_clean_20260706_133018\\baselines\\enhanced_gan_extreme_repro\\README.md",
+      "sha256": "512cb6fdfce40a367b88559c14384392ae44f9509de08863bf764412d1b95e92"
+    },
+    {
+      "file": "ExtremeScene_extreme_generation_package_clean_20260706_133018\\baselines\\enhanced_gan_extreme_repro\\requirements.txt",
+      "sha256": "17c582b526c1395753f5571c085fdc7eab77ac5e9eb47c81fbfe3f8b19741aee"
+    },
+    {
+      "file": "ExtremeScene_extreme_generation_package_clean_20260706_133018\\baselines\\plain_diffusion_baseline\\demo_mock_run.py",
+      "sha256": "585888940ab02f58ad9ddefc1b8e01ecc571c580e3be9e02be46b6aaf737e412"
+    },
+    {
+      "file": "ExtremeScene_extreme_generation_package_clean_20260706_133018\\baselines\\plain_diffusion_baseline\\plain_ddpm_baseline.py",
+      "sha256": "c925c83535685ae774f783695324c6e5b839c212722dfeb109227fd4eea604af"
+    },
+    {
+      "file": "ExtremeScene_extreme_generation_package_clean_20260706_133018\\baselines\\plain_diffusion_baseline\\README.md",
+      "sha256": "cc82729a0696726d233c8f18978a79509d2b0d6c129a943beb286d93bc5341c0"
+    },
+    {
+      "file": "ExtremeScene_extreme_generation_package_clean_20260706_133018\\baselines\\plain_diffusion_baseline\\requirements.txt",
+      "sha256": "afd031fe576e2a07676160db67927e5815e8e91cd998bcfa4f2ac5b102d3463b"
+    },
+    {
+      "file": "ExtremeScene_extreme_generation_package_clean_20260706_133018\\baselines\\st_cdiff_baseline\\demo_mock_run.py",
+      "sha256": "1acbac8f3d74ea3313c6522e0f92696f46911876807988d925e6ea37d6a49917"
+    },
+    {
+      "file": "ExtremeScene_extreme_generation_package_clean_20260706_133018\\baselines\\st_cdiff_baseline\\README.md",
+      "sha256": "043b93ac962a2aafcbb8ceb46b18a2ed950178a521e37c3bc9c210e5f3c2a688"
+    },
+    {
+      "file": "ExtremeScene_extreme_generation_package_clean_20260706_133018\\baselines\\st_cdiff_baseline\\requirements.txt",
+      "sha256": "9904c5a56055328949b180973a571953714f87f362ba91f0d3c390c9d2447812"
+    },
+    {
+      "file": "ExtremeScene_extreme_generation_package_clean_20260706_133018\\baselines\\st_cdiff_baseline\\st_cdiff_baseline.py",
+      "sha256": "e1e7c9633dccf81973714f1933bec21fa2dbdfa3df7912a75e2899e8aae8756f"
+    },
+    {
+      "file": "ExtremeScene_extreme_generation_package_clean_20260706_133018\\baselines\\traditional_statistical_extreme_baseline\\demo_mock_run.py",
+      "sha256": "1af9b02480fb5f30d31ba17497fcab6678ee6f86c167a1a7e7e05f829eb66bb8"
+    },
+    {
+      "file": "ExtremeScene_extreme_generation_package_clean_20260706_133018\\baselines\\traditional_statistical_extreme_baseline\\README.md",
+      "sha256": "9afc939c316a628a3ab14bf487140e35803e1fb710547d932a7d24d18b8ad7b4"
+    },
+    {
+      "file": "ExtremeScene_extreme_generation_package_clean_20260706_133018\\baselines\\traditional_statistical_extreme_baseline\\requirements.txt",
+      "sha256": "0c3467b14c7d0ecea41f415c0b49c71196eb4e93d55fd3d82b0c8576d231ff99"
+    },
+    {
+      "file": "ExtremeScene_extreme_generation_package_clean_20260706_133018\\baselines\\traditional_statistical_extreme_baseline\\traditional_copula_baseline.py",
+      "sha256": "76caa1f275fa236bede8a8e76a6c535e23e0c72fedd8dc5a22090477c2f3c706"
+    },
+    {
+      "file": "phase_balance_analysis\\config\\phase_balance_config.yaml",
+      "sha256": "44be4d928eb7ee26a3afd050548797928c0bc3348384808f1501f3c2f906d5e7"
+    },
+    {
+      "file": "phase_balance_analysis\\results\\analysis_report.md",
+      "sha256": "13c191ce7c4b072b2e8a999f97cc045abcb319635d8a9a889db9c2c393ad70ba"
+    },
+    {
+      "file": "phase_balance_analysis\\results\\phase_logic_report.txt",
+      "sha256": "40a8904776a2e8ab89141bf59fee0af00881a06eda9e872a32cf62a518c2e7a4"
+    },
+    {
+      "file": "phase_balance_analysis\\results\\run_summary.json",
+      "sha256": "e49af8ee71615d9be1502d9c962d50b0e9c85bae583a9af3b723c83b48302257"
+    },
+    {
+      "file": "phase_balance_analysis\\results\\test_report.txt",
+      "sha256": "89c01a4828516bdfef0d1cf4230fca07851de0b8cc49a940e662a037a5973d4e"
+    },
+    {
+      "file": "phase_balance_analysis\\src\\data_loader.py",
+      "sha256": "ea6af047232497a95a26a2a09f42169f83c8f90716532fc009d2c9202a4d0a0d"
+    },
+    {
+      "file": "phase_balance_analysis\\src\\hourly_balance.py",
+      "sha256": "b46a4ee006510fbbc33642052f3bb2c8f8ef122635f0a071fa53c68e26bdaff5"
+    },
+    {
+      "file": "phase_balance_analysis\\src\\lankao_typical_scenario.py",
+      "sha256": "a8ef3583b0098a9b099ed36bd3b1e44fca9021f22c4bef6d650757cee90728f5"
+    },
+    {
+      "file": "phase_balance_analysis\\src\\phase_metrics.py",
+      "sha256": "0a6116487d2f87fce2a3b2b828657ae6a9c73bd4a1d29681c71f358d508a936d"
+    },
+    {
+      "file": "phase_balance_analysis\\src\\phase_segmentation.py",
+      "sha256": "0e347aa641a882f01756e5a1addd1bc8a7095c320564a1af73b45e3408404085"
+    },
+    {
+      "file": "phase_balance_analysis\\src\\plotting.py",
+      "sha256": "4b31a058bdf2f194236363a8e70d20d74a2f973a6340f68e7068bcbf92a3c73b"
+    },
+    {
+      "file": "phase_balance_analysis\\src\\validation.py",
+      "sha256": "a2bbb5dd0328b7dacb7de43c4f044be702da0244421421d35cce3dd7e4b53a6b"
+    },
+    {
+      "file": "phase_balance_analysis\\src\\__init__.py",
+      "sha256": "93cac308b71c0fc69829f10aeb6c94e1eab7c8852494927525ecb344ef7e119d"
+    },
+    {
+      "file": "phase_balance_analysis\\tests\\test_phase_balance_metrics.py",
+      "sha256": "46b89f4a964a6eddc150fb8f16ba6a2e636007b049cccfcc149d52d7b533d871"
+    },
+    {
+      "file": "phase_balance_analysis\\tests\\__init__.py",
+      "sha256": "00efa205d470b25c7a8c737a88b8b6ee132f7ad74021ec165eeeb478877dfdf0"
+    },
+    {
+      "file": "src\\chapter2\\__init__.py",
+      "sha256": "51871e357ed6f5f3ba2e93f93077447b0d6db2cb2a8f1319df975998a3a48fe5"
+    },
+    {
+      "file": "src\\chapter3\\current_paper_adapter.py",
+      "sha256": "efafa67b1fd0e85b701fa0ae7454c9f5bbffdec34a10cf36b6681d2011e3d402"
+    },
+    {
+      "file": "src\\chapter3\\extreme_generator_adapter.py",
+      "sha256": "3a09b04c0b09c660ed21189c7b0c3ccef40985b311b73765246a00abe324353f"
+    },
+    {
+      "file": "src\\chapter3\\lankao_topology_adapter.py",
+      "sha256": "cd36263411bdc30ad8292741da28cdf35014f3bc1dc97238ef06cebea7c9c0c1"
+    },
+    {
+      "file": "src\\chapter3\\sequential_resource_states.py",
+      "sha256": "5515e504b430d218a77995b540ee1ed7015b5aa3de20a3bef935f8d85c1d6619"
+    },
+    {
+      "file": "src\\chapter3\\__init__.py",
+      "sha256": "1cf0a2b7635f91efe1339a7dc1660a0a41b61913dae391cbcb6728a16780b2ad"
+    },
+    {
+      "file": "src\\chapter4\\balance_analyzer_adapter.py",
+      "sha256": "7460f03e3d31a9aff7c154ac29c6b19f53266ed5fb24393f0ad4928ec2418717"
+    },
+    {
+      "file": "src\\chapter4\\case33_network_balance.py",
+      "sha256": "3654ed8ac12fa7948e95cc242c92b15a848c5965c1ed0aaa1f5050bcff3739be"
+    },
+    {
+      "file": "src\\chapter4\\power_energy_balance.py",
+      "sha256": "96fb6fab607f75ef859a169410305e89d8dc79d69cfef21d87677dad4a4f54bb"
+    },
+    {
+      "file": "src\\chapter4\\__init__.py",
+      "sha256": "2fcf18bb3e7a767266ce12df2fe2248af515da10adec282c76036d0b4db0fb96"
+    },
+    {
+      "file": "src\\common\\demo_data.py",
+      "sha256": "a4d9bb22a02b16315120a9f738feff7496d8a69aeea760b179721c1cb7386426"
+    },
+    {
+      "file": "src\\common\\io_utils.py",
+      "sha256": "5c8ebdffc549a9886f0fe534b56f08fe7cb8d042a116892de588e4a0135f4673"
+    },
+    {
+      "file": "src\\common\\validators.py",
+      "sha256": "98c1c5dde1b114e3937731bdbd5c0e161257eef38bc43ab1fdf730116217c72f"
+    },
+    {
+      "file": "src\\common\\__init__.py",
+      "sha256": "633490a0a4139a9a08d204cc2276cdabc963899b6e8a6b2df27be86536e8f683"
+    }
+  ]
+}

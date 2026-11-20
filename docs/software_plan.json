@@ -1,0 +1,900 @@
+{
+  "version": "1.15",
+  "updated": "2026-11-14",
+  "sources": {
+    "taskbook": "PDF物理第5—10、13—18页",
+    "full_ppt": "65页完整PPT，第9—44、45—57、64页",
+    "design_ppt": "14页界面设计，第2—14页"
+  },
+  "requirements": [
+    {
+      "id": "P01",
+      "menu": "工程工作台",
+      "name": "工程生命周期与版本",
+      "status": "部分实现",
+      "inputs": "工程名称、区域、模型及场景引用",
+      "outputs": "新建、复制、版本冻结、切换、保存与冲突处理",
+      "acceptance": "两个窗口编辑冲突不覆盖，历史计算可追溯",
+      "topic": 4
+    },
+    {
+      "id": "P02",
+      "menu": "工程工作台",
+      "name": "县域乡镇村三级工程",
+      "status": "部分实现",
+      "inputs": "范围、行政层级、地理边界、外部通道",
+      "outputs": "县域级、乡镇级、村级三类分析对象，与县域/村镇示范口径映射",
+      "acceptance": "三类可分别建模筛选并保存，旧村镇工程兼容",
+      "topic": 4,
+      "implementation_scope": "三级工程枚举及界面已实现；地理边界和独立筛选仍待开发。",
+      "evidence_paths": [
+        "backend/workspace.py",
+        "frontend/src/App.vue",
+        "backend/test_engineering.py"
+      ]
+    },
+    {
+      "id": "P03",
+      "menu": "工程工作台",
+      "name": "项目准备与成果总览",
+      "status": "部分实现",
+      "inputs": "各模块数据完整性和成果",
+      "outputs": "待补数据清单、计算入口、模块真实状态、示范进度",
+      "acceptance": "缺模型、缺参数、过期结果可定位，不显示虚构完成率",
+      "topic": 4
+    },
+    {
+      "id": "D01",
+      "menu": "数据管理",
+      "name": "标准化数据导入与质量",
+      "status": "部分实现",
+      "inputs": "CSV、Excel、JSON、原始资料及单位",
+      "outputs": "模板、字段映射、预览、单位换算、错误定位、回滚和来源记录",
+      "acceptance": "导入错误不覆盖原数据，跨表引用及能量守恒检查通过",
+      "topic": 4
+    },
+    {
+      "id": "D02",
+      "menu": "数据管理",
+      "name": "地理与历史灾害数据库",
+      "status": "部分实现",
+      "inputs": "坐标、区域、灾害时间强度、自然资源禀赋",
+      "outputs": "离线地理底图、设备空间关联、历史事件及来源库",
+      "acceptance": "无网络可查看，坐标系和数据版本明确",
+      "topic": 4,
+      "implementation_scope": "已接入离线地理/灾害草稿、来源与核实状态；离线底图、空间分析和地区概率校准待补",
+      "evidence_paths": [
+        "frontend/src/DataGovernance.vue",
+        "backend/app.py"
+      ]
+    },
+    {
+      "id": "D03",
+      "menu": "数据管理",
+      "name": "节点线路变压器开关台账",
+      "status": "部分实现",
+      "inputs": "节点、阻抗、容量、变比、损耗、开关及状态",
+      "outputs": "图表联动增删改、逐线路限额、变压器模型、联络线与检修状态",
+      "acceptance": "端点引用有效，备用线可重构，设备过载可定位",
+      "topic": 4
+    },
+    {
+      "id": "D04",
+      "menu": "数据管理",
+      "name": "电源逐设备台账",
+      "status": "部分实现",
+      "inputs": "光伏、风电、小水电、柴油机、移动发电车",
+      "outputs": "已有/待建、位置、额定/最小出力、启停、爬坡、可用率、燃料及曲线",
+      "acceptance": "各类资源在算例中实际改变出力和供电结果",
+      "topic": 4,
+      "implementation_scope": "台账已接入逐设备MILP，包含最小出力、启动、爬坡、到位、燃料/可运行时长和无功能力；风光水不补造缺失曲线。",
+      "evidence_paths": [
+        "backend/engineering.py",
+        "backend/resource_dispatch.py",
+        "frontend/src/DeviceDispatch.vue"
+      ]
+    },
+    {
+      "id": "D05",
+      "menu": "数据管理",
+      "name": "固定与移动储能台账",
+      "status": "部分实现",
+      "inputs": "节点、功率、能量、SOC、效率、温度和到位时间",
+      "outputs": "逐设备SOC与PCS控制方式、降额、充放电限额、寿命与候选状态",
+      "acceptance": "逐设备SOC连续，未到位资源不出力，不能无构网电源独立建压",
+      "topic": 4,
+      "implementation_scope": "逐储能位置、SOC、效率、温度系数、到位及构网能量预留已进入跨时段调度；充放互斥，未提供动态控制模型。",
+      "evidence_paths": [
+        "backend/resource_dispatch.py",
+        "backend/test_resource_dispatch.py"
+      ]
+    },
+    {
+      "id": "D06",
+      "menu": "数据管理",
+      "name": "负荷对象与分类保供目标",
+      "status": "部分实现",
+      "inputs": "逐负荷位置、曲线、刚性、可中断可削减指标",
+      "outputs": "基本保障/居民生活/一般分类、目标功率比例、时长、优先级",
+      "acceptance": "负荷目标可复算，短缺、可削减及允许中断分别统计",
+      "topic": 4,
+      "implementation_scope": "逐负荷目标缺额分类优化，计划削减独立分账；可显式强制完整目标及最大连续中断预算，禁止中断每步达标，时域不足拒硬目标。负荷移峰/转移仍待补。",
+      "evidence_paths": [
+        "backend/resource_dispatch.py",
+        "frontend/src/DeviceDispatch.vue",
+        "backend/test_resource_dispatch.py"
+      ]
+    },
+    {
+      "id": "D07",
+      "menu": "数据管理",
+      "name": "经济与设备寿命参数",
+      "status": "部分实现",
+      "inputs": "投资、运维、燃料、缺供损失、折现、寿命",
+      "outputs": "统一元/kW/kWh计价、年化/净现值、分阶段预算",
+      "acceptance": "MW/万元输入换算正确，现金流可逐项核算",
+      "topic": 4
+    },
+    {
+      "id": "D08",
+      "menu": "数据管理",
+      "name": "阿拉山口数据工程化",
+      "status": "部分实现",
+      "inputs": "典型负荷、月电量、气象、图纸、应急机组资料",
+      "outputs": "负荷转换、月能量核查、真实拓扑录入、同时间轴源荷及示范资产",
+      "acceptance": "单位经核实，图纸端点与台账对上，不以模板作为实测模型",
+      "topic": 4
+    },
+    {
+      "id": "D09",
+      "menu": "数据管理",
+      "name": "全局与分阶段故障编辑",
+      "status": "部分实现",
+      "inputs": "线路/变压器/源储故障点及起止时间",
+      "outputs": "拓扑点选、批量选择、故障修复时序、概率模型和实际事件区分",
+      "acceptance": "阶段覆盖和故障ID正确，恢复后可用能力与原台账一致",
+      "topic": 4
+    },
+    {
+      "id": "D10",
+      "menu": "数据管理",
+      "name": "数据版本及跨模块共享",
+      "status": "部分实现",
+      "inputs": "全部工程台账及来源",
+      "outputs": "不可变版本、关联删除检查、统一快照、引用失效提示",
+      "acceptance": "修改现状不影响历史方案，所有模块引用相同对象ID",
+      "topic": 4,
+      "implementation_scope": "台账独立修订、历史查询及工程/台账冲突检查已实现；计算和交接保留来源快照。",
+      "evidence_paths": [
+        "backend/engineering.py",
+        "backend/app.py",
+        "backend/module_contracts.py",
+        "backend/test_engineering.py"
+      ]
+    },
+    {
+      "id": "S01",
+      "menu": "保供场景生成",
+      "name": "11类典型场景库",
+      "status": "部分实现",
+      "inputs": "县域/乡镇/村、东中西部、20/50年重现期",
+      "outputs": "西部县域2类、三区乡镇6类、三区村级3类模板",
+      "acceptance": "覆盖PPT第14—15页11类且满足任务书至少6类，不自动将重现期当逐时故障概率",
+      "topic": 1,
+      "implementation_scope": "11类模板及区域目标已实现，尚未做地区概率校准及自动物理场景生成。",
+      "evidence_paths": [
+        "backend/engineering.py",
+        "frontend/src/EngineeringWorkspace.vue",
+        "backend/test_engineering.py"
+      ]
+    },
+    {
+      "id": "S02",
+      "menu": "保供场景生成",
+      "name": "季节与多灾种情景",
+      "status": "部分实现",
+      "inputs": "台风强风、暴雨洪涝、雨雪覆冰、温度及地形",
+      "outputs": "事件强度/持续时长、暴露设备、抢修道路、温度降额和负荷变化",
+      "acceptance": "同一灾种不同季节可重现，不把界面示例阈值写成地区事实",
+      "topic": 1
+    },
+    {
+      "id": "S03",
+      "menu": "保供场景生成",
+      "name": "分类需求指数与优先级",
+      "status": "部分实现",
+      "inputs": "历史后果、修复时长、灾害时长、供电能力、负荷特征",
+      "outputs": "PPT需求指数D、综合优先级P、目标功率与范围时长",
+      "acceptance": "计算与第17—19页公式及边界测试一致，权重和原始分项可追溯",
+      "topic": 1,
+      "implementation_scope": "按PPT原式计算D/P并输出分项；CTI为已评审输入，尚未训练或推定CTI。",
+      "evidence_paths": [
+        "backend/engineering.py",
+        "backend/test_engineering.py",
+        "docs/分类目标与优先级验证.png"
+      ]
+    },
+    {
+      "id": "S04",
+      "menu": "保供场景生成",
+      "name": "源荷动态增长预测",
+      "status": "简化实现",
+      "inputs": "历史源荷、气象、经济和新能源建设计划",
+      "outputs": "近期中期远期曲线、趋势、峰值与概率边界",
+      "acceptance": "保留时间与空间相关性，以留出样本验证预测误差",
+      "topic": 2
+    },
+    {
+      "id": "S05",
+      "menu": "保供场景生成",
+      "name": "PPT负荷新能源不确定性链",
+      "status": "待补模型",
+      "inputs": "历史序列、VMD/Res-GRU/WGAN-GP成果与训练配置",
+      "outputs": "特征分解、样本增强、多尺度融合、KDE及尾部风险",
+      "acceptance": "训练测试隔离、尾部和相关性检验，简化滚动均值不冒充完整模型",
+      "topic": 2
+    },
+    {
+      "id": "S06",
+      "menu": "保供场景生成",
+      "name": "风险驱动联合极端场景",
+      "status": "部分实现",
+      "inputs": "联合风险向量、气象事件和冻结生成器",
+      "outputs": "源荷极端片段、风险筛选、事件类型月份和样本权重",
+      "acceptance": "复现种子与模型版本，风险目标/相关性/物理约束校验",
+      "topic": 2
+    },
+    {
+      "id": "S07",
+      "menu": "保供场景生成",
+      "name": "设备脆弱性与连续状态",
+      "status": "部分实现",
+      "inputs": "灾种强度、设备类型、失效降额与修复参数",
+      "outputs": "正常/降额/故障/恢复状态和容量，含共因故障",
+      "acceptance": "λ与概率口径明确，连续修复和多设备相关故障有依据",
+      "topic": 2
+    },
+    {
+      "id": "S08",
+      "menu": "保供场景生成",
+      "name": "全年事件调度与嵌入",
+      "status": "部分实现",
+      "inputs": "月事件频率、类型、极端片段和8760小时背景",
+      "outputs": "年度事件抽样、位置匹配、异常增量迁移及风险保持平滑",
+      "acceptance": "核心风险不被边界平滑抹除，月份频率和年能量可核对",
+      "topic": 2
+    },
+    {
+      "id": "S09",
+      "menu": "保供场景生成",
+      "name": "概率校准与场景集管理",
+      "status": "待开发",
+      "inputs": "历史事件、抽样权重、拟合参数",
+      "outputs": "概率来源、样本有效量、置信区间、场景冻结/复用",
+      "acceptance": "权重非负归一、同种子重现，未经校准结果明确标识",
+      "topic": 2
+    },
+    {
+      "id": "H01",
+      "menu": "承灾极限分析",
+      "name": "多强度多时长批量扫描",
+      "status": "部分实现",
+      "inputs": "场景集、脆弱性、强度与持续时长范围、保供目标",
+      "outputs": "真实平衡驱动扫描、进度、取消和边界搜索",
+      "acceptance": "无可行/全可行/非单调边界均正确，不能输出超过扫描范围的极限",
+      "topic": 1,
+      "implementation_scope": "真实逐设备MILP驱动多强度/时长/样本扫描，支持后台进度、取消、总时限和完整快照；最多5000次调度、168小时，未做自适应边界搜索。",
+      "evidence_paths": [
+        "backend/disaster_studies.py",
+        "backend/study_jobs.py",
+        "backend/test_disaster_studies.py",
+        "docs/承灾强度时长扫描验证.png"
+      ]
+    },
+    {
+      "id": "H02",
+      "menu": "承灾极限分析",
+      "name": "承灾边界及置信度",
+      "status": "部分实现",
+      "inputs": "扫描结果和成功判据",
+      "outputs": "最大承受强度、持续时间、临界保供时长、裕度及曲线",
+      "acceptance": "按场景权重判定，区分功率达标、电量达标、动态未校核",
+      "topic": 1,
+      "implementation_scope": "逐点Wilson保守/乐观区间与经验比例可选，未知样本不剔除，保留离散达标集/右侧未封闭及非单调提示；目前为等权条件抽样，非全边界同时置信或加权场景验收。",
+      "evidence_paths": [
+        "backend/disaster_studies.py",
+        "backend/test_disaster_studies.py"
+      ]
+    },
+    {
+      "id": "H03",
+      "menu": "承灾极限分析",
+      "name": "设备薄弱性与目标差距",
+      "status": "部分实现",
+      "inputs": "设备扰动试验及分类目标",
+      "outputs": "线路/变压器/源储薄弱排序、边际缺供、差距和改造需求",
+      "acceptance": "对照实验只改目标设备，保留基准与随机种子，影响可复算",
+      "topic": 1,
+      "implementation_scope": "对源储/线路/变压器/开关/外部供电逐目标移除脆弱机制，固定其他冲击，按可靠配对的避免未供电量排序并保留负值；地区实证和全强度设备临界值待补。",
+      "evidence_paths": [
+        "backend/disaster_studies.py",
+        "docs/设备薄弱性配对验证.png",
+        "docs/承灾扫描人工联调.json"
+      ]
+    },
+    {
+      "id": "B01",
+      "menu": "电力电量平衡",
+      "name": "多时间分辨率与灾害阶段",
+      "status": "部分实现",
+      "inputs": "逐时及15分钟源荷、灾前冲击持续修复恢复阶段",
+      "outputs": "统一dt、阶段资源和负荷范围、跨阶段能量连续",
+      "acceptance": "kWh按dt积分，15分钟和1小时恒定工况能量一致",
+      "topic": 2,
+      "implementation_scope": "逐设备支持1/5/15/30/60分钟，新增跨窗口初态、统一事件已逝时间、按步补给及边界导出/载入。燃料用逐步状态守恒，储能电量、运行小时、启动和爬坡连续。逐设备年度滚动已接入15/30/60分钟完整日历年及指定时段，提交前缀跨窗衔接；网格变换与旧阶段统一仍待接续。",
+      "evidence_paths": [
+        "backend/test_dispatch_continuation.py",
+        "docs/跨窗口衔接人工联调.json",
+        "backend/resource_dispatch.py",
+        "backend/test_resource_dispatch.py"
+      ]
+    },
+    {
+      "id": "B02",
+      "menu": "电力电量平衡",
+      "name": "多资源逐设备与分级调度",
+      "status": "部分实现",
+      "inputs": "台账、负荷目标、故障、启动燃料和到位信息",
+      "outputs": "多节点多源储、可中断/削减/转移负荷与恢复优先级",
+      "acceptance": "基本保障约束、启停/燃料/爬坡/SOC有效，不把缺供当需求响应",
+      "topic": 2,
+      "implementation_scope": "台账快照进入多节点MILP，可承接前功率/运行、未完成启动、燃料/小时和SOC，完整状态可从归档前缀导出。年度源荷、故障、启停与补给剖面已接入，设备曲线采用常值或完整序列，提交窗口独立归档；负荷转移仍待接入。",
+      "evidence_paths": [
+        "backend/test_dispatch_continuation.py",
+        "docs/跨窗口衔接人工联调.json",
+        "backend/resource_dispatch.py",
+        "frontend/src/DeviceDispatch.vue",
+        "docs/逐设备调度到位与启动验证.png"
+      ]
+    },
+    {
+      "id": "B03",
+      "menu": "电力电量平衡",
+      "name": "概率性随机生产模拟",
+      "status": "部分实现",
+      "inputs": "相关源荷、共因故障、场景权重和阶段",
+      "outputs": "年度与事件概率类、功率极值类、电量类六项指标",
+      "acceptance": "统计口径、样本权重、区间及有效样本清楚，基准工况<=2分钟专项验证",
+      "topic": 2
+    },
+    {
+      "id": "B04",
+      "menu": "电力电量平衡",
+      "name": "网络潮流与灵活组网",
+      "status": "部分实现",
+      "inputs": "含备用联络线、孤岛资源及控制模式的网络",
+      "outputs": "容量、电压、网损、重构和有构网能力的孤岛调度",
+      "acceptance": "带电分区有电源且满足建压条件，网络平衡及交流复核一致",
+      "topic": 2,
+      "implementation_scope": "逐线路kVA容量、保守内接八边形视在功率约束、理想变压器容量及构网分区逻辑已实现；本入口交流网损、动态稳定、自动重构未校核。",
+      "evidence_paths": [
+        "backend/network_data.py",
+        "backend/resource_dispatch.py",
+        "backend/test_resource_dispatch.py"
+      ]
+    },
+    {
+      "id": "B05",
+      "menu": "电力电量平衡",
+      "name": "保供时长与中断指标",
+      "status": "部分实现",
+      "inputs": "逐负荷供电轨迹及功率/时长目标",
+      "outputs": "首次缺电、最大连续中断、可持续保供时长、目标满足率",
+      "acceptance": "边界时刻、无缺供/全缺供和时间步长正确，不用SOC触底时间替代保供时长",
+      "topic": 2,
+      "implementation_scope": "连续/累计中断与硬时钟已实现，新增尾段、历史最大和累计前史及完整性声明，目标按同一事件起点计。已知失败保留，前史不足时软判据未校核。步内分段常值，累计硬预算仍待。",
+      "evidence_paths": [
+        "backend/test_dispatch_continuation.py",
+        "docs/跨窗口衔接人工联调.json",
+        "backend/resource_dispatch.py",
+        "frontend/src/DeviceDispatch.vue",
+        "backend/test_interruption_targets.py",
+        "docs/中断预算人工联调.json"
+      ]
+    },
+    {
+      "id": "B06",
+      "menu": "电力电量平衡",
+      "name": "图表逐时结果与审计报告",
+      "status": "已实现",
+      "inputs": "已冻结结果快照",
+      "outputs": "供需、出力、SOC、电压、拓扑、阶段明细和CSV/报告",
+      "acceptance": "图表与导出一致，历史网络来自当时快照，缺失值不伪造",
+      "topic": 2
+    },
+    {
+      "id": "B07",
+      "menu": "电力电量平衡",
+      "name": "统一年度后台任务",
+      "status": "部分实现",
+      "inputs": "任意有效示范拓扑和年度随机序列",
+      "outputs": "2—8760小时及大样本异步任务、取消、断点与完整输出",
+      "acceptance": "年度入口与交互入口共享网络和参数，无固定IEEE33偷换",
+      "topic": 2,
+      "implementation_scope": "逐设备年度滚动共享已保存网络和台账，支持普通年/闰年及指定时段、15/30/60分钟，固定时间网格。前瞻与提交分账，状态连续，完整窗口SQLite归档、取消后保留、冻结重试、CSV/HTML/JSON和历史重开已接入。两节点8760小时人工验证完成，真实示范规模、断点续算、旧阶段/概率场景整合和正式性能仍待。",
+      "evidence_paths": [
+        "backend/annual_dispatch.py",
+        "backend/test_annual_dispatch.py",
+        "backend/test_study_jobs.py",
+        "frontend/src/AnnualWorkspace.vue",
+        "docs/verify_annual_dispatch_ui.cjs",
+        "docs/年度滚动人工联调.json"
+      ]
+    },
+    {
+      "id": "T01",
+      "menu": "保供能力提升",
+      "name": "八策略库与需求匹配",
+      "status": "部分实现",
+      "inputs": "11类场景、分类目标、承灾/平衡结果",
+      "outputs": "至少6种可解释策略，当前八类保留并补适用范围与约束",
+      "acceptance": "策略数量、适用场景和依据可查询，规则触发与实施效果分开",
+      "topic": 2
+    },
+    {
+      "id": "T02",
+      "menu": "保供能力提升",
+      "name": "源网荷储策略执行模型",
+      "status": "部分实现",
+      "inputs": "新增源储、专线转供、削减转移、SOC和应急燃料",
+      "outputs": "将措施映射为真实模型变更，策略组合与冲突检查",
+      "acceptance": "每种策略均有前后复算证据，不只修改摘要数值",
+      "topic": 2
+    },
+    {
+      "id": "T03",
+      "menu": "保供能力提升",
+      "name": "移动资源到位与恢复",
+      "status": "待开发",
+      "inputs": "车辆位置、道路、可达性、到位及接线时间",
+      "outputs": "资源路径、节点接入、时间状态与跨阶段分配",
+      "acceptance": "到位前禁止供电，一车不同节点不能同时出力",
+      "topic": 2
+    },
+    {
+      "id": "T04",
+      "menu": "保供能力提升",
+      "name": "策略效果与灵活性评价",
+      "status": "部分实现",
+      "inputs": "同一条件的基准与策略组合",
+      "outputs": "供电/风险/恢复时间/成本变化、资源贡献和敏感性",
+      "acceptance": "可比条件检查，对不同场景不作单一因果归因",
+      "topic": 2
+    },
+    {
+      "id": "O01",
+      "menu": "源储协同配置",
+      "name": "候选资源位置容量建模",
+      "status": "部分实现",
+      "inputs": "电源储能候选节点、上下限、步长、已有/待建",
+      "outputs": "分布式源储与应急资源选址定容、固定移动区分",
+      "acceptance": "输出资源类型、容量、节点和新增/总量，候选以外不可选",
+      "topic": 2,
+      "implementation_scope": "候选固定块/有界连续设计混合优化接入位置和投运年；储能P/E独立，台账为参考上限、比例上下界和E/P时长可设，未建不贡献P/Q/能量/构网。多单元独立ID，真实候选点及厂家可行域仍待校核。",
+      "evidence_paths": [
+        "backend/investment_planning.py",
+        "backend/resource_dispatch.py",
+        "frontend/src/InvestmentWorkspace.vue",
+        "backend/test_continuous_investment.py",
+        "docs/连续定容人工联调.json"
+      ]
+    },
+    {
+      "id": "O02",
+      "menu": "源储协同配置",
+      "name": "多目标经济保供优化",
+      "status": "部分实现",
+      "inputs": "成本、缺供损失、目标权重、投资/运行约束",
+      "outputs": "投资运行失负荷成本、经济保供权衡、Pareto方案",
+      "acceptance": "成本项无重复，权重归一有依据、不可行返回证据",
+      "topic": 2,
+      "implementation_scope": "折现投资、运行、维护和可选残值联合优化，实际容量预算/现金流核对。已接入有限概率扫描、六因素单因素重算、训练与样本外下界口径的非支配集合、完整单例和比较报告。前沿完整性、真实价格和年度成本仍需验证。",
+      "evidence_paths": [
+        "backend/investment_planning.py",
+        "backend/investment_experiments.py",
+        "backend/test_investment_experiments.py",
+        "frontend/src/InvestmentExperiments.vue",
+        "docs/配置风险成本敏感性人工联调.json",
+        "docs/配置比较回归测试记录.txt"
+      ]
+    },
+    {
+      "id": "O03",
+      "menu": "源储协同配置",
+      "name": "机会约束与多场景风险",
+      "status": "部分实现",
+      "inputs": "有权重场景集、置信度、分类保供约束",
+      "outputs": "SAA/机会约束模型、样本外达标概率与风险预算",
+      "acceptance": "不是经验缺额折减，留出场景验证风险上界",
+      "topic": 2,
+      "implementation_scope": "按权重SAA构建期内/跨期联合机会约束，保护判据可选每步或台账连续中断预算，建设共享运行后验；样本外检验目标可行性，失败不推荐、未知不丢弃。真实概率校准与统计保证未验收。",
+      "evidence_paths": [
+        "backend/investment_planning.py",
+        "backend/test_investment_planning.py",
+        "docs/联合机会约束与样本外验证.png"
+      ]
+    },
+    {
+      "id": "O04",
+      "menu": "源储协同配置",
+      "name": "建设阶段动态优化",
+      "status": "部分实现",
+      "inputs": "现状近期中期远期、年份、增长、退役与阶段预算",
+      "outputs": "跨期投资、存量继承、投运时点、阶段容量位置成本",
+      "acceptance": "后期不可提前供电，前期资产可继承且寿命有效，区别运行阶段",
+      "topic": 2,
+      "implementation_scope": "连续建设时期、预算、投运范围和寿命激活已联合求解，自动按已有/候选退役年拆分运营期；阶段负荷系数相对基准，未知未来投资不按单样本偷看。自适应投资树/事件间能量结转待补。",
+      "evidence_paths": [
+        "backend/investment_planning.py",
+        "backend/test_investment_planning.py",
+        "docs/多阶段联合配置人工联调.json"
+      ]
+    },
+    {
+      "id": "O05",
+      "menu": "源储协同配置",
+      "name": "高效求解与状态",
+      "status": "部分实现",
+      "inputs": "MILP或经验证研究算法、时间gap线程参数",
+      "outputs": "可行解、最优界、gap、耗时、停止与失败诊断",
+      "acceptance": "超时保留可行解但不宣称最优，逐步对冲等须有真实实现",
+      "topic": 2,
+      "implementation_scope": "稀疏联合MILP已输出可行解/下界/校核gap、舍入预算与原始残差；原生独占子进程可取消，异常模型留存，限时未获解不造0成本。当前25万变量上限，改进逐步对冲与正式性能尚未验收。",
+      "evidence_paths": [
+        "backend/milp_execution.py",
+        "backend/milp_worker.py",
+        "backend/test_milp_execution.py",
+        "docs/联合规划回归测试记录.txt"
+      ]
+    },
+    {
+      "id": "O06",
+      "menu": "源储协同配置",
+      "name": "规划后全过程复核",
+      "status": "部分实现",
+      "inputs": "配置方案、样本外场景和真实网络",
+      "outputs": "平衡、离网、黑启动、经济性与鲁棒性联合复核",
+      "acceptance": "任一约束失败反馈方案，不以简化枚举目标替代物理验算",
+      "topic": 2,
+      "implementation_scope": "冻结选定P/E容量与燃料口径后作独立输入样本外物理复核，先检验目标再降费用，未知不剔除；阶段省略字段经JSON冻结仍继承，验证增载失败保留。交流/动态/黑启动及完整一二次尚待。",
+      "evidence_paths": [
+        "backend/investment_planning.py",
+        "docs/verify_investment_ui.cjs",
+        "docs/verify_continuous_investment_ui.cjs"
+      ]
+    },
+    {
+      "id": "O07",
+      "menu": "源储协同配置",
+      "name": "一二次协同规划",
+      "status": "待开发",
+      "inputs": "变电站线路开关、控制器终端通信候选及成本",
+      "outputs": "一次网架与二次控制覆盖联合布局、供电路径、设备清单",
+      "acceptance": "300节点以内<=30分钟专项验证，失联设备不能遥控",
+      "topic": 3
+    },
+    {
+      "id": "O08",
+      "menu": "源储协同配置",
+      "name": "灵活组网方案",
+      "status": "待开发",
+      "inputs": "控制分区、构网能力、开关通信和调度约束",
+      "outputs": "就地自治、分区协调、自组网和切换方案",
+      "acceptance": "带电拓扑、控制覆盖、恢复序列一致，逐状态校核",
+      "topic": 3
+    },
+    {
+      "id": "I01",
+      "menu": "离网稳定判别",
+      "name": "孤岛对象及扰动建模",
+      "status": "仅草稿",
+      "inputs": "拓扑、PCC、源荷工况、控制模式、SCR惯量及扰动",
+      "outputs": "识别孤岛、基准点、输入特征和模型适用域",
+      "acceptance": "缺构网电源/动态参数时拒绝形成已稳定结论",
+      "topic": 3,
+      "implementation_scope": "用户确认课题3动态方程/权重/时域数据暂无，暂保留为空；页面提示待交付，已有参数草稿不能作为动态对象建模完成。",
+      "evidence_paths": [
+        "AGENTS.md",
+        "frontend/src/ModuleWorkspace.vue",
+        "docs/课题3模型暂留空状态.png"
+      ]
+    },
+    {
+      "id": "I02",
+      "menu": "离网稳定判别",
+      "name": "神经网络映射与验证",
+      "status": "待补模型",
+      "inputs": "时域仿真样本、训练权重、标准化和传统判据",
+      "outputs": "频率/电压稳定指标预测、适用域及留出验证报告",
+      "acceptance": "数据不泄漏；相对传统准确度提升>10%的口径和原始结果可审计",
+      "topic": 3,
+      "implementation_scope": "训练权重及真值暂无，按用户要求留空，未训练/未验证，不宣称准确度提升或5秒验收。",
+      "evidence_paths": [
+        "AGENTS.md",
+        "frontend/src/ModuleWorkspace.vue"
+      ]
+    },
+    {
+      "id": "I03",
+      "menu": "离网稳定判别",
+      "name": "变流器机理及稳定边界",
+      "status": "待开发",
+      "inputs": "限幅死区、电流优先级、控制方程及平衡点",
+      "outputs": "光滑化约束、投影信赖域、能量函数/BCU与ROA边界",
+      "acceptance": "边界点与时域仿真对照，未实现BCU不能以阈值比较代替",
+      "topic": 3,
+      "implementation_scope": "机理方程与稳定边界未交付，按用户决定暂留空，不用阈值比较或稳态潮流冒充BCU/动态边界。",
+      "evidence_paths": [
+        "AGENTS.md",
+        "frontend/src/ModuleWorkspace.vue"
+      ]
+    },
+    {
+      "id": "I04",
+      "menu": "离网稳定判别",
+      "name": "快速判别与风险解释",
+      "status": "待开发",
+      "inputs": "冻结模型、工况和阈值",
+      "outputs": "频率偏差RoCoF、电压最低值恢复时间、稳定裕度与风险节点",
+      "acceptance": "单次<=5秒，分计模型加载/推理/总耗时，未校核项显式列出",
+      "topic": 3
+    },
+    {
+      "id": "I05",
+      "menu": "离网稳定判别",
+      "name": "控制调整与闭环复判",
+      "status": "待开发",
+      "inputs": "储能逆变器控制量、削减负荷和边界",
+      "outputs": "判别—控制优化—反馈，建议量及复判结果",
+      "acceptance": "控制量满足限幅和设备能力，优化后重新判别而非改标签",
+      "topic": 3
+    },
+    {
+      "id": "K01",
+      "menu": "黑启动路径优化",
+      "name": "启动资源与分区匹配",
+      "status": "部分实现",
+      "inputs": "水电/构网储能/风光组合、启动条件和负荷重要度",
+      "outputs": "排序预分配、电气距离匹配、拓扑扩展及分区校核",
+      "acceptance": "无自启动/建压电源的分区不可推荐，资源约束真实有效",
+      "topic": 3,
+      "implementation_scope": "重要度排序、电气距离/初始功率预分配及实际带电分区已实现；每个保留前缀全时域MILP复算，缺燃料/自启动能力不能自建分区，预分配不替代可行性。",
+      "evidence_paths": [
+        "backend/restoration.py",
+        "backend/test_restoration.py",
+        "docs/黑启动电气分区与预分配验证.png"
+      ]
+    },
+    {
+      "id": "K02",
+      "menu": "黑启动路径优化",
+      "name": "串并行恢复路径与时序",
+      "status": "部分实现",
+      "inputs": "故障网架、分区、启停时间和负荷优先级",
+      "outputs": "单源串行、多分区并行、预同步和联络合闸的带时间操作序列",
+      "acceptance": "步骤前置关系成立，供电路径连通，故障设备不能投入",
+      "topic": 3,
+      "implementation_scope": "串行及独立分区并行、人工队伍互斥、源启动/合闸/负荷投入时序与硬指令复算已实现；带电合区须外部V/f/相角数值证据，实际动态预同步未认证，预隔离/停机与重故障待补。",
+      "evidence_paths": [
+        "backend/restoration.py",
+        "backend/resource_dispatch.py",
+        "backend/test_restoration.py"
+      ]
+    },
+    {
+      "id": "K03",
+      "menu": "黑启动路径优化",
+      "name": "至少五类一二次约束",
+      "status": "部分实现",
+      "inputs": "电压频率、涌流、开关布点、终端和通信路由",
+      "outputs": "逐步电压/频率稳定、励磁涌流、开关、自动化及通信校核",
+      "acceptance": "每类有模型输入与证据，不能只显示五个勾选框即认定满足",
+      "topic": 3,
+      "implementation_scope": "开关端点、站用/备用供电、终端/控制覆盖、通信路径与延时、静态电压/功率/能量已参与路径可行性；励磁电流仅输入容量包络筛查，频率暂态/完整励磁保护未校核，所有预案未获执行许可。",
+      "evidence_paths": [
+        "backend/restoration.py",
+        "docs/黑启动一次二次约束验证.png"
+      ]
+    },
+    {
+      "id": "K04",
+      "menu": "黑启动路径优化",
+      "name": "MRSCR与SOC分级策略",
+      "status": "待开发",
+      "inputs": "明确公式的短路强度、并网容量、SOC与负荷类型",
+      "outputs": "高/中/低强度运行策略、负荷投入限制、风光限发和储能限功率",
+      "acceptance": "PPT阈值>2.5、1.5—2.5、<1.5按研究规则标注并可配置，MRSCR与SCR不混用",
+      "topic": 3
+    },
+    {
+      "id": "K05",
+      "menu": "黑启动路径优化",
+      "name": "不确定性与恢复优化",
+      "status": "部分实现",
+      "inputs": "源荷预测、设备修复、道路及多资源状态",
+      "outputs": "恢复时间/重要负荷/风险目标、多情景路径与备选方案",
+      "acceptance": "含源荷逐级恢复，失败步骤回退或改路径，有可行性证据",
+      "topic": 3,
+      "implementation_scope": "单一确定性工况有限束搜索按分类供电量等排序，失败前缀不保留，限时/限次数标不完整；概率/道路及多情景鲁棒恢复未实现，不能宣称全局最优。",
+      "evidence_paths": [
+        "backend/restoration.py",
+        "backend/test_restoration.py"
+      ]
+    },
+    {
+      "id": "K06",
+      "menu": "黑启动路径优化",
+      "name": "恢复可视化与预案",
+      "status": "部分实现",
+      "inputs": "完整恢复序列和逐步结果",
+      "outputs": "路径图、时间轴、投入资源、恢复负荷、风险和报告",
+      "acceptance": "每个步骤可回放复算，恢复总时长及负荷加和正确",
+      "topic": 3,
+      "implementation_scope": "已输出完整操作起止时刻、资源/控制方式/路由、带电节点、恢复起点、拓扑时刻回放及CSV/JSON与历史档案；正式动态认证报告和多情景预案待补。",
+      "evidence_paths": [
+        "frontend/src/RestorationWorkspace.vue",
+        "docs/verify_restoration_ui.cjs",
+        "docs/黑启动恢复人工联调.json",
+        "docs/黑启动操作序列与恢复回放验证.png"
+      ]
+    },
+    {
+      "id": "R01",
+      "menu": "方案与报告",
+      "name": "档案对比与方案版本",
+      "status": "已实现",
+      "inputs": "基准、策略、规划及任务快照",
+      "outputs": "分页筛选、跨页比较、CSV/HTML和配置方案档案",
+      "acceptance": "跨工程隔离、不同条件提示、来源及版本可追溯",
+      "topic": 4
+    },
+    {
+      "id": "R02",
+      "menu": "方案与报告",
+      "name": "经济—安全质效指标",
+      "status": "部分实现",
+      "inputs": "投资运行燃料缺供损失、供电恢复及稳定结果",
+      "outputs": "成本净现值、保供可靠性、稳定与恢复效果、灵活资源贡献",
+      "acceptance": "所有指标定义单位方向明确，未校核项不能计为满分",
+      "topic": 4,
+      "implementation_scope": "PPT十项指标及单位方向已提供可编辑矩阵；各指标仍须由真实计算/实测提供，未自动补造。",
+      "evidence_paths": [
+        "backend/effect_evaluation.py",
+        "frontend/src/EffectEvaluation.vue"
+      ]
+    },
+    {
+      "id": "R03",
+      "menu": "方案与报告",
+      "name": "综合评价与权重敏感性",
+      "status": "部分实现",
+      "inputs": "指标矩阵、极值标准化、熵权-CRITIC组合、TOPSIS",
+      "outputs": "经济安全综合评分、排名、权重敏感性和证据",
+      "acceptance": "方法版本可追溯，硬安全约束失败不得被经济高分抵消",
+      "topic": 4,
+      "implementation_scope": "极值标准化、熵权-CRITIC组合和TOPSIS已可计算归档；门槛/必要校核独立呈现，敏感性分析仍待开发。",
+      "evidence_paths": [
+        "backend/effect_evaluation.py",
+        "backend/test_effect_evaluation.py",
+        "docs/经济安全质效评价验证.png"
+      ]
+    },
+    {
+      "id": "R04",
+      "menu": "方案与报告",
+      "name": "示范区实证管理",
+      "status": "部分实现",
+      "inputs": "青海福建新疆工程、县域/村镇示范及实测记录",
+      "outputs": "现状/规划/建设/实测对比、实证结论及质效报告",
+      "acceptance": "覆盖县域级和村镇级，软件预测与实际建设验证分别记录",
+      "topic": 4,
+      "implementation_scope": "已接入示范区实证记录页面，可保存区域层级、现状/规划/建设/实测依据、实测指标、来源和状态；真实实测数据与验收结论待项目组提供",
+      "evidence_paths": [
+        "frontend/src/DeliverablesWorkspace.vue",
+        "backend/app.py",
+        "backend/test_engineering.py",
+        "软件开发进展.txt"
+      ]
+    },
+    {
+      "id": "R05",
+      "menu": "方案与报告",
+      "name": "交付与成果材料",
+      "status": "部分实现",
+      "inputs": "所有计算、部署版本、研究报告和设计原则",
+      "outputs": "项目报告、用户手册、测试报告、软著代码清单及成果关联",
+      "acceptance": "工具1套/软著1项等项目成果有证据，不能用文件名代替受理证明",
+      "topic": 4,
+      "implementation_scope": "已接入成果与交付清单页面，支持示范区、测试、手册、软著和任务书证据状态/来源/备注保存与JSON导出；正式报告内容和实证验收仍需项目组维护",
+      "evidence_paths": [
+        "frontend/src/DeliverablesWorkspace.vue",
+        "backend/app.py",
+        "backend/test_engineering.py",
+        "软件开发进展.txt"
+      ]
+    },
+    {
+      "id": "X01",
+      "menu": "系统与接口",
+      "name": "跨课题算法契约与注册",
+      "status": "部分实现",
+      "inputs": "工程场景快照、单位、算法版本和摘要",
+      "outputs": "模块注册、输入Schema、结果checks、执行和外部交接",
+      "acceptance": "未注册拒绝假计算，外部结果明确验证状态，结果不可覆盖",
+      "topic": 4
+    },
+    {
+      "id": "X02",
+      "menu": "系统与接口",
+      "name": "统一任务管理",
+      "status": "部分实现",
+      "inputs": "全模块计算任务和资源限制",
+      "outputs": "排队、进度、取消、重试、日志、失败恢复和并发隔离",
+      "acceptance": "取消不留成功结果，重试有新版本，进程身份校验",
+      "topic": 4,
+      "implementation_scope": "统一队列已覆盖调度、年度滚动、承灾、恢复、联合配置和配置比较六类任务，最多2个并发。配置及比较使用独占原生子进程，支持冻结、校验、进度、取消、重试和诊断。完整比较单例与年度提交窗口独立存于SQLite并纳入备份，取消后仍可读取已提交年度证据；其他业务统一仍待完成。",
+      "evidence_paths": [
+        "backend/study_jobs.py",
+        "backend/study_worker.py",
+        "backend/test_study_jobs.py",
+        "frontend/src/StudyTasks.vue"
+      ]
+    },
+    {
+      "id": "X03",
+      "menu": "系统与接口",
+      "name": "离线部署与备份恢复",
+      "status": "部分实现",
+      "inputs": "安装包、本地依赖、地图/模型及数据库",
+      "outputs": "断网安装启动、迁移、完整性备份与恢复演练",
+      "acceptance": "全部目标功能断网可用，模型不依赖在线API，恢复后摘要一致",
+      "topic": 4
+    },
+    {
+      "id": "X04",
+      "menu": "系统与接口",
+      "name": "权限审计与数据安全",
+      "status": "待开发",
+      "inputs": "角色、数据分级、日志及共享方式",
+      "outputs": "单机/多用户部署边界、最小访问、操作审计和导出控制",
+      "acceptance": "参数导入不能执行代码，跨工程及路径访问受控",
+      "topic": 4
+    },
+    {
+      "id": "X05",
+      "menu": "系统与接口",
+      "name": "性能精度验收与需求追踪",
+      "status": "部分实现",
+      "inputs": "冻结基准、硬件、真值、目标阈值和本功能清单",
+      "outputs": "需求ID—代码—测试—报告矩阵、性能及精度原始记录",
+      "acceptance": "2分钟/5秒/30分钟分别验证，PPT示例不作为达标证据",
+      "topic": 4,
+      "implementation_scope": "66项需求目录、筛选与下载已实现；任务书性能和准确度仍未验收。",
+      "evidence_paths": [
+        "docs/software_plan.json",
+        "backend/development_plan.py",
+        "frontend/src/DevelopmentPlan.vue"
+      ]
+    },
+    {
+      "id": "X06",
+      "menu": "系统与接口",
+      "name": "模型训练成果与版本库",
+      "status": "待开发",
+      "inputs": "模型权重、训练数据摘要、适用范围与协议",
+      "outputs": "离线训练/推理分离、签名校验、模型升级回滚和适用域拒绝",
+      "acceptance": "不能上传任意可执行脚本，模型和归一化版本匹配",
+      "topic": 4
+    }
+  ]
+}

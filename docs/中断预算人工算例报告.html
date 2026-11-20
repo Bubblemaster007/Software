@@ -1,0 +1,147 @@
+<!doctype html><html lang="zh-CN"><meta charset="utf-8"><title>多阶段源储机会约束配置</title><style>body{font:15px/1.7 sans-serif;max-width:1150px;margin:40px auto;padding:0 24px;color:#183c40}table{border-collapse:collapse;width:100%;margin:18px 0}th,td{border:1px solid #c5d6d8;padding:8px;text-align:left}th{background:#edf5f5}pre{white-space:pre-wrap;overflow-wrap:anywhere}.notice{padding:16px;background:#f6eee1}@media print{body{margin:0}tr{break-inside:avoid}}</style><h1>多阶段源储机会约束配置</h1><p>任务：c47dd4ad431b4acfbdb1c6ba092e04b7；北京时间：2026-11-13T15:39:36.690389+08:00</p><p>结果状态：complete；折现目标成本：0.0 元；建议状态：not_recommended_validation_failed</p><p class="notice">本报告为给定候选、样本与静态近似下的工程研究结果。课题3动态方程、训练权重及验证数据按用户要求暂留空；动态稳定、实际黑启动及一二次联合配置未校核，不能作为安全执行许可。</p><p class="notice">样本外验证失败：本方案不能作为已验证可靠方案，不以训练集达标替代验证。</p><h2>冻结输入与判据</h2><p>工程版本 1；台账版本 1；方法 investment.multiperiod.weighted-joint-chance-milp.v3</p><p>联合范围：per_period；概率要求：0.95；保护类别：基本保障 / 居民生活；概率来源：用户研究权重，非已校准地区概率</p><p>输入SHA256：4c072377186b0b3f59bb5b39723b65dddc934ceeeff6787138a03aa274bc9689；运行构建：b8ca665b6f71c526c5917d7c463aa7801ab9fb4e17cadcd3f5d9cc9e6200b6bf</p><p>保供目标判据：interruption_budget</p><h2>选址与建设</h2><table><thead><tr><th>设备</th><th>节点</th><th>容量方式</th><th>功率比例</th><th>能量比例</th><th>kW</th><th>kWh</th><th>投运年</th><th>退役年</th><th>投资元</th></tr></thead><tbody></tbody></table><h2>逐年现金流</h2><table><thead><tr><th>年份</th><th>投资元</th><th>维护元</th><th>期望运营元</th><th>期末残值元</th><th>折现净成本元</th></tr></thead><tbody><tr><td>2026</td><td>0</td><td>0.0</td><td>0.0</td><td>0</td><td>0.0</td></tr></tbody></table><h2>训练样本实际机会约束</h2><table><thead><tr><th>开始年</th><th>结束年（不含）</th><th>承诺概率</th><th>实际概率</th><th>要求</th></tr></thead><tbody><tr><td>2026</td><td>2027</td><td>1.0</td><td>1.0</td><td>0.95</td></tr></tbody></table><h2>样本外验证</h2><table><thead><tr><th>开始年</th><th>结束年（不含）</th><th>成功下界</th><th>成功上界</th><th>未知权重</th></tr></thead><tbody><tr><td>2026</td><td>2027</td><td>0</td><td>0</td><td>0</td></tr></tbody></table><h2>校核状态</h2><table><thead><tr><th>项目</th><th>状态</th></tr></thead><tbody><tr><td>共享投资/预算/投运寿命/加权机会约束</td><td>passed</td></tr><tr><td>全模型原始约束和舍入整数校核</td><td>passed</td></tr><tr><td>独立输入样本外加权达标验证</td><td>failed</td></tr><tr><td>交流网损/动态稳定/黑启动/一二次联合规划</td><td>not_checked</td></tr></tbody></table><h2>求解界限与原始证据</h2><pre>{&quot;status&quot;: 0, &quot;message&quot;: &quot;Optimization terminated successfully. (HiGHS Status 7: Optimal)&quot;, &quot;relative_gap&quot;: 0.0, &quot;dual_bound_yuan&quot;: 0.0, &quot;requested_gap&quot;: 0.001, &quot;variables&quot;: 61, &quot;constraints&quot;: 120, &quot;verified_relative_gap&quot;: 0.0}</pre><h2>方法边界</h2><ul><li>目标判据可选每步达标或按台账最大连续中断预算；默认每步，预算模式仍在一个成功指标内同时约束所有保护负荷/时段。主动削减不豁免最低供电目标，累计中断另报。</li><li>候选可按固定设备块或有界连续设计混合配置；台账额定值为参考上限，比例在0—1内，正的最小比例至少万分之一。每ID最多建设一次，分期扩容/替换使用不同ID。</li><li>连续电源按功率比缩放曲线、最小出力、无功/视在功率及爬坡；可运行小时数不缩放。燃料默认使用安装后的台账固定库存，也可显式选择随功率比缩放。属同一参考技术的线性设计假设，需厂家确认。</li><li>连续储能功率/能量独立决策，投资与维护分项由用户提供，SOC/构网储备按实际能量计，功率/无功上限按实际功率计；可设最短/最长额定储能时长。效率、温度系数和启动参数保持参考技术值。</li><li>固定建设费/固定年维护费按安装0/1计，不随容量降低；线性寿命残值政策对全部资本分项使用同一设备寿命，不代表真实回收报价。</li><li>投资在所有训练轨迹间共享，运行按场景后验调度；未来投资没有按样本偷看选址，尚未建立自适应情景树投资。</li><li>各时期联合负荷/时段机会约束或跨全部时期联合机会约束可选，保留样本权重，不将边际概率相乘。</li><li>每步模式强于允许短时中断的目标；预算模式按台账连续中断小时及目标窗口交集计时。未经概率校准的SAA不代表真实地区风险保证。</li><li>自动按所有可能退役年拆分运营期，后期资产不提前使用，退役后不继续贡献能力。</li><li>投资期初、运营/维护期末计现值，残值政策显式可选；代表事件频次明确录入，不自动按8760外推灾害。</li><li>运营成本仅覆盖给定代表事件与频次；若缺正常运行场景，不能当作完整全寿命成本。</li><li>台账全局年维护费视为固定开销，已有逐台维护费随退役停止，候选维护费另列；输入时须避免重复计价。</li><li>阶段负荷系数相对基准，阶段内运行剖面保持不变；需逐年增长时应分年建阶段或提供对应剖面。</li><li>场景储能温度系数同时降额功率和能量，表示事件初始温度条件；阶段覆盖按设备键合并，不会因覆盖另一设备而清除已有故障。</li><li>每个代表事件独立初始SOC与燃料，不跨事件或跨年结转能量；单次事件内启停/燃料/SOC/线路/电压严格约束。</li><li>样本外优先检验受保护目标的物理可行性，再降低费用；未知样本保留在概率上下界，不提供未获依据的置信保证。</li><li>当前无损LinDistFlow及理想变比1变压器；动态判稳、恢复路径及一二次联合投资尚未在本模型中校核。</li></ul><details><summary>冻结配置参数与计算环境</summary><pre>{
+  &quot;parameters&quot;: {
+    &quot;base&quot;: {
+      &quot;project_id&quot;: &quot;bfcb6ec76bd74e898f3c60ff23920a36&quot;,
+      &quot;project_revision&quot;: 1,
+      &quot;engineering_revision&quot;: 1,
+      &quot;name&quot;: &quot;逐设备时序调度&quot;,
+      &quot;start&quot;: &quot;2026-01-01T00:00:00&quot;,
+      &quot;elapsed_hours&quot;: 0.0,
+      &quot;prior_target_history_complete&quot;: false,
+      &quot;initial_state_provenance&quot;: &quot;用户声明的初态&quot;,
+      &quot;steps&quot;: 3,
+      &quot;step_hours&quot;: 1.0,
+      &quot;grid_available_kw&quot;: [
+        0.0
+      ],
+      &quot;grid_energy_yuan_per_kwh&quot;: 0.5,
+      &quot;storage_cycle_yuan_per_kwh&quot;: 0.002,
+      &quot;source_start_cost_yuan&quot;: 0.0001,
+      &quot;grid_reactive_limit_kvar&quot;: 0.0,
+      &quot;branch_limit_kva&quot;: 5000.0,
+      &quot;voltage_min_pu&quot;: 0.95,
+      &quot;voltage_max_pu&quot;: 1.05,
+      &quot;forming_reserve_ratio&quot;: 0.02,
+      &quot;initial_energized_nodes&quot;: [],
+      &quot;device_availability&quot;: {},
+      &quot;line_status&quot;: {},
+      &quot;source_commitment&quot;: {},
+      &quot;required_energized_nodes&quot;: {},
+      &quot;minimum_load_when_energized&quot;: {},
+      &quot;initial_source_on&quot;: {},
+      &quot;initial_source_power_kw&quot;: {},
+      &quot;initial_source_startup_remaining_steps&quot;: {},
+      &quot;initial_source_fuel_kwh&quot;: {},
+      &quot;initial_source_used_hours&quot;: {},
+      &quot;initial_storage_energy_kwh&quot;: {},
+      &quot;initial_target_interruption_hours&quot;: {},
+      &quot;initial_max_target_interruption_hours&quot;: {},
+      &quot;initial_total_target_interruption_hours&quot;: {},
+      &quot;source_energy_additions_kwh&quot;: {},
+      &quot;source_forming_reserve_kwh&quot;: {},
+      &quot;allow_demand_response&quot;: false,
+      &quot;enforce_load_targets&quot;: false,
+      &quot;require_complete_target_horizon&quot;: true,
+      &quot;load_target_start_hours&quot;: {},
+      &quot;include_candidates&quot;: false,
+      &quot;allow_zero_demand&quot;: false,
+      &quot;time_limit_seconds&quot;: 30.0
+    },
+    &quot;name&quot;: &quot;多阶段源储机会约束配置&quot;,
+    &quot;candidates&quot;: [
+      {
+        &quot;asset_id&quot;: &quot;D&quot;,
+        &quot;capex_yuan&quot;: 100.0,
+        &quot;annual_maintenance_yuan&quot;: 0.0,
+        &quot;sizing_mode&quot;: &quot;block&quot;,
+        &quot;fuel_budget_mode&quot;: &quot;fixed_stock&quot;,
+        &quot;minimum_power_fraction&quot;: 0.05,
+        &quot;maximum_power_fraction&quot;: 1.0,
+        &quot;minimum_energy_fraction&quot;: 0.05,
+        &quot;maximum_energy_fraction&quot;: 1.0,
+        &quot;power_capex_yuan&quot;: null,
+        &quot;energy_capex_yuan&quot;: null,
+        &quot;power_maintenance_yuan&quot;: null,
+        &quot;energy_maintenance_yuan&quot;: null,
+        &quot;fixed_capex_yuan&quot;: 0.0,
+        &quot;fixed_annual_maintenance_yuan&quot;: 0.0,
+        &quot;minimum_duration_hours&quot;: 0.25,
+        &quot;maximum_duration_hours&quot;: null,
+        &quot;lifetime_years&quot;: 15,
+        &quot;earliest_year&quot;: null,
+        &quot;latest_year&quot;: null,
+        &quot;provenance&quot;: &quot;用户研究成本，需工程确认&quot;
+      }
+    ],
+    &quot;stages&quot;: [
+      {
+        &quot;name&quot;: &quot;近期&quot;,
+        &quot;year&quot;: 2026,
+        &quot;duration_years&quot;: 1,
+        &quot;budget_yuan&quot;: null,
+        &quot;load_scale&quot;: 1.0,
+        &quot;annual_occurrences&quot;: 0.0
+      }
+    ],
+    &quot;scenarios&quot;: [
+      {
+        &quot;grid_available_kw&quot;: [
+          0.0,
+          10.0,
+          0.0
+        ],
+        &quot;load_scale&quot;: 1.0,
+        &quot;source_curve_kw&quot;: {},
+        &quot;load_curve_kw&quot;: {},
+        &quot;device_availability&quot;: {},
+        &quot;line_status&quot;: {},
+        &quot;storage_temperature_factor&quot;: {},
+        &quot;id&quot;: &quot;train&quot;,
+        &quot;name&quot;: &quot;条件研究场景&quot;,
+        &quot;weight&quot;: 1.0,
+        &quot;stage_overrides&quot;: {},
+        &quot;provenance&quot;: &quot;人工研究样本，未经地区概率校准&quot;
+      }
+    ],
+    &quot;validation_scenarios&quot;: [
+      {
+        &quot;grid_available_kw&quot;: [
+          10.0,
+          0.0,
+          0.0
+        ],
+        &quot;load_scale&quot;: 1.0,
+        &quot;source_curve_kw&quot;: {},
+        &quot;load_curve_kw&quot;: {},
+        &quot;device_availability&quot;: {},
+        &quot;line_status&quot;: {},
+        &quot;storage_temperature_factor&quot;: {},
+        &quot;id&quot;: &quot;holdout&quot;,
+        &quot;name&quot;: &quot;条件研究场景&quot;,
+        &quot;weight&quot;: 1.0,
+        &quot;stage_overrides&quot;: {},
+        &quot;provenance&quot;: &quot;人工研究样本，未经地区概率校准&quot;
+      }
+    ],
+    &quot;required_probability&quot;: 0.95,
+    &quot;risk_scope&quot;: &quot;per_period&quot;,
+    &quot;target_policy&quot;: &quot;interruption_budget&quot;,
+    &quot;protected_classes&quot;: [
+      &quot;基本保障&quot;,
+      &quot;居民生活&quot;
+    ],
+    &quot;discount_rate&quot;: 0.06,
+    &quot;salvage_policy&quot;: &quot;none&quot;,
+    &quot;existing_retirement_year&quot;: {},
+    &quot;existing_annual_maintenance_yuan&quot;: {},
+    &quot;total_investment_budget_yuan&quot;: null,
+    &quot;shortage_yuan_per_kwh&quot;: {},
+    &quot;probability_provenance&quot;: &quot;用户研究权重，非已校准地区概率&quot;,
+    &quot;wall_time_seconds&quot;: 600.0,
+    &quot;relative_gap&quot;: 0.001
+  },
+  &quot;environment&quot;: {
+    &quot;scipy&quot;: &quot;1.18.1&quot;,
+    &quot;numpy&quot;: &quot;2.3.5&quot;
+  }
+}</pre></details></html>

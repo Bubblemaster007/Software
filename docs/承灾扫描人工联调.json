@@ -1,0 +1,682 @@
+{
+  "id": "898df09b7dc048e19cf6975e39b678e4",
+  "project_id": "664fe76d9e6e4dfca54bcaa7105417e1",
+  "created": 1794555652.8238232,
+  "status": "succeeded",
+  "module": "disaster_scan",
+  "name": "承灾强度与时长扫描",
+  "input_sha256": "ec226375ffc9c1b55505c2d253f15284b3bc9fb6f9bad52e37e8c84b167caee5",
+  "runtime": {
+    "build_id": "b8ca665b6f71c526c5917d7c463aa7801ab9fb4e17cadcd3f5d9cc9e6200b6bf",
+    "api_version": "devices.1",
+    "service": "terminal-power-platform"
+  },
+  "progress": {
+    "phase": "complete",
+    "completed": 10,
+    "total": 10,
+    "fraction": 1
+  },
+  "retry_from": null,
+  "launch_token": "ef7260d31ffd456eae675db1801d4013",
+  "launch_time": 1794555652.835866,
+  "pid": 59060,
+  "process_identity": "134390292529092399",
+  "started": 1794555654.7541974,
+  "finished": 1794555655.1163318,
+  "input": {
+    "module": "disaster_scan",
+    "parameters": {
+      "base": {
+        "project_id": "664fe76d9e6e4dfca54bcaa7105417e1",
+        "project_revision": 1,
+        "engineering_revision": 1,
+        "name": "承灾强度与时长扫描",
+        "start": "2026-01-01T00:00:00",
+        "elapsed_hours": 0,
+        "prior_target_history_complete": false,
+        "initial_state_provenance": "用户声明的初态",
+        "steps": 4,
+        "step_hours": 1,
+        "grid_available_kw": [
+          100
+        ],
+        "grid_energy_yuan_per_kwh": 0.5,
+        "storage_cycle_yuan_per_kwh": 0.002,
+        "source_start_cost_yuan": 0.0001,
+        "grid_reactive_limit_kvar": 0,
+        "branch_limit_kva": 5000,
+        "voltage_min_pu": 0.95,
+        "voltage_max_pu": 1.05,
+        "forming_reserve_ratio": 0.02,
+        "initial_energized_nodes": [],
+        "device_availability": {},
+        "line_status": {},
+        "source_commitment": {},
+        "required_energized_nodes": {},
+        "minimum_load_when_energized": {},
+        "initial_source_on": {},
+        "initial_source_power_kw": {},
+        "initial_source_startup_remaining_steps": {},
+        "initial_source_fuel_kwh": {},
+        "initial_source_used_hours": {},
+        "initial_storage_energy_kwh": {},
+        "initial_target_interruption_hours": {},
+        "initial_max_target_interruption_hours": {},
+        "initial_total_target_interruption_hours": {},
+        "source_energy_additions_kwh": {},
+        "source_forming_reserve_kwh": {},
+        "allow_demand_response": false,
+        "enforce_load_targets": false,
+        "require_complete_target_horizon": true,
+        "load_target_start_hours": {},
+        "include_candidates": false,
+        "allow_zero_demand": false,
+        "time_limit_seconds": 30
+      },
+      "name": "承灾强度与时长扫描",
+      "intensities": [
+        0,
+        1
+      ],
+      "durations_hours": [
+        1,
+        2
+      ],
+      "event_start_step": 0,
+      "samples": 2,
+      "seed": 2026,
+      "fragilities": [
+        {
+          "kind": "line",
+          "target_id": "7",
+          "reference_intensity": 1,
+          "reference_duration_hours": 1,
+          "failure_probability": 1,
+          "shape": 2,
+          "repair_hours": 1,
+          "failed_availability": 0,
+          "common_group": "",
+          "provenance": "用户研究假设，未经地区校准"
+        }
+      ],
+      "criterion": "energy_budget",
+      "maximum_unsupplied_kwh": 0,
+      "required_success_probability": 0.95,
+      "confidence": 0.95,
+      "judgement": "empirical",
+      "weakness_targets": [
+        "line:7"
+      ],
+      "weakness_intensity": null,
+      "weakness_duration_hours": null,
+      "wall_time_seconds": 600
+    },
+    "project": {
+      "name": "承灾与薄弱性人工验证",
+      "region": "",
+      "kind": "乡镇级",
+      "state": {
+        "network": {
+          "name": "承灾扫描两节点人工算例",
+          "source": "人工联调，非地区实测",
+          "nodes": [
+            {
+              "node": 1,
+              "pd_kw": 0
+            },
+            {
+              "node": 2,
+              "pd_kw": 100
+            }
+          ],
+          "lines": [
+            {
+              "line": 7,
+              "from_node": 1,
+              "to_node": 2,
+              "r_ohm": 0,
+              "x_ohm": 0,
+              "status": 1,
+              "capacity_kva": 200
+            }
+          ]
+        }
+      },
+      "id": "664fe76d9e6e4dfca54bcaa7105417e1",
+      "revision": 1,
+      "updated": "2026-11-13T15:40:51"
+    },
+    "engineering": {
+      "project_id": "664fe76d9e6e4dfca54bcaa7105417e1",
+      "project_revision": 1,
+      "revision": 1,
+      "updated": "2026-11-13T15:40:51",
+      "inventory": {
+        "sources": [],
+        "storage": [],
+        "loads": [
+          {
+            "id": "L",
+            "name": "人工医院负荷",
+            "node": 2,
+            "existing": true,
+            "available": true,
+            "longitude": null,
+            "latitude": null,
+            "provenance": "",
+            "load_class": "基本保障",
+            "peak_kw": 100,
+            "reactive_kvar": 0,
+            "minimum_supply_ratio": 1,
+            "target_hours": 4,
+            "maximum_curtailment_ratio": 0,
+            "interruption_allowed": false,
+            "maximum_interruption_hours": 0,
+            "priority": 1,
+            "cti": null,
+            "curve_kw": []
+          }
+        ],
+        "transformers": [],
+        "switches": [],
+        "controllers": [],
+        "terminals": [],
+        "communication": [],
+        "economics": {
+          "discount_rate": 0.06,
+          "lifetime_years": 15,
+          "investment_limit_yuan": null,
+          "pv_yuan_per_kw": 3200,
+          "wind_yuan_per_kw": 4200,
+          "storage_power_yuan_per_kw": 750,
+          "storage_energy_yuan_per_kwh": 1100,
+          "fuel_yuan_per_kwh": 1.15,
+          "shortage_yuan_per_kwh": 20,
+          "curtailment_yuan_per_kwh": 6,
+          "annual_maintenance_yuan": 0,
+          "provenance": "界面设计PPT示例成本，需按工程核实"
+        },
+        "scenario_template_id": null,
+        "coordinate_system": "WGS84"
+      },
+      "sha256": "37eb0a6d9020fab2a4e0d7c2c9e2f08a3ba46418e1c00c7cc6dbd0a53ddd2dcc"
+    },
+    "network": {
+      "name": "承灾扫描两节点人工算例",
+      "source": "人工联调，非地区实测",
+      "base_voltage_kv": 10,
+      "nodes": [
+        {
+          "node": 1,
+          "name": "",
+          "type": 1,
+          "pd_kw": 0,
+          "qd_kvar": 0,
+          "vm_init_pu": 1
+        },
+        {
+          "node": 2,
+          "name": "",
+          "type": 1,
+          "pd_kw": 100,
+          "qd_kvar": 0,
+          "vm_init_pu": 1
+        }
+      ],
+      "lines": [
+        {
+          "line": 7,
+          "name": "",
+          "from_node": 1,
+          "to_node": 2,
+          "r_ohm": 0,
+          "x_ohm": 0,
+          "capacity_kva": 200,
+          "rate_a": 0,
+          "status": 1
+        }
+      ]
+    },
+    "runtime": {
+      "build_id": "b8ca665b6f71c526c5917d7c463aa7801ab9fb4e17cadcd3f5d9cc9e6200b6bf",
+      "api_version": "devices.1",
+      "service": "terminal-power-platform"
+    }
+  },
+  "result": {
+    "method": "hazard.device-milp.paired.v1",
+    "status": "complete",
+    "cases": [
+      {
+        "intensity": 0,
+        "duration_hours": 1,
+        "successes": 2,
+        "failures": 0,
+        "unknown": 0,
+        "completed": 2,
+        "requested": 2,
+        "success_fraction_lower": 1,
+        "success_fraction_upper": 1,
+        "wilson_conservative": [
+          0.3423802275066532,
+          1
+        ],
+        "wilson_optimistic": [
+          0.3423802275066532,
+          1
+        ],
+        "judgement": "passed",
+        "measured_samples": 2,
+        "mean_unsupplied_kwh": 0
+      },
+      {
+        "intensity": 1,
+        "duration_hours": 1,
+        "successes": 0,
+        "failures": 2,
+        "unknown": 0,
+        "completed": 2,
+        "requested": 2,
+        "success_fraction_lower": 0,
+        "success_fraction_upper": 0,
+        "wilson_conservative": [
+          0,
+          0.6576197724933468
+        ],
+        "wilson_optimistic": [
+          0,
+          0.6576197724933468
+        ],
+        "judgement": "failed",
+        "measured_samples": 2,
+        "mean_unsupplied_kwh": 100
+      },
+      {
+        "intensity": 0,
+        "duration_hours": 2,
+        "successes": 2,
+        "failures": 0,
+        "unknown": 0,
+        "completed": 2,
+        "requested": 2,
+        "success_fraction_lower": 1,
+        "success_fraction_upper": 1,
+        "wilson_conservative": [
+          0.3423802275066532,
+          1
+        ],
+        "wilson_optimistic": [
+          0.3423802275066532,
+          1
+        ],
+        "judgement": "passed",
+        "measured_samples": 2,
+        "mean_unsupplied_kwh": 0
+      },
+      {
+        "intensity": 1,
+        "duration_hours": 2,
+        "successes": 0,
+        "failures": 2,
+        "unknown": 0,
+        "completed": 2,
+        "requested": 2,
+        "success_fraction_lower": 0,
+        "success_fraction_upper": 0,
+        "wilson_conservative": [
+          0,
+          0.6576197724933468
+        ],
+        "wilson_optimistic": [
+          0,
+          0.6576197724933468
+        ],
+        "judgement": "failed",
+        "measured_samples": 2,
+        "mean_unsupplied_kwh": 200.000002
+      }
+    ],
+    "boundaries": [
+      {
+        "duration_hours": 1,
+        "tested_feasible_intensities": [
+          0
+        ],
+        "maximum_tested_feasible_intensity": 0,
+        "right_censored": false,
+        "nonmonotone": false,
+        "cells": [
+          {
+            "intensity": 0,
+            "judgement": "passed"
+          },
+          {
+            "intensity": 1,
+            "judgement": "failed"
+          }
+        ]
+      },
+      {
+        "duration_hours": 2,
+        "tested_feasible_intensities": [
+          0
+        ],
+        "maximum_tested_feasible_intensity": 0,
+        "right_censored": false,
+        "nonmonotone": false,
+        "cells": [
+          {
+            "intensity": 0,
+            "judgement": "passed"
+          },
+          {
+            "intensity": 1,
+            "judgement": "failed"
+          }
+        ]
+      }
+    ],
+    "samples": [
+      {
+        "intensity": 0,
+        "duration_hours": 1,
+        "sample": 0,
+        "removed_target": null,
+        "success": "passed",
+        "solver_status": "optimal",
+        "unsupplied_kwh": 0,
+        "shortage_kwh": 0,
+        "maximum_shortage_kw": 0,
+        "event_count": 0,
+        "perturbation_sha256": "83421806f9b105ad0c4446a5dde371c43bf10035f1735c1df7f86e6998faf11f",
+        "runtime_seconds": 0.01600000000325963
+      },
+      {
+        "intensity": 0,
+        "duration_hours": 1,
+        "sample": 1,
+        "removed_target": null,
+        "success": "passed",
+        "solver_status": "optimal",
+        "unsupplied_kwh": 0,
+        "shortage_kwh": 0,
+        "maximum_shortage_kw": 0,
+        "event_count": 0,
+        "perturbation_sha256": "83421806f9b105ad0c4446a5dde371c43bf10035f1735c1df7f86e6998faf11f",
+        "runtime_seconds": 0
+      },
+      {
+        "intensity": 1,
+        "duration_hours": 1,
+        "sample": 0,
+        "removed_target": null,
+        "success": "failed",
+        "solver_status": "optimal",
+        "unsupplied_kwh": 100,
+        "shortage_kwh": 100,
+        "maximum_shortage_kw": 100,
+        "event_count": 1,
+        "perturbation_sha256": "76b57976a4815b427b8448c87eead7a85bbafa8761c2883838a87a8d5847f055",
+        "runtime_seconds": 0.015000000013969839
+      },
+      {
+        "intensity": 1,
+        "duration_hours": 1,
+        "sample": 1,
+        "removed_target": null,
+        "success": "failed",
+        "solver_status": "optimal",
+        "unsupplied_kwh": 100,
+        "shortage_kwh": 100,
+        "maximum_shortage_kw": 100,
+        "event_count": 1,
+        "perturbation_sha256": "76b57976a4815b427b8448c87eead7a85bbafa8761c2883838a87a8d5847f055",
+        "runtime_seconds": 0
+      },
+      {
+        "intensity": 0,
+        "duration_hours": 2,
+        "sample": 0,
+        "removed_target": null,
+        "success": "passed",
+        "solver_status": "optimal",
+        "unsupplied_kwh": 0,
+        "shortage_kwh": 0,
+        "maximum_shortage_kw": 0,
+        "event_count": 0,
+        "perturbation_sha256": "83421806f9b105ad0c4446a5dde371c43bf10035f1735c1df7f86e6998faf11f",
+        "runtime_seconds": 0
+      },
+      {
+        "intensity": 0,
+        "duration_hours": 2,
+        "sample": 1,
+        "removed_target": null,
+        "success": "passed",
+        "solver_status": "optimal",
+        "unsupplied_kwh": 0,
+        "shortage_kwh": 0,
+        "maximum_shortage_kw": 0,
+        "event_count": 0,
+        "perturbation_sha256": "83421806f9b105ad0c4446a5dde371c43bf10035f1735c1df7f86e6998faf11f",
+        "runtime_seconds": 0.01600000000325963
+      },
+      {
+        "intensity": 1,
+        "duration_hours": 2,
+        "sample": 0,
+        "removed_target": null,
+        "success": "failed",
+        "solver_status": "optimal",
+        "unsupplied_kwh": 200.000002,
+        "shortage_kwh": 200.000002,
+        "maximum_shortage_kw": 100,
+        "event_count": 2,
+        "perturbation_sha256": "d44035c70d8d12f5d15ae824537ac556b962f7f41264891dfbb54374349f2688",
+        "runtime_seconds": 0.01600000000325963
+      },
+      {
+        "intensity": 1,
+        "duration_hours": 2,
+        "sample": 1,
+        "removed_target": null,
+        "success": "failed",
+        "solver_status": "optimal",
+        "unsupplied_kwh": 200.000002,
+        "shortage_kwh": 200.000002,
+        "maximum_shortage_kw": 100,
+        "event_count": 2,
+        "perturbation_sha256": "d44035c70d8d12f5d15ae824537ac556b962f7f41264891dfbb54374349f2688",
+        "runtime_seconds": 0.031000000017229468
+      },
+      {
+        "intensity": 1,
+        "duration_hours": 2,
+        "sample": 0,
+        "removed_target": "line:7",
+        "success": "passed",
+        "solver_status": "optimal",
+        "unsupplied_kwh": 0,
+        "shortage_kwh": 0,
+        "maximum_shortage_kw": 0,
+        "event_count": 0,
+        "perturbation_sha256": "102ac1d5b0a0273eb80a43e0cd312d581dea8174dcc038b7168e226b855ac8f5",
+        "runtime_seconds": 0.014999999984866008
+      },
+      {
+        "intensity": 1,
+        "duration_hours": 2,
+        "sample": 1,
+        "removed_target": "line:7",
+        "success": "passed",
+        "solver_status": "optimal",
+        "unsupplied_kwh": 0,
+        "shortage_kwh": 0,
+        "maximum_shortage_kw": 0,
+        "event_count": 0,
+        "perturbation_sha256": "102ac1d5b0a0273eb80a43e0cd312d581dea8174dcc038b7168e226b855ac8f5",
+        "runtime_seconds": 0.01600000000325963
+      }
+    ],
+    "weakness": [
+      {
+        "target": "line:7",
+        "intensity": 1,
+        "duration_hours": 2,
+        "reliable_pairs": 2,
+        "requested_pairs": 2,
+        "mean_avoided_unsupplied_kwh": 200.000002,
+        "standard_error_kwh": 0,
+        "status": "complete"
+      }
+    ],
+    "paired_comparisons": [
+      {
+        "target": "line:7",
+        "sample": 0,
+        "baseline_unsupplied_kwh": 200.000002,
+        "mitigated_unsupplied_kwh": 0,
+        "reliable_pair": true
+      },
+      {
+        "target": "line:7",
+        "sample": 1,
+        "baseline_unsupplied_kwh": 200.000002,
+        "mitigated_unsupplied_kwh": 0,
+        "reliable_pair": true
+      }
+    ],
+    "worst_trace": {
+      "sample": {
+        "intensity": 1,
+        "duration_hours": 2,
+        "sample": 0,
+        "removed_target": null,
+        "success": "failed",
+        "solver_status": "optimal",
+        "unsupplied_kwh": 200.000002,
+        "shortage_kwh": 200.000002,
+        "maximum_shortage_kw": 100,
+        "event_count": 2,
+        "perturbation_sha256": "d44035c70d8d12f5d15ae824537ac556b962f7f41264891dfbb54374349f2688",
+        "runtime_seconds": 0.01600000000325963
+      },
+      "perturbation": {
+        "events": [
+          {
+            "target": "line:7",
+            "start_step": 0,
+            "recover_step": 1
+          },
+          {
+            "target": "line:7",
+            "start_step": 1,
+            "recover_step": 2
+          }
+        ],
+        "availability": {
+          "line:7": [
+            0,
+            0,
+            1,
+            1
+          ]
+        }
+      },
+      "rows": [
+        {
+          "timestamp": "2026-01-01T00:00:00",
+          "step_hours": 1,
+          "load_kw": 100,
+          "served_kw": 0,
+          "shortage_kw": 100,
+          "total_unsupplied_kw": 100,
+          "grid_kw": 0
+        },
+        {
+          "timestamp": "2026-01-01T01:00:00",
+          "step_hours": 1,
+          "load_kw": 100,
+          "served_kw": 0,
+          "shortage_kw": 100,
+          "total_unsupplied_kw": 100,
+          "grid_kw": 0
+        },
+        {
+          "timestamp": "2026-01-01T02:00:00",
+          "step_hours": 1,
+          "load_kw": 100,
+          "served_kw": 99.999998,
+          "shortage_kw": 0.0000019999999949504854,
+          "total_unsupplied_kw": 0.0000019999999949504854,
+          "grid_kw": 99.999998
+        },
+        {
+          "timestamp": "2026-01-01T03:00:00",
+          "step_hours": 1,
+          "load_kw": 100,
+          "served_kw": 100,
+          "shortage_kw": 0,
+          "total_unsupplied_kw": 0,
+          "grid_kw": 100
+        }
+      ],
+      "load_metrics": [
+        {
+          "id": "L",
+          "name": "人工医院负荷",
+          "class": "基本保障",
+          "demand_kwh": 400,
+          "served_kwh": 199.999998,
+          "shortage_kwh": 200.000002,
+          "controlled_curtailment_kwh": 0,
+          "continuous_target_supply_hours": 0,
+          "maximum_target_interruption_hours": 3,
+          "total_target_interruption_hours": 3,
+          "current_window_target_interruption_hours": 3,
+          "remaining_target_hours_at_start": 4,
+          "prior_target_history_complete": true,
+          "allowed_consecutive_interruption_hours": 0,
+          "target_hours": 4,
+          "target_status": "failed"
+        }
+      ],
+      "checks": [
+        {
+          "name": "逐设备有功守恒",
+          "status": "passed"
+        },
+        {
+          "name": "交流网损及非线性潮流",
+          "status": "not_checked"
+        },
+        {
+          "name": "离网动态稳定与励磁涌流",
+          "status": "not_checked"
+        },
+        {
+          "name": "通信与实际操作时序",
+          "status": "not_checked"
+        }
+      ]
+    },
+    "completed_solves": 10,
+    "requested_solves": 10,
+    "runtime_seconds": 0.28200000000651926,
+    "environment": {
+      "numpy": "2.3.5",
+      "random_generator": "PCG64/SeedSequence/keyed-sha256.v1"
+    },
+    "scope": [
+      "指定脆弱性、确定性全时域调度与成功判据下的条件抽样结果，非真实系统全局承灾极限。",
+      "参考事件失效概率按恒定风险率转换逐步概率；重现期不直接作为设备失效概率。",
+      "共因组共享均匀冲击；组间独立。这是显式研究相关结构，尚未自动地区校准。",
+      "故障在步首发生；修复向上对齐网格，事件结束不立即清除未修复故障，修复后可再次失效。",
+      "扰动与基准可用率取最小值，外部供电按比例降额；储能故障只限制功率，未模拟能量损毁。",
+      "薄弱性试验仅移除目标脆弱性机制，保留原有故障/检修及其他随机冲击，负值不截断。",
+      "未知与未完成样本不剔除：保守视为失败、乐观视为成功，分别给出区间。Wilson为逐点区间，非整张边界同时置信保证。",
+      "交流网损、动态稳定、涌流及通信仍未校核；达标仅指选定的保供判据。"
+    ]
+  }
+}

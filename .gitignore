@@ -1,0 +1,20 @@
+# Local dependencies and generated files
+.venv/
+node_modules/
+dist/
+__pycache__/
+*.py[cod]
+*.tsbuildinfo
+.pytest_cache/
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+# Local project data and original research materials
+/data/
+/SourceData/
+*.db
+*.db-*
+*.sqlite*
+*.log

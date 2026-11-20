@@ -1,0 +1,10 @@
+<script setup lang="ts">
+import {ref,computed,onMounted,watch} from 'vue';
+import NetworkView from './NetworkView.vue';
+const props=defineProps<{result:any}>();const network=ref<any>(null);const hour=ref(0);const error=ref('');
+const snapshot=computed(()=>props.result.network_details?.[hour.value]);
+watch(()=>props.result.id,()=>{hour.value=0});
+onMounted(async()=>{try{const response=await fetch('/api/network/case33');if(!response.ok)throw Error('网络拓扑读取失败');network.value=await response.json()}catch(e){error.value=String(e)}});
+</script>
+<template><article><h3>网络逐时拓扑结果</h3><p v-if="error" class="error">{{error}}</p><p v-if="!result.network_details">此历史档案未保存节点和支路快照，重新计算后可查看。</p><template v-else><label class="field">查看时刻<select v-model.number="hour"><option v-for="(item,index) in result.network_details" :key="index" :value="index">{{item.timestamp}}</option></select></label><p>红色虚线为故障支路，灰色节点与根节点失联，橙色节点存在缺供。潮流和节点电压来自线性调度解；交流校核极值请查看上方网络电压曲线。</p><NetworkView v-if="network&&snapshot" :network="result.network||network" :placement="result.network_parameters||{wind_node:18,pv_node:30}" :snapshot="snapshot"/><details v-if="snapshot"><summary>节点供电与线性电压</summary><div class="scroll"><table><tr><th>节点</th><th>根节点连通</th><th>负荷 / kW</th><th>供电 / kW</th><th>线性电压 / pu</th></tr><tr v-for="node in snapshot.nodes" :key="node.node"><td>{{node.node}}</td><td>{{node.connected?'是':'否'}}</td><td>{{node.load_kw.toFixed(2)}}</td><td>{{node.served_kw.toFixed(2)}}</td><td>{{node.linear_voltage_pu==null?'未校核':node.linear_voltage_pu.toFixed(4)}}</td></tr></table></div></details><details v-if="snapshot"><summary>支路有功潮流</summary><div class="scroll"><table><tr><th>支路</th><th>故障状态</th><th>线性有功潮流 / kW</th></tr><tr v-for="line in snapshot.lines" :key="line.line"><td>{{line.line}}</td><td>{{line.failed?'故障':'正常'}}</td><td>{{line.flow_kw.toFixed(2)}}</td></tr></table></div></details></template></article></template>
+<style scoped>select{padding:8px;max-width:100%;border:1px solid #c8dcdf}details{margin:16px 0}summary{cursor:pointer;color:#087b7b}</style>

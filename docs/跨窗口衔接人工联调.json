@@ -1,0 +1,1713 @@
+{
+  "root": "http://127.0.0.1:8785",
+  "source": "人工验证",
+  "first": {
+    "id": "6f78518e5f174431b5d9fd11136cdb23",
+    "project_id": "c0280d53b70640609925bd8991d0ac55",
+    "created": "2026-11-13T15:39:31",
+    "name": "逐设备时序调度",
+    "input": {
+      "algorithm": "devices.radial.horizon-milp.v3",
+      "runtime": {
+        "build_id": "b8ca665b6f71c526c5917d7c463aa7801ab9fb4e17cadcd3f5d9cc9e6200b6bf",
+        "api_version": "devices.1",
+        "service": "terminal-power-platform"
+      },
+      "parameters": {
+        "project_id": "c0280d53b70640609925bd8991d0ac55",
+        "project_revision": 1,
+        "engineering_revision": 1,
+        "name": "逐设备时序调度",
+        "start": "2026-01-01T00:00:00",
+        "elapsed_hours": 0,
+        "prior_target_history_complete": false,
+        "initial_state_provenance": "用户声明的初态",
+        "steps": 4,
+        "step_hours": 1,
+        "grid_available_kw": [
+          0
+        ],
+        "grid_energy_yuan_per_kwh": 0.5,
+        "storage_cycle_yuan_per_kwh": 0.002,
+        "source_start_cost_yuan": 0.0001,
+        "grid_reactive_limit_kvar": 0,
+        "branch_limit_kva": 5000,
+        "voltage_min_pu": 0.95,
+        "voltage_max_pu": 1.05,
+        "forming_reserve_ratio": 0.02,
+        "initial_energized_nodes": [],
+        "device_availability": {},
+        "line_status": {},
+        "source_commitment": {},
+        "required_energized_nodes": {},
+        "minimum_load_when_energized": {},
+        "initial_source_on": {},
+        "initial_source_power_kw": {},
+        "initial_source_startup_remaining_steps": {},
+        "initial_source_fuel_kwh": {},
+        "initial_source_used_hours": {},
+        "initial_storage_energy_kwh": {},
+        "initial_target_interruption_hours": {},
+        "initial_max_target_interruption_hours": {},
+        "initial_total_target_interruption_hours": {},
+        "source_energy_additions_kwh": {},
+        "source_forming_reserve_kwh": {},
+        "allow_demand_response": false,
+        "enforce_load_targets": false,
+        "require_complete_target_horizon": true,
+        "load_target_start_hours": {},
+        "include_candidates": false,
+        "allow_zero_demand": false,
+        "time_limit_seconds": 60
+      },
+      "engineering": {
+        "project_id": "c0280d53b70640609925bd8991d0ac55",
+        "project_revision": 1,
+        "revision": 1,
+        "updated": "2026-11-13T15:39:30",
+        "inventory": {
+          "sources": [
+            {
+              "id": "D",
+              "name": "启动机组（人工）",
+              "node": 2,
+              "existing": true,
+              "available": true,
+              "longitude": null,
+              "latitude": null,
+              "provenance": "",
+              "kind": "柴油机",
+              "rated_kw": 10,
+              "minimum_kw": 0,
+              "reactive_limit_kvar": 0,
+              "apparent_limit_kva": null,
+              "startup_minutes": 120,
+              "ramp_kw_per_minute": null,
+              "available_hours": null,
+              "grid_forming": true,
+              "black_start": true,
+              "arrival_minutes": 0,
+              "fuel_kwh": 100,
+              "curve_kw": []
+            }
+          ],
+          "storage": [],
+          "loads": [
+            {
+              "id": "L",
+              "name": "医院（人工）",
+              "node": 2,
+              "existing": true,
+              "available": true,
+              "longitude": null,
+              "latitude": null,
+              "provenance": "",
+              "load_class": "基本保障",
+              "peak_kw": 10,
+              "reactive_kvar": 0,
+              "minimum_supply_ratio": 1,
+              "target_hours": 4,
+              "maximum_curtailment_ratio": 0,
+              "interruption_allowed": false,
+              "maximum_interruption_hours": 0,
+              "priority": 1,
+              "cti": null,
+              "curve_kw": []
+            }
+          ],
+          "transformers": [],
+          "switches": [],
+          "controllers": [],
+          "terminals": [],
+          "communication": [],
+          "economics": {
+            "discount_rate": 0.06,
+            "lifetime_years": 15,
+            "investment_limit_yuan": null,
+            "pv_yuan_per_kw": 3200,
+            "wind_yuan_per_kw": 4200,
+            "storage_power_yuan_per_kw": 750,
+            "storage_energy_yuan_per_kwh": 1100,
+            "fuel_yuan_per_kwh": 1.15,
+            "shortage_yuan_per_kwh": 20,
+            "curtailment_yuan_per_kwh": 6,
+            "annual_maintenance_yuan": 0,
+            "provenance": "界面设计PPT示例成本，需按工程核实"
+          },
+          "scenario_template_id": null,
+          "coordinate_system": "WGS84"
+        },
+        "sha256": "5b26fff33efe254058ee6a2553ab71894ffd90c57209d2aa8d991d41e31ede55"
+      },
+      "network": {
+        "name": "衔接人工网络",
+        "source": "人工验证",
+        "base_voltage_kv": 10,
+        "nodes": [
+          {
+            "node": 1,
+            "name": "",
+            "type": 1,
+            "pd_kw": 0,
+            "qd_kvar": 0,
+            "vm_init_pu": 1
+          },
+          {
+            "node": 2,
+            "name": "",
+            "type": 1,
+            "pd_kw": 10,
+            "qd_kvar": 0,
+            "vm_init_pu": 1
+          }
+        ],
+        "lines": [
+          {
+            "line": 1,
+            "name": "",
+            "from_node": 1,
+            "to_node": 2,
+            "r_ohm": 0,
+            "x_ohm": 0,
+            "capacity_kva": 100,
+            "rate_a": 0,
+            "status": 1
+          }
+        ]
+      },
+      "project": {
+        "name": "跨窗口初态与补给人工验证",
+        "region": "",
+        "kind": "乡镇级",
+        "state": {
+          "network": {
+            "name": "衔接人工网络",
+            "source": "人工验证",
+            "base_voltage_kv": 10,
+            "nodes": [
+              {
+                "node": 1,
+                "pd_kw": 0
+              },
+              {
+                "node": 2,
+                "pd_kw": 10
+              }
+            ],
+            "lines": [
+              {
+                "line": 1,
+                "from_node": 1,
+                "to_node": 2,
+                "r_ohm": 0,
+                "x_ohm": 0,
+                "status": 1,
+                "capacity_kva": 100
+              }
+            ]
+          }
+        },
+        "id": "c0280d53b70640609925bd8991d0ac55",
+        "revision": 1,
+        "updated": "2026-11-13T15:39:30"
+      }
+    },
+    "input_sha256": "af11452ff67de445dceeb5099d59a8939b7f944e799dcc0e3d18111a52e9f16f",
+    "result": {
+      "status": "optimal",
+      "method": "devices.radial.horizon-milp.v3",
+      "elapsed_hours_at_start": 0,
+      "rows": [
+        {
+          "timestamp": "2026-01-01T00:00:00",
+          "step_hours": 1,
+          "grid_kw": 0,
+          "grid_kvar": 0,
+          "sources": [
+            {
+              "id": "D",
+              "node": 2,
+              "installed": true,
+              "dispatch_kw": 0,
+              "reactive_kvar": 0,
+              "on": false,
+              "startup_command": true,
+              "available_kw": 10,
+              "online_limit_kw": 0,
+              "renewable_curtailment_kw": 0,
+              "fuel_remaining_kwh": 100
+            }
+          ],
+          "storage": [],
+          "loads": [
+            {
+              "id": "L",
+              "node": 2,
+              "class": "基本保障",
+              "demand_kw": 10,
+              "served_kw": 0,
+              "controlled_curtailment_kw": 0,
+              "shortage_kw": 10,
+              "target_kw": 10,
+              "target_shortage_kw": 10
+            }
+          ],
+          "nodes": [
+            {
+              "node": 1,
+              "energized": false,
+              "linear_voltage_pu": null
+            },
+            {
+              "node": 2,
+              "energized": false,
+              "linear_voltage_pu": null
+            }
+          ],
+          "lines": [
+            {
+              "line": 1,
+              "closed": true,
+              "p_kw": 0,
+              "q_kvar": 0,
+              "limit_kva": 100
+            }
+          ],
+          "load_kw": 10,
+          "served_kw": 0,
+          "controlled_curtailment_kw": 0,
+          "shortage_kw": 10,
+          "total_unsupplied_kw": 10,
+          "power_balance_residual_kw": 0
+        },
+        {
+          "timestamp": "2026-01-01T01:00:00",
+          "step_hours": 1,
+          "grid_kw": 0,
+          "grid_kvar": 0,
+          "sources": [
+            {
+              "id": "D",
+              "node": 2,
+              "installed": true,
+              "dispatch_kw": 0,
+              "reactive_kvar": 0,
+              "on": false,
+              "startup_command": false,
+              "available_kw": 10,
+              "online_limit_kw": 0,
+              "renewable_curtailment_kw": 0,
+              "fuel_remaining_kwh": 100
+            }
+          ],
+          "storage": [],
+          "loads": [
+            {
+              "id": "L",
+              "node": 2,
+              "class": "基本保障",
+              "demand_kw": 10,
+              "served_kw": 0,
+              "controlled_curtailment_kw": 0,
+              "shortage_kw": 10,
+              "target_kw": 10,
+              "target_shortage_kw": 10
+            }
+          ],
+          "nodes": [
+            {
+              "node": 1,
+              "energized": false,
+              "linear_voltage_pu": null
+            },
+            {
+              "node": 2,
+              "energized": false,
+              "linear_voltage_pu": null
+            }
+          ],
+          "lines": [
+            {
+              "line": 1,
+              "closed": true,
+              "p_kw": 0,
+              "q_kvar": 0,
+              "limit_kva": 100
+            }
+          ],
+          "load_kw": 10,
+          "served_kw": 0,
+          "controlled_curtailment_kw": 0,
+          "shortage_kw": 10,
+          "total_unsupplied_kw": 10,
+          "power_balance_residual_kw": 0
+        },
+        {
+          "timestamp": "2026-01-01T02:00:00",
+          "step_hours": 1,
+          "grid_kw": 0,
+          "grid_kvar": 0,
+          "sources": [
+            {
+              "id": "D",
+              "node": 2,
+              "installed": true,
+              "dispatch_kw": 10,
+              "reactive_kvar": 0,
+              "on": true,
+              "startup_command": false,
+              "available_kw": 10,
+              "online_limit_kw": 10,
+              "renewable_curtailment_kw": 0,
+              "fuel_remaining_kwh": 90
+            }
+          ],
+          "storage": [],
+          "loads": [
+            {
+              "id": "L",
+              "node": 2,
+              "class": "基本保障",
+              "demand_kw": 10,
+              "served_kw": 10,
+              "controlled_curtailment_kw": 0,
+              "shortage_kw": 0,
+              "target_kw": 10,
+              "target_shortage_kw": 0
+            }
+          ],
+          "nodes": [
+            {
+              "node": 1,
+              "energized": true,
+              "linear_voltage_pu": 1
+            },
+            {
+              "node": 2,
+              "energized": true,
+              "linear_voltage_pu": 1
+            }
+          ],
+          "lines": [
+            {
+              "line": 1,
+              "closed": true,
+              "p_kw": 0,
+              "q_kvar": 0,
+              "limit_kva": 100
+            }
+          ],
+          "load_kw": 10,
+          "served_kw": 10,
+          "controlled_curtailment_kw": 0,
+          "shortage_kw": 0,
+          "total_unsupplied_kw": 0,
+          "power_balance_residual_kw": 0
+        },
+        {
+          "timestamp": "2026-01-01T03:00:00",
+          "step_hours": 1,
+          "grid_kw": 0,
+          "grid_kvar": 0,
+          "sources": [
+            {
+              "id": "D",
+              "node": 2,
+              "installed": true,
+              "dispatch_kw": 10,
+              "reactive_kvar": 0,
+              "on": true,
+              "startup_command": false,
+              "available_kw": 10,
+              "online_limit_kw": 10,
+              "renewable_curtailment_kw": 0,
+              "fuel_remaining_kwh": 80
+            }
+          ],
+          "storage": [],
+          "loads": [
+            {
+              "id": "L",
+              "node": 2,
+              "class": "基本保障",
+              "demand_kw": 10,
+              "served_kw": 10,
+              "controlled_curtailment_kw": 0,
+              "shortage_kw": 0,
+              "target_kw": 10,
+              "target_shortage_kw": 0
+            }
+          ],
+          "nodes": [
+            {
+              "node": 1,
+              "energized": true,
+              "linear_voltage_pu": 1
+            },
+            {
+              "node": 2,
+              "energized": true,
+              "linear_voltage_pu": 1
+            }
+          ],
+          "lines": [
+            {
+              "line": 1,
+              "closed": true,
+              "p_kw": 0,
+              "q_kvar": 0,
+              "limit_kva": 100
+            }
+          ],
+          "load_kw": 10,
+          "served_kw": 10,
+          "controlled_curtailment_kw": 0,
+          "shortage_kw": 0,
+          "total_unsupplied_kw": 0,
+          "power_balance_residual_kw": 0
+        }
+      ],
+      "metrics": {
+        "load_energy_kwh": 40,
+        "served_energy_kwh": 20,
+        "shortage_energy_kwh": 20,
+        "controlled_curtailment_energy_kwh": 0,
+        "total_unsupplied_energy_kwh": 20,
+        "maximum_shortage_kw": 10,
+        "maximum_total_unsupplied_kw": 10,
+        "maximum_balance_residual_kw": 0,
+        "study_dispatch_cost_yuan": 23.0001,
+        "all_load_targets": "failed"
+      },
+      "load_metrics": [
+        {
+          "id": "L",
+          "name": "医院（人工）",
+          "class": "基本保障",
+          "demand_kwh": 40,
+          "served_kwh": 20,
+          "shortage_kwh": 20,
+          "controlled_curtailment_kwh": 0,
+          "continuous_target_supply_hours": 0,
+          "maximum_target_interruption_hours": 2,
+          "total_target_interruption_hours": 2,
+          "current_window_target_interruption_hours": 2,
+          "remaining_target_hours_at_start": 4,
+          "prior_target_history_complete": true,
+          "allowed_consecutive_interruption_hours": 0,
+          "target_hours": 4,
+          "target_status": "failed"
+        }
+      ],
+      "solver": [
+        {
+          "objective": "基本保障最低保供",
+          "status": 0,
+          "message": "Optimization terminated successfully. (HiGHS Status 7: Optimal)",
+          "value": 20,
+          "gap": 0
+        },
+        {
+          "objective": "基本保障未供电",
+          "status": 0,
+          "message": "Optimization terminated successfully. (HiGHS Status 7: Optimal)",
+          "value": 20,
+          "gap": 0
+        },
+        {
+          "objective": "运行成本与循环",
+          "status": 0,
+          "message": "Optimization terminated successfully. (HiGHS Status 7: Optimal)",
+          "value": 23.0001,
+          "gap": 0
+        }
+      ],
+      "runtime_seconds": 0,
+      "maximum_integer_violation": 0,
+      "maximum_constraint_violation": 0,
+      "maximum_bound_violation": 0,
+      "variables": 69,
+      "constraints": 133,
+      "checks": [
+        {
+          "name": "逐设备有功守恒",
+          "status": "passed"
+        },
+        {
+          "name": "交流网损及非线性潮流",
+          "status": "not_checked"
+        },
+        {
+          "name": "离网动态稳定与励磁涌流",
+          "status": "not_checked"
+        },
+        {
+          "name": "通信与实际操作时序",
+          "status": "not_checked"
+        }
+      ],
+      "scope": [
+        "衔接输入包含事件已逝时间、机组前状态/有功/未完成启动、剩余可发电量、已用运行小时、储能实际电量及中断前史。到位和目标时长以同一事件起点计，曲线首项仍对应本次开始时间。",
+        "可发电量补给在指定步开始生效，单位kWh。燃料逐步状态守恒，构网绝对储备可固定，默认参考量取台账初始声明、窗口初始实际库存和最大单次补给量的最大值。空载耗油和启动辅助电量仍需设备数据支持。",
+        "延续事件的完整目标需要完整前史声明。中断最大值和累计值包含给出的已知前史，当前窗口累计另列。前史不足的软目标保留未校核状态。",
+        "硬保供开关默认关闭；启用后按逐负荷是否允许中断及最大连续中断小时建立精确时钟约束，时域须覆盖完整目标。主动削减低于最低供电比例也计目标中断。末步按目标窗口交集计时，不表示步内可以再调度。",
+        "最大连续中断和累计中断分别统计，零目标需求时段终止连续段。事件前史由衔接输入提供，默认初态按新事件起算。",
+        "外部购电、循环和启动成本为显式研究参数，非地区核定价格；非燃料源运行边际成本在本版忽略。",
+        "支持1/5/15/30/60分钟；恢复入口可强制电源启停、节点带电及带电负荷最低投入，旧请求默认不附加这些约束。",
+        "确定性全时域优化使用完整已知曲线，不代表实际灾害预测精度。",
+        "逐设备多时段MILP，按基本保障/居民/一般依次最小化目标缺额及非计划缺供，最后降低运行成本。",
+        "线路容量采用内接八边形保守近似；电压为无损LinDistFlow，不含交流网损和动态稳定结论。",
+        "每个失联分区须有可用构网资源，未初始带电时须有黑启动条件；储能构网预留能量为显式研究参数。",
+        "曲线为分段常值；到位和启动时间向后对齐计算网格，未隐式细分时段。",
+        "燃料按可转化电量kWh记，储能按有效额定能量比例预留，燃料构网采用显式绝对储备或默认参考量比例。储备量与时间步长独立。",
+        "电源停运可重新启动；未建候选默认不参与。负荷调节须显式开启，计划削减与非计划缺供分账。",
+        "当前变压器仅处理变比1的理想支路容量；未提供的风光水曲线不会按额定出力补造。"
+      ]
+    }
+  },
+  "second": {
+    "id": "2af48f1b1403488e860118319d48833b",
+    "project_id": "c0280d53b70640609925bd8991d0ac55",
+    "created": "2026-11-13T15:39:31",
+    "name": "逐设备时序调度",
+    "input": {
+      "algorithm": "devices.radial.horizon-milp.v5",
+      "runtime": {
+        "build_id": "b8ca665b6f71c526c5917d7c463aa7801ab9fb4e17cadcd3f5d9cc9e6200b6bf",
+        "api_version": "devices.1",
+        "service": "terminal-power-platform"
+      },
+      "parameters": {
+        "project_id": "c0280d53b70640609925bd8991d0ac55",
+        "project_revision": 1,
+        "engineering_revision": 1,
+        "name": "逐设备时序调度",
+        "start": "2026-01-01T01:00:00",
+        "elapsed_hours": 1,
+        "prior_target_history_complete": true,
+        "initial_state_provenance": "参考逐设备归档6f78518e5f174431b5d9fd11136cdb23前1步的末状态，原输入摘要af11452ff67de445dceeb5099d59a8939b7f944e799dcc0e3d18111a52e9f16f",
+        "steps": 3,
+        "step_hours": 1,
+        "grid_available_kw": [
+          0
+        ],
+        "grid_energy_yuan_per_kwh": 0.5,
+        "storage_cycle_yuan_per_kwh": 0.002,
+        "source_start_cost_yuan": 0.0001,
+        "grid_reactive_limit_kvar": 0,
+        "branch_limit_kva": 5000,
+        "voltage_min_pu": 0.95,
+        "voltage_max_pu": 1.05,
+        "forming_reserve_ratio": 0.02,
+        "initial_energized_nodes": [],
+        "device_availability": {},
+        "line_status": {},
+        "source_commitment": {},
+        "required_energized_nodes": {},
+        "minimum_load_when_energized": {},
+        "initial_source_on": {
+          "D": 0
+        },
+        "initial_source_power_kw": {
+          "D": 0
+        },
+        "initial_source_startup_remaining_steps": {
+          "D": 1
+        },
+        "initial_source_fuel_kwh": {
+          "D": 100
+        },
+        "initial_source_used_hours": {
+          "D": 0
+        },
+        "initial_storage_energy_kwh": {},
+        "initial_target_interruption_hours": {
+          "L": 1
+        },
+        "initial_max_target_interruption_hours": {
+          "L": 1
+        },
+        "initial_total_target_interruption_hours": {
+          "L": 1
+        },
+        "source_energy_additions_kwh": {},
+        "source_forming_reserve_kwh": {
+          "D": 2
+        },
+        "allow_demand_response": false,
+        "enforce_load_targets": false,
+        "require_complete_target_horizon": true,
+        "load_target_start_hours": {},
+        "include_candidates": false,
+        "allow_zero_demand": false,
+        "time_limit_seconds": 60
+      },
+      "engineering": {
+        "project_id": "c0280d53b70640609925bd8991d0ac55",
+        "project_revision": 1,
+        "revision": 1,
+        "updated": "2026-11-13T15:39:30",
+        "inventory": {
+          "sources": [
+            {
+              "id": "D",
+              "name": "启动机组（人工）",
+              "node": 2,
+              "existing": true,
+              "available": true,
+              "longitude": null,
+              "latitude": null,
+              "provenance": "",
+              "kind": "柴油机",
+              "rated_kw": 10,
+              "minimum_kw": 0,
+              "reactive_limit_kvar": 0,
+              "apparent_limit_kva": null,
+              "startup_minutes": 120,
+              "ramp_kw_per_minute": null,
+              "available_hours": null,
+              "grid_forming": true,
+              "black_start": true,
+              "arrival_minutes": 0,
+              "fuel_kwh": 100,
+              "curve_kw": []
+            }
+          ],
+          "storage": [],
+          "loads": [
+            {
+              "id": "L",
+              "name": "医院（人工）",
+              "node": 2,
+              "existing": true,
+              "available": true,
+              "longitude": null,
+              "latitude": null,
+              "provenance": "",
+              "load_class": "基本保障",
+              "peak_kw": 10,
+              "reactive_kvar": 0,
+              "minimum_supply_ratio": 1,
+              "target_hours": 4,
+              "maximum_curtailment_ratio": 0,
+              "interruption_allowed": false,
+              "maximum_interruption_hours": 0,
+              "priority": 1,
+              "cti": null,
+              "curve_kw": []
+            }
+          ],
+          "transformers": [],
+          "switches": [],
+          "controllers": [],
+          "terminals": [],
+          "communication": [],
+          "economics": {
+            "discount_rate": 0.06,
+            "lifetime_years": 15,
+            "investment_limit_yuan": null,
+            "pv_yuan_per_kw": 3200,
+            "wind_yuan_per_kw": 4200,
+            "storage_power_yuan_per_kw": 750,
+            "storage_energy_yuan_per_kwh": 1100,
+            "fuel_yuan_per_kwh": 1.15,
+            "shortage_yuan_per_kwh": 20,
+            "curtailment_yuan_per_kwh": 6,
+            "annual_maintenance_yuan": 0,
+            "provenance": "界面设计PPT示例成本，需按工程核实"
+          },
+          "scenario_template_id": null,
+          "coordinate_system": "WGS84"
+        },
+        "sha256": "5b26fff33efe254058ee6a2553ab71894ffd90c57209d2aa8d991d41e31ede55"
+      },
+      "network": {
+        "name": "衔接人工网络",
+        "source": "人工验证",
+        "base_voltage_kv": 10,
+        "nodes": [
+          {
+            "node": 1,
+            "name": "",
+            "type": 1,
+            "pd_kw": 0,
+            "qd_kvar": 0,
+            "vm_init_pu": 1
+          },
+          {
+            "node": 2,
+            "name": "",
+            "type": 1,
+            "pd_kw": 10,
+            "qd_kvar": 0,
+            "vm_init_pu": 1
+          }
+        ],
+        "lines": [
+          {
+            "line": 1,
+            "name": "",
+            "from_node": 1,
+            "to_node": 2,
+            "r_ohm": 0,
+            "x_ohm": 0,
+            "capacity_kva": 100,
+            "rate_a": 0,
+            "status": 1
+          }
+        ]
+      },
+      "project": {
+        "name": "跨窗口初态与补给人工验证",
+        "region": "",
+        "kind": "乡镇级",
+        "state": {
+          "network": {
+            "name": "衔接人工网络",
+            "source": "人工验证",
+            "base_voltage_kv": 10,
+            "nodes": [
+              {
+                "node": 1,
+                "pd_kw": 0
+              },
+              {
+                "node": 2,
+                "pd_kw": 10
+              }
+            ],
+            "lines": [
+              {
+                "line": 1,
+                "from_node": 1,
+                "to_node": 2,
+                "r_ohm": 0,
+                "x_ohm": 0,
+                "status": 1,
+                "capacity_kva": 100
+              }
+            ]
+          }
+        },
+        "id": "c0280d53b70640609925bd8991d0ac55",
+        "revision": 1,
+        "updated": "2026-11-13T15:39:30"
+      }
+    },
+    "input_sha256": "3e8ca8a393ba3063a22101b176108a25088b1654fd30f441c9cd4a3f4aac40fe",
+    "result": {
+      "status": "optimal",
+      "method": "devices.radial.horizon-milp.v5",
+      "elapsed_hours_at_start": 1,
+      "rows": [
+        {
+          "timestamp": "2026-01-01T01:00:00",
+          "step_hours": 1,
+          "grid_kw": 0,
+          "grid_kvar": 0,
+          "sources": [
+            {
+              "id": "D",
+              "node": 2,
+              "installed": true,
+              "dispatch_kw": 0,
+              "reactive_kvar": 0,
+              "on": false,
+              "startup_command": false,
+              "available_kw": 10,
+              "online_limit_kw": 0,
+              "renewable_curtailment_kw": 0,
+              "fuel_remaining_kwh": 100
+            }
+          ],
+          "storage": [],
+          "loads": [
+            {
+              "id": "L",
+              "node": 2,
+              "class": "基本保障",
+              "demand_kw": 10,
+              "served_kw": 0,
+              "controlled_curtailment_kw": 0,
+              "shortage_kw": 10,
+              "target_kw": 10,
+              "target_shortage_kw": 10
+            }
+          ],
+          "nodes": [
+            {
+              "node": 1,
+              "energized": false,
+              "linear_voltage_pu": null
+            },
+            {
+              "node": 2,
+              "energized": false,
+              "linear_voltage_pu": null
+            }
+          ],
+          "lines": [
+            {
+              "line": 1,
+              "closed": true,
+              "p_kw": 0,
+              "q_kvar": 0,
+              "limit_kva": 100
+            }
+          ],
+          "load_kw": 10,
+          "served_kw": 0,
+          "controlled_curtailment_kw": 0,
+          "shortage_kw": 10,
+          "total_unsupplied_kw": 10,
+          "power_balance_residual_kw": 0
+        },
+        {
+          "timestamp": "2026-01-01T02:00:00",
+          "step_hours": 1,
+          "grid_kw": 0,
+          "grid_kvar": 0,
+          "sources": [
+            {
+              "id": "D",
+              "node": 2,
+              "installed": true,
+              "dispatch_kw": 10,
+              "reactive_kvar": 0,
+              "on": true,
+              "startup_command": false,
+              "available_kw": 10,
+              "online_limit_kw": 10,
+              "renewable_curtailment_kw": 0,
+              "fuel_remaining_kwh": 90
+            }
+          ],
+          "storage": [],
+          "loads": [
+            {
+              "id": "L",
+              "node": 2,
+              "class": "基本保障",
+              "demand_kw": 10,
+              "served_kw": 10,
+              "controlled_curtailment_kw": 0,
+              "shortage_kw": 0,
+              "target_kw": 10,
+              "target_shortage_kw": 0
+            }
+          ],
+          "nodes": [
+            {
+              "node": 1,
+              "energized": true,
+              "linear_voltage_pu": 1
+            },
+            {
+              "node": 2,
+              "energized": true,
+              "linear_voltage_pu": 1
+            }
+          ],
+          "lines": [
+            {
+              "line": 1,
+              "closed": true,
+              "p_kw": 0,
+              "q_kvar": 0,
+              "limit_kva": 100
+            }
+          ],
+          "load_kw": 10,
+          "served_kw": 10,
+          "controlled_curtailment_kw": 0,
+          "shortage_kw": 0,
+          "total_unsupplied_kw": 0,
+          "power_balance_residual_kw": 0
+        },
+        {
+          "timestamp": "2026-01-01T03:00:00",
+          "step_hours": 1,
+          "grid_kw": 0,
+          "grid_kvar": 0,
+          "sources": [
+            {
+              "id": "D",
+              "node": 2,
+              "installed": true,
+              "dispatch_kw": 10,
+              "reactive_kvar": 0,
+              "on": true,
+              "startup_command": false,
+              "available_kw": 10,
+              "online_limit_kw": 10,
+              "renewable_curtailment_kw": 0,
+              "fuel_remaining_kwh": 80
+            }
+          ],
+          "storage": [],
+          "loads": [
+            {
+              "id": "L",
+              "node": 2,
+              "class": "基本保障",
+              "demand_kw": 10,
+              "served_kw": 10,
+              "controlled_curtailment_kw": 0,
+              "shortage_kw": 0,
+              "target_kw": 10,
+              "target_shortage_kw": 0
+            }
+          ],
+          "nodes": [
+            {
+              "node": 1,
+              "energized": true,
+              "linear_voltage_pu": 1
+            },
+            {
+              "node": 2,
+              "energized": true,
+              "linear_voltage_pu": 1
+            }
+          ],
+          "lines": [
+            {
+              "line": 1,
+              "closed": true,
+              "p_kw": 0,
+              "q_kvar": 0,
+              "limit_kva": 100
+            }
+          ],
+          "load_kw": 10,
+          "served_kw": 10,
+          "controlled_curtailment_kw": 0,
+          "shortage_kw": 0,
+          "total_unsupplied_kw": 0,
+          "power_balance_residual_kw": 0
+        }
+      ],
+      "metrics": {
+        "load_energy_kwh": 30,
+        "served_energy_kwh": 20,
+        "shortage_energy_kwh": 10,
+        "controlled_curtailment_energy_kwh": 0,
+        "total_unsupplied_energy_kwh": 10,
+        "maximum_shortage_kw": 10,
+        "maximum_total_unsupplied_kw": 10,
+        "maximum_balance_residual_kw": 0,
+        "study_dispatch_cost_yuan": 23,
+        "all_load_targets": "failed"
+      },
+      "load_metrics": [
+        {
+          "id": "L",
+          "name": "医院（人工）",
+          "class": "基本保障",
+          "demand_kwh": 30,
+          "served_kwh": 20,
+          "shortage_kwh": 10,
+          "controlled_curtailment_kwh": 0,
+          "continuous_target_supply_hours": 0,
+          "maximum_target_interruption_hours": 2,
+          "total_target_interruption_hours": 2,
+          "current_window_target_interruption_hours": 1,
+          "remaining_target_hours_at_start": 3,
+          "prior_target_history_complete": true,
+          "allowed_consecutive_interruption_hours": 0,
+          "target_hours": 4,
+          "target_status": "failed"
+        }
+      ],
+      "solver": [
+        {
+          "objective": "基本保障最低保供",
+          "status": 0,
+          "message": "Optimization terminated successfully. (HiGHS Status 7: Optimal)",
+          "value": 10,
+          "gap": 0
+        },
+        {
+          "objective": "基本保障未供电",
+          "status": 0,
+          "message": "Optimization terminated successfully. (HiGHS Status 7: Optimal)",
+          "value": 10,
+          "gap": 0
+        },
+        {
+          "objective": "运行成本与循环",
+          "status": 0,
+          "message": "Optimization terminated successfully. (HiGHS Status 7: Optimal)",
+          "value": 23,
+          "gap": 0
+        }
+      ],
+      "runtime_seconds": 0.015000000013969839,
+      "maximum_integer_violation": 0,
+      "maximum_constraint_violation": 0,
+      "maximum_bound_violation": 0,
+      "variables": 52,
+      "constraints": 103,
+      "checks": [
+        {
+          "name": "逐设备有功守恒",
+          "status": "passed"
+        },
+        {
+          "name": "交流网损及非线性潮流",
+          "status": "not_checked"
+        },
+        {
+          "name": "离网动态稳定与励磁涌流",
+          "status": "not_checked"
+        },
+        {
+          "name": "通信与实际操作时序",
+          "status": "not_checked"
+        }
+      ],
+      "scope": [
+        "衔接输入包含事件已逝时间、机组前状态/有功/未完成启动、剩余可发电量、已用运行小时、储能实际电量及中断前史。到位和目标时长以同一事件起点计，曲线首项仍对应本次开始时间。",
+        "可发电量补给在指定步开始生效，单位kWh。燃料逐步状态守恒，构网绝对储备可固定，默认参考量取台账初始声明、窗口初始实际库存和最大单次补给量的最大值。空载耗油和启动辅助电量仍需设备数据支持。",
+        "延续事件的完整目标需要完整前史声明。中断最大值和累计值包含给出的已知前史，当前窗口累计另列。前史不足的软目标保留未校核状态。",
+        "硬保供开关默认关闭；启用后按逐负荷是否允许中断及最大连续中断小时建立精确时钟约束，时域须覆盖完整目标。主动削减低于最低供电比例也计目标中断。末步按目标窗口交集计时，不表示步内可以再调度。",
+        "最大连续中断和累计中断分别统计，零目标需求时段终止连续段。事件前史由衔接输入提供，默认初态按新事件起算。",
+        "外部购电、循环和启动成本为显式研究参数，非地区核定价格；非燃料源运行边际成本在本版忽略。",
+        "支持1/5/15/30/60分钟；恢复入口可强制电源启停、节点带电及带电负荷最低投入，旧请求默认不附加这些约束。",
+        "确定性全时域优化使用完整已知曲线，不代表实际灾害预测精度。",
+        "逐设备多时段MILP，按基本保障/居民/一般依次最小化目标缺额及非计划缺供，最后降低运行成本。",
+        "线路容量采用内接八边形保守近似；电压为无损LinDistFlow，不含交流网损和动态稳定结论。",
+        "每个失联分区须有可用构网资源，未初始带电时须有黑启动条件；储能构网预留能量为显式研究参数。",
+        "曲线为分段常值；到位和启动时间向后对齐计算网格，未隐式细分时段。",
+        "燃料按可转化电量kWh记，储能按有效额定能量比例预留，燃料构网采用显式绝对储备或默认参考量比例。储备量与时间步长独立。",
+        "电源停运可重新启动；未建候选默认不参与。负荷调节须显式开启，计划削减与非计划缺供分账。",
+        "当前变压器仅处理变比1的理想支路容量；未提供的风光水曲线不会按额定出力补造。"
+      ]
+    }
+  },
+  "refuel": {
+    "id": "d624c93fa7934bb6b3dfa6af577ddae9",
+    "project_id": "c0280d53b70640609925bd8991d0ac55",
+    "created": "2026-11-13T15:39:32",
+    "name": "逐设备时序调度",
+    "input": {
+      "algorithm": "devices.radial.horizon-milp.v5",
+      "runtime": {
+        "build_id": "b8ca665b6f71c526c5917d7c463aa7801ab9fb4e17cadcd3f5d9cc9e6200b6bf",
+        "api_version": "devices.1",
+        "service": "terminal-power-platform"
+      },
+      "parameters": {
+        "project_id": "c0280d53b70640609925bd8991d0ac55",
+        "project_revision": 1,
+        "engineering_revision": 2,
+        "name": "逐设备时序调度",
+        "start": "2026-01-01T01:00:00",
+        "elapsed_hours": 0,
+        "prior_target_history_complete": false,
+        "initial_state_provenance": "用户声明的初态",
+        "steps": 4,
+        "step_hours": 1,
+        "grid_available_kw": [
+          0
+        ],
+        "grid_energy_yuan_per_kwh": 0.5,
+        "storage_cycle_yuan_per_kwh": 0.002,
+        "source_start_cost_yuan": 0.0001,
+        "grid_reactive_limit_kvar": 0,
+        "branch_limit_kva": 5000,
+        "voltage_min_pu": 0.95,
+        "voltage_max_pu": 1.05,
+        "forming_reserve_ratio": 0.02,
+        "initial_energized_nodes": [],
+        "device_availability": {},
+        "line_status": {},
+        "source_commitment": {},
+        "required_energized_nodes": {},
+        "minimum_load_when_energized": {},
+        "initial_source_on": {},
+        "initial_source_power_kw": {},
+        "initial_source_startup_remaining_steps": {},
+        "initial_source_fuel_kwh": {},
+        "initial_source_used_hours": {},
+        "initial_storage_energy_kwh": {},
+        "initial_target_interruption_hours": {},
+        "initial_max_target_interruption_hours": {},
+        "initial_total_target_interruption_hours": {},
+        "source_energy_additions_kwh": {
+          "D": [
+            0,
+            100,
+            0,
+            0
+          ]
+        },
+        "source_forming_reserve_kwh": {},
+        "allow_demand_response": false,
+        "enforce_load_targets": false,
+        "require_complete_target_horizon": true,
+        "load_target_start_hours": {},
+        "include_candidates": false,
+        "allow_zero_demand": false,
+        "time_limit_seconds": 60
+      },
+      "engineering": {
+        "project_id": "c0280d53b70640609925bd8991d0ac55",
+        "project_revision": 1,
+        "revision": 2,
+        "updated": "2026-11-13T15:39:32",
+        "inventory": {
+          "sources": [
+            {
+              "id": "D",
+              "name": "启动机组（人工）",
+              "node": 2,
+              "existing": true,
+              "available": true,
+              "longitude": null,
+              "latitude": null,
+              "provenance": "",
+              "kind": "柴油机",
+              "rated_kw": 10,
+              "minimum_kw": 0,
+              "reactive_limit_kvar": 0,
+              "apparent_limit_kva": null,
+              "startup_minutes": 0,
+              "ramp_kw_per_minute": null,
+              "available_hours": null,
+              "grid_forming": true,
+              "black_start": true,
+              "arrival_minutes": 0,
+              "fuel_kwh": 0,
+              "curve_kw": []
+            }
+          ],
+          "storage": [],
+          "loads": [
+            {
+              "id": "L",
+              "name": "医院（人工）",
+              "node": 2,
+              "existing": true,
+              "available": true,
+              "longitude": null,
+              "latitude": null,
+              "provenance": "",
+              "load_class": "基本保障",
+              "peak_kw": 10,
+              "reactive_kvar": 0,
+              "minimum_supply_ratio": 1,
+              "target_hours": 4,
+              "maximum_curtailment_ratio": 0,
+              "interruption_allowed": false,
+              "maximum_interruption_hours": 0,
+              "priority": 1,
+              "cti": null,
+              "curve_kw": []
+            }
+          ],
+          "transformers": [],
+          "switches": [],
+          "controllers": [],
+          "terminals": [],
+          "communication": [],
+          "economics": {
+            "discount_rate": 0.06,
+            "lifetime_years": 15,
+            "investment_limit_yuan": null,
+            "pv_yuan_per_kw": 3200,
+            "wind_yuan_per_kw": 4200,
+            "storage_power_yuan_per_kw": 750,
+            "storage_energy_yuan_per_kwh": 1100,
+            "fuel_yuan_per_kwh": 1.15,
+            "shortage_yuan_per_kwh": 20,
+            "curtailment_yuan_per_kwh": 6,
+            "annual_maintenance_yuan": 0,
+            "provenance": "界面设计PPT示例成本，需按工程核实"
+          },
+          "scenario_template_id": null,
+          "coordinate_system": "WGS84"
+        },
+        "sha256": "278e04dcd71eb9427e3057cefd9e17f0e3444b3574457d68d52bc5e1d02b4190"
+      },
+      "network": {
+        "name": "衔接人工网络",
+        "source": "人工验证",
+        "base_voltage_kv": 10,
+        "nodes": [
+          {
+            "node": 1,
+            "name": "",
+            "type": 1,
+            "pd_kw": 0,
+            "qd_kvar": 0,
+            "vm_init_pu": 1
+          },
+          {
+            "node": 2,
+            "name": "",
+            "type": 1,
+            "pd_kw": 10,
+            "qd_kvar": 0,
+            "vm_init_pu": 1
+          }
+        ],
+        "lines": [
+          {
+            "line": 1,
+            "name": "",
+            "from_node": 1,
+            "to_node": 2,
+            "r_ohm": 0,
+            "x_ohm": 0,
+            "capacity_kva": 100,
+            "rate_a": 0,
+            "status": 1
+          }
+        ]
+      },
+      "project": {
+        "name": "跨窗口初态与补给人工验证",
+        "region": "",
+        "kind": "乡镇级",
+        "state": {
+          "network": {
+            "name": "衔接人工网络",
+            "source": "人工验证",
+            "base_voltage_kv": 10,
+            "nodes": [
+              {
+                "node": 1,
+                "pd_kw": 0
+              },
+              {
+                "node": 2,
+                "pd_kw": 10
+              }
+            ],
+            "lines": [
+              {
+                "line": 1,
+                "from_node": 1,
+                "to_node": 2,
+                "r_ohm": 0,
+                "x_ohm": 0,
+                "status": 1,
+                "capacity_kva": 100
+              }
+            ]
+          }
+        },
+        "id": "c0280d53b70640609925bd8991d0ac55",
+        "revision": 1,
+        "updated": "2026-11-13T15:39:30"
+      }
+    },
+    "input_sha256": "c9faa197082d6e5be2a2385bb410dd55e2bed1c447998372c8e19049b835b4f7",
+    "result": {
+      "status": "optimal",
+      "method": "devices.radial.horizon-milp.v5",
+      "elapsed_hours_at_start": 0,
+      "rows": [
+        {
+          "timestamp": "2026-01-01T01:00:00",
+          "step_hours": 1,
+          "grid_kw": 0,
+          "grid_kvar": 0,
+          "sources": [
+            {
+              "id": "D",
+              "node": 2,
+              "installed": true,
+              "dispatch_kw": 0,
+              "reactive_kvar": 0,
+              "on": false,
+              "startup_command": false,
+              "available_kw": 0,
+              "online_limit_kw": 0,
+              "renewable_curtailment_kw": 0,
+              "fuel_remaining_kwh": 0
+            }
+          ],
+          "storage": [],
+          "loads": [
+            {
+              "id": "L",
+              "node": 2,
+              "class": "基本保障",
+              "demand_kw": 10,
+              "served_kw": 0,
+              "controlled_curtailment_kw": 0,
+              "shortage_kw": 10,
+              "target_kw": 10,
+              "target_shortage_kw": 10
+            }
+          ],
+          "nodes": [
+            {
+              "node": 1,
+              "energized": false,
+              "linear_voltage_pu": null
+            },
+            {
+              "node": 2,
+              "energized": false,
+              "linear_voltage_pu": null
+            }
+          ],
+          "lines": [
+            {
+              "line": 1,
+              "closed": true,
+              "p_kw": 0,
+              "q_kvar": 0,
+              "limit_kva": 100
+            }
+          ],
+          "load_kw": 10,
+          "served_kw": 0,
+          "controlled_curtailment_kw": 0,
+          "shortage_kw": 10,
+          "total_unsupplied_kw": 10,
+          "power_balance_residual_kw": 0
+        },
+        {
+          "timestamp": "2026-01-01T02:00:00",
+          "step_hours": 1,
+          "grid_kw": 0,
+          "grid_kvar": 0,
+          "sources": [
+            {
+              "id": "D",
+              "node": 2,
+              "installed": true,
+              "dispatch_kw": 10,
+              "reactive_kvar": 0,
+              "on": true,
+              "startup_command": true,
+              "available_kw": 10,
+              "online_limit_kw": 10,
+              "renewable_curtailment_kw": 0,
+              "fuel_remaining_kwh": 90
+            }
+          ],
+          "storage": [],
+          "loads": [
+            {
+              "id": "L",
+              "node": 2,
+              "class": "基本保障",
+              "demand_kw": 10,
+              "served_kw": 10,
+              "controlled_curtailment_kw": 0,
+              "shortage_kw": 0,
+              "target_kw": 10,
+              "target_shortage_kw": 0
+            }
+          ],
+          "nodes": [
+            {
+              "node": 1,
+              "energized": true,
+              "linear_voltage_pu": 1
+            },
+            {
+              "node": 2,
+              "energized": true,
+              "linear_voltage_pu": 1
+            }
+          ],
+          "lines": [
+            {
+              "line": 1,
+              "closed": true,
+              "p_kw": 0,
+              "q_kvar": 0,
+              "limit_kva": 100
+            }
+          ],
+          "load_kw": 10,
+          "served_kw": 10,
+          "controlled_curtailment_kw": 0,
+          "shortage_kw": 0,
+          "total_unsupplied_kw": 0,
+          "power_balance_residual_kw": 0
+        },
+        {
+          "timestamp": "2026-01-01T03:00:00",
+          "step_hours": 1,
+          "grid_kw": 0,
+          "grid_kvar": 0,
+          "sources": [
+            {
+              "id": "D",
+              "node": 2,
+              "installed": true,
+              "dispatch_kw": 10,
+              "reactive_kvar": 0,
+              "on": true,
+              "startup_command": false,
+              "available_kw": 10,
+              "online_limit_kw": 10,
+              "renewable_curtailment_kw": 0,
+              "fuel_remaining_kwh": 80
+            }
+          ],
+          "storage": [],
+          "loads": [
+            {
+              "id": "L",
+              "node": 2,
+              "class": "基本保障",
+              "demand_kw": 10,
+              "served_kw": 10,
+              "controlled_curtailment_kw": 0,
+              "shortage_kw": 0,
+              "target_kw": 10,
+              "target_shortage_kw": 0
+            }
+          ],
+          "nodes": [
+            {
+              "node": 1,
+              "energized": true,
+              "linear_voltage_pu": 1
+            },
+            {
+              "node": 2,
+              "energized": true,
+              "linear_voltage_pu": 1
+            }
+          ],
+          "lines": [
+            {
+              "line": 1,
+              "closed": true,
+              "p_kw": 0,
+              "q_kvar": 0,
+              "limit_kva": 100
+            }
+          ],
+          "load_kw": 10,
+          "served_kw": 10,
+          "controlled_curtailment_kw": 0,
+          "shortage_kw": 0,
+          "total_unsupplied_kw": 0,
+          "power_balance_residual_kw": 0
+        },
+        {
+          "timestamp": "2026-01-01T04:00:00",
+          "step_hours": 1,
+          "grid_kw": 0,
+          "grid_kvar": 0,
+          "sources": [
+            {
+              "id": "D",
+              "node": 2,
+              "installed": true,
+              "dispatch_kw": 10,
+              "reactive_kvar": 0,
+              "on": true,
+              "startup_command": false,
+              "available_kw": 10,
+              "online_limit_kw": 10,
+              "renewable_curtailment_kw": 0,
+              "fuel_remaining_kwh": 70
+            }
+          ],
+          "storage": [],
+          "loads": [
+            {
+              "id": "L",
+              "node": 2,
+              "class": "基本保障",
+              "demand_kw": 10,
+              "served_kw": 10,
+              "controlled_curtailment_kw": 0,
+              "shortage_kw": 0,
+              "target_kw": 10,
+              "target_shortage_kw": 0
+            }
+          ],
+          "nodes": [
+            {
+              "node": 1,
+              "energized": true,
+              "linear_voltage_pu": 1
+            },
+            {
+              "node": 2,
+              "energized": true,
+              "linear_voltage_pu": 1
+            }
+          ],
+          "lines": [
+            {
+              "line": 1,
+              "closed": true,
+              "p_kw": 0,
+              "q_kvar": 0,
+              "limit_kva": 100
+            }
+          ],
+          "load_kw": 10,
+          "served_kw": 10,
+          "controlled_curtailment_kw": 0,
+          "shortage_kw": 0,
+          "total_unsupplied_kw": 0,
+          "power_balance_residual_kw": 0
+        }
+      ],
+      "metrics": {
+        "load_energy_kwh": 40,
+        "served_energy_kwh": 30,
+        "shortage_energy_kwh": 10,
+        "controlled_curtailment_energy_kwh": 0,
+        "total_unsupplied_energy_kwh": 10,
+        "maximum_shortage_kw": 10,
+        "maximum_total_unsupplied_kw": 10,
+        "maximum_balance_residual_kw": 0,
+        "study_dispatch_cost_yuan": 34.5001,
+        "all_load_targets": "failed"
+      },
+      "load_metrics": [
+        {
+          "id": "L",
+          "name": "医院（人工）",
+          "class": "基本保障",
+          "demand_kwh": 40,
+          "served_kwh": 30,
+          "shortage_kwh": 10,
+          "controlled_curtailment_kwh": 0,
+          "continuous_target_supply_hours": 0,
+          "maximum_target_interruption_hours": 1,
+          "total_target_interruption_hours": 1,
+          "current_window_target_interruption_hours": 1,
+          "remaining_target_hours_at_start": 4,
+          "prior_target_history_complete": true,
+          "allowed_consecutive_interruption_hours": 0,
+          "target_hours": 4,
+          "target_status": "failed"
+        }
+      ],
+      "solver": [
+        {
+          "objective": "基本保障最低保供",
+          "status": 0,
+          "message": "Optimization terminated successfully. (HiGHS Status 7: Optimal)",
+          "value": 10,
+          "gap": 0
+        },
+        {
+          "objective": "基本保障未供电",
+          "status": 0,
+          "message": "Optimization terminated successfully. (HiGHS Status 7: Optimal)",
+          "value": 10,
+          "gap": 0
+        },
+        {
+          "objective": "运行成本与循环",
+          "status": 0,
+          "message": "Optimization terminated successfully. (HiGHS Status 7: Optimal)",
+          "value": 34.5001,
+          "gap": 0
+        }
+      ],
+      "runtime_seconds": 0,
+      "maximum_integer_violation": 0,
+      "maximum_constraint_violation": 0,
+      "maximum_bound_violation": 0,
+      "variables": 68,
+      "constraints": 130,
+      "checks": [
+        {
+          "name": "逐设备有功守恒",
+          "status": "passed"
+        },
+        {
+          "name": "交流网损及非线性潮流",
+          "status": "not_checked"
+        },
+        {
+          "name": "离网动态稳定与励磁涌流",
+          "status": "not_checked"
+        },
+        {
+          "name": "通信与实际操作时序",
+          "status": "not_checked"
+        }
+      ],
+      "scope": [
+        "衔接输入包含事件已逝时间、机组前状态/有功/未完成启动、剩余可发电量、已用运行小时、储能实际电量及中断前史。到位和目标时长以同一事件起点计，曲线首项仍对应本次开始时间。",
+        "可发电量补给在指定步开始生效，单位kWh。燃料逐步状态守恒，构网绝对储备可固定，默认参考量取台账初始声明、窗口初始实际库存和最大单次补给量的最大值。空载耗油和启动辅助电量仍需设备数据支持。",
+        "延续事件的完整目标需要完整前史声明。中断最大值和累计值包含给出的已知前史，当前窗口累计另列。前史不足的软目标保留未校核状态。",
+        "硬保供开关默认关闭；启用后按逐负荷是否允许中断及最大连续中断小时建立精确时钟约束，时域须覆盖完整目标。主动削减低于最低供电比例也计目标中断。末步按目标窗口交集计时，不表示步内可以再调度。",
+        "最大连续中断和累计中断分别统计，零目标需求时段终止连续段。事件前史由衔接输入提供，默认初态按新事件起算。",
+        "外部购电、循环和启动成本为显式研究参数，非地区核定价格；非燃料源运行边际成本在本版忽略。",
+        "支持1/5/15/30/60分钟；恢复入口可强制电源启停、节点带电及带电负荷最低投入，旧请求默认不附加这些约束。",
+        "确定性全时域优化使用完整已知曲线，不代表实际灾害预测精度。",
+        "逐设备多时段MILP，按基本保障/居民/一般依次最小化目标缺额及非计划缺供，最后降低运行成本。",
+        "线路容量采用内接八边形保守近似；电压为无损LinDistFlow，不含交流网损和动态稳定结论。",
+        "每个失联分区须有可用构网资源，未初始带电时须有黑启动条件；储能构网预留能量为显式研究参数。",
+        "曲线为分段常值；到位和启动时间向后对齐计算网格，未隐式细分时段。",
+        "燃料按可转化电量kWh记，储能按有效额定能量比例预留，燃料构网采用显式绝对储备或默认参考量比例。储备量与时间步长独立。",
+        "电源停运可重新启动；未建候选默认不参与。负荷调节须显式开启，计划削减与非计划缺供分账。",
+        "当前变压器仅处理变比1的理想支路容量；未提供的风光水曲线不会按额定出力补造。"
+      ]
+    }
+  },
+  "frozen": {
+    "source_record_id": "6f78518e5f174431b5d9fd11136cdb23",
+    "source_snapshot_sha256": "af11452ff67de445dceeb5099d59a8939b7f944e799dcc0e3d18111a52e9f16f",
+    "project_id": "c0280d53b70640609925bd8991d0ac55",
+    "project_revision": 1,
+    "engineering_revision": 1,
+    "committed_steps": 1,
+    "parameters": {
+      "start": "2026-01-01T01:00:00",
+      "step_hours": 1,
+      "include_candidates": false,
+      "require_complete_target_horizon": true,
+      "load_target_start_hours": {},
+      "elapsed_hours": 1,
+      "initial_source_on": {
+        "D": 0
+      },
+      "initial_source_power_kw": {
+        "D": 0
+      },
+      "initial_source_startup_remaining_steps": {
+        "D": 1
+      },
+      "initial_source_fuel_kwh": {
+        "D": 100
+      },
+      "initial_source_used_hours": {
+        "D": 0
+      },
+      "initial_storage_energy_kwh": {},
+      "initial_target_interruption_hours": {
+        "L": 1
+      },
+      "initial_max_target_interruption_hours": {
+        "L": 1
+      },
+      "initial_total_target_interruption_hours": {
+        "L": 1
+      },
+      "initial_energized_nodes": [],
+      "prior_target_history_complete": true,
+      "initial_state_provenance": "参考逐设备归档6f78518e5f174431b5d9fd11136cdb23前1步的末状态，原输入摘要af11452ff67de445dceeb5099d59a8939b7f944e799dcc0e3d18111a52e9f16f",
+      "source_energy_additions_kwh": {},
+      "source_forming_reserve_kwh": {
+        "D": 2
+      }
+    },
+    "instructions": [
+      "参数中的start和elapsed_hours已推进到指定步之后。到位和目标时长继续按原事件起点计。",
+      "后续计算使用本次导出的实际状态，并按新的开始时刻提供源荷、网供、设备和线路曲线。",
+      "已执行补给已计入剩余可发电量，后续补给数组需按新窗口重新填写。"
+    ]
+  },
+  "errors": []
+}

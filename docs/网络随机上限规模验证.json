@@ -1,0 +1,23 @@
+{
+  "model": "case33",
+  "samples": 20,
+  "hours_per_sample": 168,
+  "elapsed_seconds": 25.155,
+  "platform": "Windows-11-10.0.26200-SP0",
+  "processor": "Intel64 Family 6 Model 183 Stepping 1, GenuineIntel",
+  "batch_id": "c4b4060e702d44ebaf186e0d8807ab23",
+  "summary": {
+    "sample_count": 20,
+    "samples_with_shortage": 20,
+    "shortage_sample_probability": 1.0,
+    "shortage_probability_wilson95_lower": 0.8388748419471806,
+    "shortage_probability_wilson95_upper": 1.0,
+    "mean_energy_deficit_kwh": 3263.8290200288893,
+    "p95_energy_deficit_kwh": 6348.407579173865,
+    "mean_shortage_hour_ratio": 0.07827380952380955,
+    "ac_min_voltage_pu": 0.981456956,
+    "mean_voltage_violation_hours": 0.0,
+    "mean_line_loss_energy_kwh": 1199.913527365205
+  },
+  "note": "本机合成输入功能规模验证，非正式验收基准；每样本均执行网络平衡与交流潮流复核。"
+}

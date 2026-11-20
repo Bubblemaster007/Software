@@ -1,0 +1,2710 @@
+{
+  "scope": "人工24小时线路断联/恢复、多源储研究算例；非实测与正式性能验收",
+  "input": {
+    "parameters": {
+      "project_id": "synthetic",
+      "project_revision": 1,
+      "engineering_revision": 1,
+      "name": "逐设备时序调度",
+      "start": "2026-01-01T00:00:00",
+      "steps": 24,
+      "step_hours": 1,
+      "grid_available_kw": [
+        100.0,
+        100.0,
+        100.0,
+        100.0,
+        100.0,
+        100.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        100.0,
+        100.0,
+        100.0,
+        100.0,
+        100.0,
+        100.0
+      ],
+      "grid_energy_yuan_per_kwh": 0.5,
+      "storage_cycle_yuan_per_kwh": 0.002,
+      "source_start_cost_yuan": 0.0001,
+      "grid_reactive_limit_kvar": 0.0,
+      "branch_limit_kva": 5000.0,
+      "voltage_min_pu": 0.95,
+      "voltage_max_pu": 1.05,
+      "forming_reserve_ratio": 0.02,
+      "initial_energized_nodes": [],
+      "device_availability": {},
+      "line_status": {
+        "7": [
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1
+        ]
+      },
+      "allow_demand_response": false,
+      "include_candidates": false,
+      "time_limit_seconds": 60.0
+    },
+    "network": {
+      "name": "自定义电网",
+      "source": "用户录入；参数需核实",
+      "base_voltage_kv": 10,
+      "nodes": [
+        {
+          "node": 1,
+          "name": "",
+          "type": 1,
+          "pd_kw": 0.0,
+          "qd_kvar": 0,
+          "vm_init_pu": 1
+        },
+        {
+          "node": 2,
+          "name": "",
+          "type": 1,
+          "pd_kw": 100.0,
+          "qd_kvar": 0,
+          "vm_init_pu": 1
+        }
+      ],
+      "lines": [
+        {
+          "line": 7,
+          "name": "",
+          "from_node": 1,
+          "to_node": 2,
+          "r_ohm": 0.1,
+          "x_ohm": 0.05,
+          "capacity_kva": 100.0,
+          "rate_a": 0,
+          "status": 1
+        }
+      ]
+    },
+    "inventory": {
+      "sources": [
+        {
+          "id": "PV",
+          "name": "光伏",
+          "node": 2,
+          "existing": true,
+          "available": true,
+          "longitude": null,
+          "latitude": null,
+          "provenance": "",
+          "kind": "光伏",
+          "rated_kw": 70.0,
+          "minimum_kw": 0,
+          "reactive_limit_kvar": 0,
+          "apparent_limit_kva": null,
+          "startup_minutes": 0,
+          "ramp_kw_per_minute": null,
+          "available_hours": null,
+          "grid_forming": false,
+          "black_start": false,
+          "arrival_minutes": 0,
+          "fuel_kwh": null,
+          "curve_kw": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            18.117333157176454,
+            34.99999999999999,
+            49.49747468305833,
+            60.6217782649107,
+            67.61480784023477,
+            70.0,
+            67.61480784023477,
+            60.62177826491071,
+            49.49747468305833,
+            34.99999999999999,
+            18.11733315717647,
+            8.572527594031473e-15,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ]
+        },
+        {
+          "id": "D",
+          "name": "应急机组",
+          "node": 2,
+          "existing": true,
+          "available": true,
+          "longitude": null,
+          "latitude": null,
+          "provenance": "",
+          "kind": "柴油机",
+          "rated_kw": 80.0,
+          "minimum_kw": 10.0,
+          "reactive_limit_kvar": 0,
+          "apparent_limit_kva": null,
+          "startup_minutes": 60.0,
+          "ramp_kw_per_minute": null,
+          "available_hours": null,
+          "grid_forming": true,
+          "black_start": true,
+          "arrival_minutes": 0,
+          "fuel_kwh": 300.0,
+          "curve_kw": []
+        }
+      ],
+      "storage": [
+        {
+          "id": "B",
+          "name": "储能",
+          "node": 2,
+          "existing": true,
+          "available": true,
+          "longitude": null,
+          "latitude": null,
+          "provenance": "",
+          "reactive_limit_kvar": 0,
+          "apparent_limit_kva": null,
+          "mobile": false,
+          "power_kw": 40.0,
+          "energy_kwh": 100.0,
+          "initial_soc": 0.8,
+          "minimum_soc": 0.1,
+          "maximum_soc": 0.95,
+          "charge_efficiency": 0.95,
+          "discharge_efficiency": 0.95,
+          "arrival_minutes": 0,
+          "grid_forming": true,
+          "black_start": true,
+          "temperature_factor": 1
+        }
+      ],
+      "loads": [
+        {
+          "id": "H",
+          "name": "基本保障",
+          "node": 2,
+          "existing": true,
+          "available": true,
+          "longitude": null,
+          "latitude": null,
+          "provenance": "",
+          "load_class": "基本保障",
+          "peak_kw": 50.0,
+          "reactive_kvar": 0,
+          "minimum_supply_ratio": 1,
+          "target_hours": 24.0,
+          "maximum_curtailment_ratio": 0,
+          "interruption_allowed": false,
+          "maximum_interruption_hours": 0,
+          "priority": 1,
+          "cti": null,
+          "curve_kw": []
+        },
+        {
+          "id": "R",
+          "name": "居民",
+          "node": 2,
+          "existing": true,
+          "available": true,
+          "longitude": null,
+          "latitude": null,
+          "provenance": "",
+          "load_class": "居民生活",
+          "peak_kw": 50.0,
+          "reactive_kvar": 0,
+          "minimum_supply_ratio": 0.8,
+          "target_hours": 24.0,
+          "maximum_curtailment_ratio": 0,
+          "interruption_allowed": false,
+          "maximum_interruption_hours": 0,
+          "priority": 1,
+          "cti": null,
+          "curve_kw": []
+        }
+      ],
+      "transformers": [],
+      "switches": [],
+      "controllers": [],
+      "terminals": [],
+      "communication": [],
+      "economics": {
+        "discount_rate": 0.06,
+        "lifetime_years": 15,
+        "investment_limit_yuan": null,
+        "pv_yuan_per_kw": 3200,
+        "wind_yuan_per_kw": 4200,
+        "storage_power_yuan_per_kw": 750,
+        "storage_energy_yuan_per_kwh": 1100,
+        "fuel_yuan_per_kwh": 1.15,
+        "shortage_yuan_per_kwh": 20,
+        "curtailment_yuan_per_kwh": 6,
+        "annual_maintenance_yuan": 0,
+        "provenance": "界面设计PPT示例成本，需按工程核实"
+      },
+      "scenario_template_id": null,
+      "coordinate_system": "WGS84"
+    },
+    "runtime": {
+      "build_id": "3bcd998524fc113ea565763d0be7f109aa25c170bfca6d0f0fba9c4d614dc3b7",
+      "api_version": "devices.1",
+      "service": "terminal-power-platform"
+    }
+  },
+  "result": {
+    "status": "optimal",
+    "method": "devices.radial.horizon-milp.v2",
+    "rows": [
+      {
+        "timestamp": "2026-01-01T00:00:00",
+        "step_hours": 1,
+        "grid_kw": 100.0,
+        "grid_kvar": 0.0,
+        "sources": [
+          {
+            "id": "PV",
+            "node": 2,
+            "dispatch_kw": 0.0,
+            "reactive_kvar": 0.0,
+            "on": false,
+            "startup_command": false,
+            "available_kw": 0.0,
+            "online_limit_kw": 0,
+            "renewable_curtailment_kw": 0,
+            "fuel_remaining_kwh": null
+          },
+          {
+            "id": "D",
+            "node": 2,
+            "dispatch_kw": 0.0,
+            "reactive_kvar": 0.0,
+            "on": false,
+            "startup_command": false,
+            "available_kw": 80.0,
+            "online_limit_kw": 0,
+            "renewable_curtailment_kw": 0,
+            "fuel_remaining_kwh": 300.0
+          }
+        ],
+        "storage": [
+          {
+            "id": "B",
+            "node": 2,
+            "charge_kw": 10.0,
+            "discharge_kw": 0.0,
+            "reactive_kvar": 0.0,
+            "effective_capacity_kwh": 100.0,
+            "energy_begin_kwh": 80.0,
+            "energy_end_kwh": 89.5,
+            "soc": 0.895
+          }
+        ],
+        "loads": [
+          {
+            "id": "H",
+            "node": 2,
+            "class": "基本保障",
+            "demand_kw": 50.0,
+            "served_kw": 50.0,
+            "controlled_curtailment_kw": 0.0,
+            "shortage_kw": 0.0,
+            "target_kw": 50.0,
+            "target_shortage_kw": 0
+          },
+          {
+            "id": "R",
+            "node": 2,
+            "class": "居民生活",
+            "demand_kw": 50.0,
+            "served_kw": 40.0,
+            "controlled_curtailment_kw": 0.0,
+            "shortage_kw": 10.0,
+            "target_kw": 40.0,
+            "target_shortage_kw": 0
+          }
+        ],
+        "nodes": [
+          {
+            "node": 1,
+            "energized": true,
+            "linear_voltage_pu": 1.0
+          },
+          {
+            "node": 2,
+            "energized": true,
+            "linear_voltage_pu": 0.9998999949995
+          }
+        ],
+        "lines": [
+          {
+            "line": 7,
+            "closed": true,
+            "p_kw": 100.0,
+            "q_kvar": 0.0,
+            "limit_kva": 100.0
+          }
+        ],
+        "load_kw": 100.0,
+        "served_kw": 90.0,
+        "controlled_curtailment_kw": 0.0,
+        "shortage_kw": 10.0,
+        "total_unsupplied_kw": 10.0,
+        "power_balance_residual_kw": 0.0
+      },
+      {
+        "timestamp": "2026-01-01T01:00:00",
+        "step_hours": 1,
+        "grid_kw": 100.0,
+        "grid_kvar": 0.0,
+        "sources": [
+          {
+            "id": "PV",
+            "node": 2,
+            "dispatch_kw": 0.0,
+            "reactive_kvar": 0.0,
+            "on": false,
+            "startup_command": false,
+            "available_kw": 0.0,
+            "online_limit_kw": 0,
+            "renewable_curtailment_kw": 0,
+            "fuel_remaining_kwh": null
+          },
+          {
+            "id": "D",
+            "node": 2,
+            "dispatch_kw": 0.0,
+            "reactive_kvar": 0.0,
+            "on": false,
+            "startup_command": false,
+            "available_kw": 80.0,
+            "online_limit_kw": 0,
+            "renewable_curtailment_kw": 0,
+            "fuel_remaining_kwh": 300.0
+          }
+        ],
+        "storage": [
+          {
+            "id": "B",
+            "node": 2,
+            "charge_kw": 5.78947368421052,
+            "discharge_kw": 0.0,
+            "reactive_kvar": 0.0,
+            "effective_capacity_kwh": 100.0,
+            "energy_begin_kwh": 89.5,
+            "energy_end_kwh": 95.0,
+            "soc": 0.95
+          }
+        ],
+        "loads": [
+          {
+            "id": "H",
+            "node": 2,
+            "class": "基本保障",
+            "demand_kw": 50.0,
+            "served_kw": 50.0,
+            "controlled_curtailment_kw": 0.0,
+            "shortage_kw": 0.0,
+            "target_kw": 50.0,
+            "target_shortage_kw": 0
+          },
+          {
+            "id": "R",
+            "node": 2,
+            "class": "居民生活",
+            "demand_kw": 50.0,
+            "served_kw": 44.21052631578948,
+            "controlled_curtailment_kw": 0.0,
+            "shortage_kw": 5.78947368421052,
+            "target_kw": 40.0,
+            "target_shortage_kw": 0
+          }
+        ],
+        "nodes": [
+          {
+            "node": 1,
+            "energized": true,
+            "linear_voltage_pu": 1.0
+          },
+          {
+            "node": 2,
+            "energized": true,
+            "linear_voltage_pu": 0.9998999949995
+          }
+        ],
+        "lines": [
+          {
+            "line": 7,
+            "closed": true,
+            "p_kw": 100.0,
+            "q_kvar": 0.0,
+            "limit_kva": 100.0
+          }
+        ],
+        "load_kw": 100.0,
+        "served_kw": 94.21052631578948,
+        "controlled_curtailment_kw": 0.0,
+        "shortage_kw": 5.78947368421052,
+        "total_unsupplied_kw": 5.78947368421052,
+        "power_balance_residual_kw": 0.0
+      },
+      {
+        "timestamp": "2026-01-01T02:00:00",
+        "step_hours": 1,
+        "grid_kw": 100.0,
+        "grid_kvar": 0.0,
+        "sources": [
+          {
+            "id": "PV",
+            "node": 2,
+            "dispatch_kw": 0.0,
+            "reactive_kvar": 0.0,
+            "on": false,
+            "startup_command": false,
+            "available_kw": 0.0,
+            "online_limit_kw": 0,
+            "renewable_curtailment_kw": 0,
+            "fuel_remaining_kwh": null
+          },
+          {
+            "id": "D",
+            "node": 2,
+            "dispatch_kw": 0.0,
+            "reactive_kvar": 0.0,
+            "on": false,
+            "startup_command": false,
+            "available_kw": 80.0,
+            "online_limit_kw": 0,
+            "renewable_curtailment_kw": 0,
+            "fuel_remaining_kwh": 300.0
+          }
+        ],
+        "storage": [
+          {
+            "id": "B",
+            "node": 2,
+            "charge_kw": 0.0,
+            "discharge_kw": 0.0,
+            "reactive_kvar": 0.0,
+            "effective_capacity_kwh": 100.0,
+            "energy_begin_kwh": 95.0,
+            "energy_end_kwh": 95.0,
+            "soc": 0.95
+          }
+        ],
+        "loads": [
+          {
+            "id": "H",
+            "node": 2,
+            "class": "基本保障",
+            "demand_kw": 50.0,
+            "served_kw": 50.0,
+            "controlled_curtailment_kw": 0.0,
+            "shortage_kw": 0.0,
+            "target_kw": 50.0,
+            "target_shortage_kw": 0
+          },
+          {
+            "id": "R",
+            "node": 2,
+            "class": "居民生活",
+            "demand_kw": 50.0,
+            "served_kw": 50.0,
+            "controlled_curtailment_kw": 0.0,
+            "shortage_kw": 0.0,
+            "target_kw": 40.0,
+            "target_shortage_kw": 0
+          }
+        ],
+        "nodes": [
+          {
+            "node": 1,
+            "energized": true,
+            "linear_voltage_pu": 1.0
+          },
+          {
+            "node": 2,
+            "energized": true,
+            "linear_voltage_pu": 0.9998999949995
+          }
+        ],
+        "lines": [
+          {
+            "line": 7,
+            "closed": true,
+            "p_kw": 100.0,
+            "q_kvar": 0.0,
+            "limit_kva": 100.0
+          }
+        ],
+        "load_kw": 100.0,
+        "served_kw": 100.0,
+        "controlled_curtailment_kw": 0.0,
+        "shortage_kw": 0.0,
+        "total_unsupplied_kw": 0.0,
+        "power_balance_residual_kw": 0.0
+      },
+      {
+        "timestamp": "2026-01-01T03:00:00",
+        "step_hours": 1,
+        "grid_kw": 100.0,
+        "grid_kvar": 0.0,
+        "sources": [
+          {
+            "id": "PV",
+            "node": 2,
+            "dispatch_kw": 0.0,
+            "reactive_kvar": 0.0,
+            "on": false,
+            "startup_command": false,
+            "available_kw": 0.0,
+            "online_limit_kw": 0,
+            "renewable_curtailment_kw": 0,
+            "fuel_remaining_kwh": null
+          },
+          {
+            "id": "D",
+            "node": 2,
+            "dispatch_kw": 0.0,
+            "reactive_kvar": 0.0,
+            "on": false,
+            "startup_command": false,
+            "available_kw": 80.0,
+            "online_limit_kw": 0,
+            "renewable_curtailment_kw": 0,
+            "fuel_remaining_kwh": 300.0
+          }
+        ],
+        "storage": [
+          {
+            "id": "B",
+            "node": 2,
+            "charge_kw": 0.0,
+            "discharge_kw": 0.0,
+            "reactive_kvar": 0.0,
+            "effective_capacity_kwh": 100.0,
+            "energy_begin_kwh": 95.0,
+            "energy_end_kwh": 95.0,
+            "soc": 0.95
+          }
+        ],
+        "loads": [
+          {
+            "id": "H",
+            "node": 2,
+            "class": "基本保障",
+            "demand_kw": 50.0,
+            "served_kw": 50.0,
+            "controlled_curtailment_kw": 0.0,
+            "shortage_kw": 0.0,
+            "target_kw": 50.0,
+            "target_shortage_kw": 0
+          },
+          {
+            "id": "R",
+            "node": 2,
+            "class": "居民生活",
+            "demand_kw": 50.0,
+            "served_kw": 50.0,
+            "controlled_curtailment_kw": 0.0,
+            "shortage_kw": 0.0,
+            "target_kw": 40.0,
+            "target_shortage_kw": 0
+          }
+        ],
+        "nodes": [
+          {
+            "node": 1,
+            "energized": true,
+            "linear_voltage_pu": 1.0
+          },
+          {
+            "node": 2,
+            "energized": true,
+            "linear_voltage_pu": 0.9998999949995
+          }
+        ],
+        "lines": [
+          {
+            "line": 7,
+            "closed": true,
+            "p_kw": 100.0,
+            "q_kvar": 0.0,
+            "limit_kva": 100.0
+          }
+        ],
+        "load_kw": 100.0,
+        "served_kw": 100.0,
+        "controlled_curtailment_kw": 0.0,
+        "shortage_kw": 0.0,
+        "total_unsupplied_kw": 0.0,
+        "power_balance_residual_kw": 0.0
+      },
+      {
+        "timestamp": "2026-01-01T04:00:00",
+        "step_hours": 1,
+        "grid_kw": 100.0,
+        "grid_kvar": 0.0,
+        "sources": [
+          {
+            "id": "PV",
+            "node": 2,
+            "dispatch_kw": 0.0,
+            "reactive_kvar": 0.0,
+            "on": false,
+            "startup_command": false,
+            "available_kw": 0.0,
+            "online_limit_kw": 0,
+            "renewable_curtailment_kw": 0,
+            "fuel_remaining_kwh": null
+          },
+          {
+            "id": "D",
+            "node": 2,
+            "dispatch_kw": 0.0,
+            "reactive_kvar": 0.0,
+            "on": false,
+            "startup_command": false,
+            "available_kw": 80.0,
+            "online_limit_kw": 0,
+            "renewable_curtailment_kw": 0,
+            "fuel_remaining_kwh": 300.0
+          }
+        ],
+        "storage": [
+          {
+            "id": "B",
+            "node": 2,
+            "charge_kw": 0.0,
+            "discharge_kw": 0.0,
+            "reactive_kvar": 0.0,
+            "effective_capacity_kwh": 100.0,
+            "energy_begin_kwh": 95.0,
+            "energy_end_kwh": 95.0,
+            "soc": 0.95
+          }
+        ],
+        "loads": [
+          {
+            "id": "H",
+            "node": 2,
+            "class": "基本保障",
+            "demand_kw": 50.0,
+            "served_kw": 50.0,
+            "controlled_curtailment_kw": 0.0,
+            "shortage_kw": 0.0,
+            "target_kw": 50.0,
+            "target_shortage_kw": 0
+          },
+          {
+            "id": "R",
+            "node": 2,
+            "class": "居民生活",
+            "demand_kw": 50.0,
+            "served_kw": 50.0,
+            "controlled_curtailment_kw": 0.0,
+            "shortage_kw": 0.0,
+            "target_kw": 40.0,
+            "target_shortage_kw": 0
+          }
+        ],
+        "nodes": [
+          {
+            "node": 1,
+            "energized": true,
+            "linear_voltage_pu": 1.0
+          },
+          {
+            "node": 2,
+            "energized": true,
+            "linear_voltage_pu": 0.9998999949995
+          }
+        ],
+        "lines": [
+          {
+            "line": 7,
+            "closed": true,
+            "p_kw": 100.0,
+            "q_kvar": 0.0,
+            "limit_kva": 100.0
+          }
+        ],
+        "load_kw": 100.0,
+        "served_kw": 100.0,
+        "controlled_curtailment_kw": 0.0,
+        "shortage_kw": 0.0,
+        "total_unsupplied_kw": 0.0,
+        "power_balance_residual_kw": 0.0
+      },
+      {
+        "timestamp": "2026-01-01T05:00:00",
+        "step_hours": 1,
+        "grid_kw": 100.0,
+        "grid_kvar": 0.0,
+        "sources": [
+          {
+            "id": "PV",
+            "node": 2,
+            "dispatch_kw": 0.0,
+            "reactive_kvar": 0.0,
+            "on": false,
+            "startup_command": false,
+            "available_kw": 0.0,
+            "online_limit_kw": 0,
+            "renewable_curtailment_kw": 0,
+            "fuel_remaining_kwh": null
+          },
+          {
+            "id": "D",
+            "node": 2,
+            "dispatch_kw": 0.0,
+            "reactive_kvar": 0.0,
+            "on": false,
+            "startup_command": true,
+            "available_kw": 80.0,
+            "online_limit_kw": 0,
+            "renewable_curtailment_kw": 0,
+            "fuel_remaining_kwh": 300.0
+          }
+        ],
+        "storage": [
+          {
+            "id": "B",
+            "node": 2,
+            "charge_kw": 0.0,
+            "discharge_kw": 0.0,
+            "reactive_kvar": 0.0,
+            "effective_capacity_kwh": 100.0,
+            "energy_begin_kwh": 95.0,
+            "energy_end_kwh": 95.0,
+            "soc": 0.95
+          }
+        ],
+        "loads": [
+          {
+            "id": "H",
+            "node": 2,
+            "class": "基本保障",
+            "demand_kw": 50.0,
+            "served_kw": 50.0,
+            "controlled_curtailment_kw": 0.0,
+            "shortage_kw": 0.0,
+            "target_kw": 50.0,
+            "target_shortage_kw": 0
+          },
+          {
+            "id": "R",
+            "node": 2,
+            "class": "居民生活",
+            "demand_kw": 50.0,
+            "served_kw": 50.0,
+            "controlled_curtailment_kw": 0.0,
+            "shortage_kw": 0.0,
+            "target_kw": 40.0,
+            "target_shortage_kw": 0
+          }
+        ],
+        "nodes": [
+          {
+            "node": 1,
+            "energized": true,
+            "linear_voltage_pu": 1.0
+          },
+          {
+            "node": 2,
+            "energized": true,
+            "linear_voltage_pu": 0.9998999949995
+          }
+        ],
+        "lines": [
+          {
+            "line": 7,
+            "closed": true,
+            "p_kw": 100.0,
+            "q_kvar": 0.0,
+            "limit_kva": 100.0
+          }
+        ],
+        "load_kw": 100.0,
+        "served_kw": 100.0,
+        "controlled_curtailment_kw": 0.0,
+        "shortage_kw": 0.0,
+        "total_unsupplied_kw": 0.0,
+        "power_balance_residual_kw": 0.0
+      },
+      {
+        "timestamp": "2026-01-01T06:00:00",
+        "step_hours": 1,
+        "grid_kw": 0.0,
+        "grid_kvar": 0.0,
+        "sources": [
+          {
+            "id": "PV",
+            "node": 2,
+            "dispatch_kw": 0.0,
+            "reactive_kvar": 0.0,
+            "on": false,
+            "startup_command": false,
+            "available_kw": 0.0,
+            "online_limit_kw": 0,
+            "renewable_curtailment_kw": 0,
+            "fuel_remaining_kwh": null
+          },
+          {
+            "id": "D",
+            "node": 2,
+            "dispatch_kw": 10.000000000000007,
+            "reactive_kvar": 0.0,
+            "on": true,
+            "startup_command": false,
+            "available_kw": 80.0,
+            "online_limit_kw": 80.0,
+            "renewable_curtailment_kw": 0,
+            "fuel_remaining_kwh": 290.0
+          }
+        ],
+        "storage": [
+          {
+            "id": "B",
+            "node": 2,
+            "charge_kw": 0.0,
+            "discharge_kw": 40.0,
+            "reactive_kvar": 0.0,
+            "effective_capacity_kwh": 100.0,
+            "energy_begin_kwh": 95.0,
+            "energy_end_kwh": 52.89473684210527,
+            "soc": 0.5289473684210527
+          }
+        ],
+        "loads": [
+          {
+            "id": "H",
+            "node": 2,
+            "class": "基本保障",
+            "demand_kw": 50.0,
+            "served_kw": 50.0,
+            "controlled_curtailment_kw": 0.0,
+            "shortage_kw": 0.0,
+            "target_kw": 50.0,
+            "target_shortage_kw": 0
+          },
+          {
+            "id": "R",
+            "node": 2,
+            "class": "居民生活",
+            "demand_kw": 50.0,
+            "served_kw": 0.0,
+            "controlled_curtailment_kw": 0.0,
+            "shortage_kw": 50.0,
+            "target_kw": 40.0,
+            "target_shortage_kw": 40.0
+          }
+        ],
+        "nodes": [
+          {
+            "node": 1,
+            "energized": false,
+            "linear_voltage_pu": null
+          },
+          {
+            "node": 2,
+            "energized": true,
+            "linear_voltage_pu": 1.0
+          }
+        ],
+        "lines": [
+          {
+            "line": 7,
+            "closed": false,
+            "p_kw": 0.0,
+            "q_kvar": 0.0,
+            "limit_kva": 100.0
+          }
+        ],
+        "load_kw": 100.0,
+        "served_kw": 50.0,
+        "controlled_curtailment_kw": 0.0,
+        "shortage_kw": 50.0,
+        "total_unsupplied_kw": 50.0,
+        "power_balance_residual_kw": 7.105427357601002e-15
+      },
+      {
+        "timestamp": "2026-01-01T07:00:00",
+        "step_hours": 1,
+        "grid_kw": 0.0,
+        "grid_kvar": 0.0,
+        "sources": [
+          {
+            "id": "PV",
+            "node": 2,
+            "dispatch_kw": 18.117333157176454,
+            "reactive_kvar": 0.0,
+            "on": true,
+            "startup_command": true,
+            "available_kw": 18.117333157176454,
+            "online_limit_kw": 18.117333157176454,
+            "renewable_curtailment_kw": 0,
+            "fuel_remaining_kwh": null
+          },
+          {
+            "id": "D",
+            "node": 2,
+            "dispatch_kw": 28.901394530767334,
+            "reactive_kvar": 0.0,
+            "on": true,
+            "startup_command": false,
+            "available_kw": 80.0,
+            "online_limit_kw": 80.0,
+            "renewable_curtailment_kw": 0,
+            "fuel_remaining_kwh": 261.09860546923267
+          }
+        ],
+        "storage": [
+          {
+            "id": "B",
+            "node": 2,
+            "charge_kw": 0.0,
+            "discharge_kw": 2.9812723120562126,
+            "reactive_kvar": 0.0,
+            "effective_capacity_kwh": 100.0,
+            "energy_begin_kwh": 52.89473684210527,
+            "energy_end_kwh": 49.75655546099347,
+            "soc": 0.4975655546099347
+          }
+        ],
+        "loads": [
+          {
+            "id": "H",
+            "node": 2,
+            "class": "基本保障",
+            "demand_kw": 50.0,
+            "served_kw": 50.0,
+            "controlled_curtailment_kw": 0.0,
+            "shortage_kw": 0.0,
+            "target_kw": 50.0,
+            "target_shortage_kw": 0
+          },
+          {
+            "id": "R",
+            "node": 2,
+            "class": "居民生活",
+            "demand_kw": 50.0,
+            "served_kw": 0.0,
+            "controlled_curtailment_kw": 0.0,
+            "shortage_kw": 50.0,
+            "target_kw": 40.0,
+            "target_shortage_kw": 40.0
+          }
+        ],
+        "nodes": [
+          {
+            "node": 1,
+            "energized": false,
+            "linear_voltage_pu": null
+          },
+          {
+            "node": 2,
+            "energized": true,
+            "linear_voltage_pu": 1.0
+          }
+        ],
+        "lines": [
+          {
+            "line": 7,
+            "closed": false,
+            "p_kw": 0.0,
+            "q_kvar": 0.0,
+            "limit_kva": 100.0
+          }
+        ],
+        "load_kw": 100.0,
+        "served_kw": 50.0,
+        "controlled_curtailment_kw": 0.0,
+        "shortage_kw": 50.0,
+        "total_unsupplied_kw": 50.0,
+        "power_balance_residual_kw": 0.0
+      },
+      {
+        "timestamp": "2026-01-01T08:00:00",
+        "step_hours": 1,
+        "grid_kw": 0.0,
+        "grid_kvar": 0.0,
+        "sources": [
+          {
+            "id": "PV",
+            "node": 2,
+            "dispatch_kw": 34.99999999999999,
+            "reactive_kvar": 0.0,
+            "on": true,
+            "startup_command": false,
+            "available_kw": 34.99999999999999,
+            "online_limit_kw": 34.99999999999999,
+            "renewable_curtailment_kw": 0,
+            "fuel_remaining_kwh": null
+          },
+          {
+            "id": "D",
+            "node": 2,
+            "dispatch_kw": 55.00000000000001,
+            "reactive_kvar": 0.0,
+            "on": true,
+            "startup_command": false,
+            "available_kw": 80.0,
+            "online_limit_kw": 80.0,
+            "renewable_curtailment_kw": 0,
+            "fuel_remaining_kwh": 206.09860546923267
+          }
+        ],
+        "storage": [
+          {
+            "id": "B",
+            "node": 2,
+            "charge_kw": 0.0,
+            "discharge_kw": 0.0,
+            "reactive_kvar": 0.0,
+            "effective_capacity_kwh": 100.0,
+            "energy_begin_kwh": 49.75655546099347,
+            "energy_end_kwh": 49.75655546099347,
+            "soc": 0.4975655546099347
+          }
+        ],
+        "loads": [
+          {
+            "id": "H",
+            "node": 2,
+            "class": "基本保障",
+            "demand_kw": 50.0,
+            "served_kw": 50.0,
+            "controlled_curtailment_kw": 0.0,
+            "shortage_kw": 0.0,
+            "target_kw": 50.0,
+            "target_shortage_kw": 0
+          },
+          {
+            "id": "R",
+            "node": 2,
+            "class": "居民生活",
+            "demand_kw": 50.0,
+            "served_kw": 40.0,
+            "controlled_curtailment_kw": 0.0,
+            "shortage_kw": 10.0,
+            "target_kw": 40.0,
+            "target_shortage_kw": 0
+          }
+        ],
+        "nodes": [
+          {
+            "node": 1,
+            "energized": false,
+            "linear_voltage_pu": null
+          },
+          {
+            "node": 2,
+            "energized": true,
+            "linear_voltage_pu": 1.0
+          }
+        ],
+        "lines": [
+          {
+            "line": 7,
+            "closed": false,
+            "p_kw": 0.0,
+            "q_kvar": 0.0,
+            "limit_kva": 100.0
+          }
+        ],
+        "load_kw": 100.0,
+        "served_kw": 90.0,
+        "controlled_curtailment_kw": 0.0,
+        "shortage_kw": 10.0,
+        "total_unsupplied_kw": 10.0,
+        "power_balance_residual_kw": 0.0
+      },
+      {
+        "timestamp": "2026-01-01T09:00:00",
+        "step_hours": 1,
+        "grid_kw": 0.0,
+        "grid_kvar": 0.0,
+        "sources": [
+          {
+            "id": "PV",
+            "node": 2,
+            "dispatch_kw": 49.49747468305833,
+            "reactive_kvar": 0.0,
+            "on": true,
+            "startup_command": false,
+            "available_kw": 49.49747468305833,
+            "online_limit_kw": 49.49747468305833,
+            "renewable_curtailment_kw": 0,
+            "fuel_remaining_kwh": null
+          },
+          {
+            "id": "D",
+            "node": 2,
+            "dispatch_kw": 11.39555202701959,
+            "reactive_kvar": 0.0,
+            "on": true,
+            "startup_command": false,
+            "available_kw": 80.0,
+            "online_limit_kw": 80.0,
+            "renewable_curtailment_kw": 0,
+            "fuel_remaining_kwh": 194.70305344221308
+          }
+        ],
+        "storage": [
+          {
+            "id": "B",
+            "node": 2,
+            "charge_kw": 0.0,
+            "discharge_kw": 26.2192558132152,
+            "reactive_kvar": 0.0,
+            "effective_capacity_kwh": 100.0,
+            "energy_begin_kwh": 49.75655546099347,
+            "energy_end_kwh": 22.157338815503785,
+            "soc": 0.22157338815503785
+          }
+        ],
+        "loads": [
+          {
+            "id": "H",
+            "node": 2,
+            "class": "基本保障",
+            "demand_kw": 50.0,
+            "served_kw": 50.0,
+            "controlled_curtailment_kw": 0.0,
+            "shortage_kw": 0.0,
+            "target_kw": 50.0,
+            "target_shortage_kw": 0
+          },
+          {
+            "id": "R",
+            "node": 2,
+            "class": "居民生活",
+            "demand_kw": 50.0,
+            "served_kw": 37.11228252329312,
+            "controlled_curtailment_kw": 0.0,
+            "shortage_kw": 12.887717476706882,
+            "target_kw": 40.0,
+            "target_shortage_kw": 2.8877174767068823
+          }
+        ],
+        "nodes": [
+          {
+            "node": 1,
+            "energized": false,
+            "linear_voltage_pu": null
+          },
+          {
+            "node": 2,
+            "energized": true,
+            "linear_voltage_pu": 1.0
+          }
+        ],
+        "lines": [
+          {
+            "line": 7,
+            "closed": false,
+            "p_kw": 0.0,
+            "q_kvar": 0.0,
+            "limit_kva": 100.0
+          }
+        ],
+        "load_kw": 100.0,
+        "served_kw": 87.11228252329312,
+        "controlled_curtailment_kw": 0.0,
+        "shortage_kw": 12.887717476706882,
+        "total_unsupplied_kw": 12.887717476706882,
+        "power_balance_residual_kw": 0.0
+      },
+      {
+        "timestamp": "2026-01-01T10:00:00",
+        "step_hours": 1,
+        "grid_kw": 0.0,
+        "grid_kvar": 0.0,
+        "sources": [
+          {
+            "id": "PV",
+            "node": 2,
+            "dispatch_kw": 60.6217782649107,
+            "reactive_kvar": 0.0,
+            "on": true,
+            "startup_command": false,
+            "available_kw": 60.6217782649107,
+            "online_limit_kw": 60.6217782649107,
+            "renewable_curtailment_kw": 0,
+            "fuel_remaining_kwh": null
+          },
+          {
+            "id": "D",
+            "node": 2,
+            "dispatch_kw": 10.0,
+            "reactive_kvar": 0.0,
+            "on": true,
+            "startup_command": false,
+            "available_kw": 80.0,
+            "online_limit_kw": 80.0,
+            "renewable_curtailment_kw": 0,
+            "fuel_remaining_kwh": 184.70305344221308
+          }
+        ],
+        "storage": [
+          {
+            "id": "B",
+            "node": 2,
+            "charge_kw": 0.0,
+            "discharge_kw": 0.0,
+            "reactive_kvar": 0.0,
+            "effective_capacity_kwh": 100.0,
+            "energy_begin_kwh": 22.157338815503785,
+            "energy_end_kwh": 22.15733881550379,
+            "soc": 0.22157338815503788
+          }
+        ],
+        "loads": [
+          {
+            "id": "H",
+            "node": 2,
+            "class": "基本保障",
+            "demand_kw": 50.0,
+            "served_kw": 50.0,
+            "controlled_curtailment_kw": 0.0,
+            "shortage_kw": 0.0,
+            "target_kw": 50.0,
+            "target_shortage_kw": 0
+          },
+          {
+            "id": "R",
+            "node": 2,
+            "class": "居民生活",
+            "demand_kw": 50.0,
+            "served_kw": 20.621778264910702,
+            "controlled_curtailment_kw": 0.0,
+            "shortage_kw": 29.378221735089298,
+            "target_kw": 40.0,
+            "target_shortage_kw": 19.378221735089298
+          }
+        ],
+        "nodes": [
+          {
+            "node": 1,
+            "energized": false,
+            "linear_voltage_pu": null
+          },
+          {
+            "node": 2,
+            "energized": true,
+            "linear_voltage_pu": 1.0
+          }
+        ],
+        "lines": [
+          {
+            "line": 7,
+            "closed": false,
+            "p_kw": 0.0,
+            "q_kvar": 0.0,
+            "limit_kva": 100.0
+          }
+        ],
+        "load_kw": 100.0,
+        "served_kw": 70.6217782649107,
+        "controlled_curtailment_kw": 0.0,
+        "shortage_kw": 29.378221735089298,
+        "total_unsupplied_kw": 29.378221735089298,
+        "power_balance_residual_kw": 0.0
+      },
+      {
+        "timestamp": "2026-01-01T11:00:00",
+        "step_hours": 1,
+        "grid_kw": 0.0,
+        "grid_kvar": 0.0,
+        "sources": [
+          {
+            "id": "PV",
+            "node": 2,
+            "dispatch_kw": 67.61480784023477,
+            "reactive_kvar": 0.0,
+            "on": true,
+            "startup_command": false,
+            "available_kw": 67.61480784023477,
+            "online_limit_kw": 67.61480784023477,
+            "renewable_curtailment_kw": 0,
+            "fuel_remaining_kwh": null
+          },
+          {
+            "id": "D",
+            "node": 2,
+            "dispatch_kw": 22.385192159765225,
+            "reactive_kvar": 0.0,
+            "on": true,
+            "startup_command": false,
+            "available_kw": 80.0,
+            "online_limit_kw": 80.0,
+            "renewable_curtailment_kw": 0,
+            "fuel_remaining_kwh": 162.31786128244784
+          }
+        ],
+        "storage": [
+          {
+            "id": "B",
+            "node": 2,
+            "charge_kw": 0.0,
+            "discharge_kw": 0.0,
+            "reactive_kvar": 0.0,
+            "effective_capacity_kwh": 100.0,
+            "energy_begin_kwh": 22.15733881550379,
+            "energy_end_kwh": 22.15733881550379,
+            "soc": 0.22157338815503788
+          }
+        ],
+        "loads": [
+          {
+            "id": "H",
+            "node": 2,
+            "class": "基本保障",
+            "demand_kw": 50.0,
+            "served_kw": 50.0,
+            "controlled_curtailment_kw": 0.0,
+            "shortage_kw": 0.0,
+            "target_kw": 50.0,
+            "target_shortage_kw": 0
+          },
+          {
+            "id": "R",
+            "node": 2,
+            "class": "居民生活",
+            "demand_kw": 50.0,
+            "served_kw": 40.0,
+            "controlled_curtailment_kw": 0.0,
+            "shortage_kw": 10.0,
+            "target_kw": 40.0,
+            "target_shortage_kw": 0
+          }
+        ],
+        "nodes": [
+          {
+            "node": 1,
+            "energized": false,
+            "linear_voltage_pu": null
+          },
+          {
+            "node": 2,
+            "energized": true,
+            "linear_voltage_pu": 1.0
+          }
+        ],
+        "lines": [
+          {
+            "line": 7,
+            "closed": false,
+            "p_kw": 0.0,
+            "q_kvar": 0.0,
+            "limit_kva": 100.0
+          }
+        ],
+        "load_kw": 100.0,
+        "served_kw": 90.0,
+        "controlled_curtailment_kw": 0.0,
+        "shortage_kw": 10.0,
+        "total_unsupplied_kw": 10.0,
+        "power_balance_residual_kw": 0.0
+      },
+      {
+        "timestamp": "2026-01-01T12:00:00",
+        "step_hours": 1,
+        "grid_kw": 0.0,
+        "grid_kvar": 0.0,
+        "sources": [
+          {
+            "id": "PV",
+            "node": 2,
+            "dispatch_kw": 70.0,
+            "reactive_kvar": 0.0,
+            "on": true,
+            "startup_command": false,
+            "available_kw": 70.0,
+            "online_limit_kw": 70.0,
+            "renewable_curtailment_kw": 0,
+            "fuel_remaining_kwh": null
+          },
+          {
+            "id": "D",
+            "node": 2,
+            "dispatch_kw": 10.0,
+            "reactive_kvar": 0.0,
+            "on": true,
+            "startup_command": false,
+            "available_kw": 80.0,
+            "online_limit_kw": 80.0,
+            "renewable_curtailment_kw": 0,
+            "fuel_remaining_kwh": 152.31786128244784
+          }
+        ],
+        "storage": [
+          {
+            "id": "B",
+            "node": 2,
+            "charge_kw": 0.0,
+            "discharge_kw": 6.328221149702273,
+            "reactive_kvar": 0.0,
+            "effective_capacity_kwh": 100.0,
+            "energy_begin_kwh": 22.15733881550379,
+            "energy_end_kwh": 15.496053394764553,
+            "soc": 0.15496053394764553
+          }
+        ],
+        "loads": [
+          {
+            "id": "H",
+            "node": 2,
+            "class": "基本保障",
+            "demand_kw": 50.0,
+            "served_kw": 50.0,
+            "controlled_curtailment_kw": 0.0,
+            "shortage_kw": 0.0,
+            "target_kw": 50.0,
+            "target_shortage_kw": 0
+          },
+          {
+            "id": "R",
+            "node": 2,
+            "class": "居民生活",
+            "demand_kw": 50.0,
+            "served_kw": 36.32822114970227,
+            "controlled_curtailment_kw": 0.0,
+            "shortage_kw": 13.671778850297727,
+            "target_kw": 40.0,
+            "target_shortage_kw": 3.671778850297727
+          }
+        ],
+        "nodes": [
+          {
+            "node": 1,
+            "energized": false,
+            "linear_voltage_pu": null
+          },
+          {
+            "node": 2,
+            "energized": true,
+            "linear_voltage_pu": 1.0
+          }
+        ],
+        "lines": [
+          {
+            "line": 7,
+            "closed": false,
+            "p_kw": 0.0,
+            "q_kvar": 0.0,
+            "limit_kva": 100.0
+          }
+        ],
+        "load_kw": 100.0,
+        "served_kw": 86.32822114970227,
+        "controlled_curtailment_kw": 0.0,
+        "shortage_kw": 13.671778850297727,
+        "total_unsupplied_kw": 13.671778850297727,
+        "power_balance_residual_kw": 0.0
+      },
+      {
+        "timestamp": "2026-01-01T13:00:00",
+        "step_hours": 1,
+        "grid_kw": 0.0,
+        "grid_kvar": 0.0,
+        "sources": [
+          {
+            "id": "PV",
+            "node": 2,
+            "dispatch_kw": 67.61480784023477,
+            "reactive_kvar": 0.0,
+            "on": true,
+            "startup_command": false,
+            "available_kw": 67.61480784023477,
+            "online_limit_kw": 67.61480784023477,
+            "renewable_curtailment_kw": 0,
+            "fuel_remaining_kwh": null
+          },
+          {
+            "id": "D",
+            "node": 2,
+            "dispatch_kw": 16.328221149702287,
+            "reactive_kvar": 0.0,
+            "on": true,
+            "startup_command": false,
+            "available_kw": 80.0,
+            "online_limit_kw": 80.0,
+            "renewable_curtailment_kw": 0,
+            "fuel_remaining_kwh": 135.98964013274554
+          }
+        ],
+        "storage": [
+          {
+            "id": "B",
+            "node": 2,
+            "charge_kw": 0.0,
+            "discharge_kw": 0.0,
+            "reactive_kvar": 0.0,
+            "effective_capacity_kwh": 100.0,
+            "energy_begin_kwh": 15.496053394764553,
+            "energy_end_kwh": 15.496053394764553,
+            "soc": 0.15496053394764553
+          }
+        ],
+        "loads": [
+          {
+            "id": "H",
+            "node": 2,
+            "class": "基本保障",
+            "demand_kw": 50.0,
+            "served_kw": 50.0,
+            "controlled_curtailment_kw": 0.0,
+            "shortage_kw": 0.0,
+            "target_kw": 50.0,
+            "target_shortage_kw": 0
+          },
+          {
+            "id": "R",
+            "node": 2,
+            "class": "居民生活",
+            "demand_kw": 50.0,
+            "served_kw": 33.94302898993706,
+            "controlled_curtailment_kw": 0.0,
+            "shortage_kw": 16.056971010062938,
+            "target_kw": 40.0,
+            "target_shortage_kw": 6.056971010062938
+          }
+        ],
+        "nodes": [
+          {
+            "node": 1,
+            "energized": false,
+            "linear_voltage_pu": null
+          },
+          {
+            "node": 2,
+            "energized": true,
+            "linear_voltage_pu": 1.0
+          }
+        ],
+        "lines": [
+          {
+            "line": 7,
+            "closed": false,
+            "p_kw": 0.0,
+            "q_kvar": 0.0,
+            "limit_kva": 100.0
+          }
+        ],
+        "load_kw": 100.0,
+        "served_kw": 83.94302898993706,
+        "controlled_curtailment_kw": 0.0,
+        "shortage_kw": 16.056971010062938,
+        "total_unsupplied_kw": 16.056971010062938,
+        "power_balance_residual_kw": 0.0
+      },
+      {
+        "timestamp": "2026-01-01T14:00:00",
+        "step_hours": 1,
+        "grid_kw": 0.0,
+        "grid_kvar": 0.0,
+        "sources": [
+          {
+            "id": "PV",
+            "node": 2,
+            "dispatch_kw": 60.62177826491071,
+            "reactive_kvar": 0.0,
+            "on": true,
+            "startup_command": false,
+            "available_kw": 60.62177826491071,
+            "online_limit_kw": 60.62177826491071,
+            "renewable_curtailment_kw": 0,
+            "fuel_remaining_kwh": null
+          },
+          {
+            "id": "D",
+            "node": 2,
+            "dispatch_kw": 10.0,
+            "reactive_kvar": 0.0,
+            "on": true,
+            "startup_command": false,
+            "available_kw": 80.0,
+            "online_limit_kw": 80.0,
+            "renewable_curtailment_kw": 0,
+            "fuel_remaining_kwh": 125.98964013274554
+          }
+        ],
+        "storage": [
+          {
+            "id": "B",
+            "node": 2,
+            "charge_kw": 0.0,
+            "discharge_kw": 3.321250725026326,
+            "reactive_kvar": 0.0,
+            "effective_capacity_kwh": 100.0,
+            "energy_begin_kwh": 15.496053394764553,
+            "energy_end_kwh": 12.0,
+            "soc": 0.12
+          }
+        ],
+        "loads": [
+          {
+            "id": "H",
+            "node": 2,
+            "class": "基本保障",
+            "demand_kw": 50.0,
+            "served_kw": 50.0,
+            "controlled_curtailment_kw": 0.0,
+            "shortage_kw": 0.0,
+            "target_kw": 50.0,
+            "target_shortage_kw": 0
+          },
+          {
+            "id": "R",
+            "node": 2,
+            "class": "居民生活",
+            "demand_kw": 50.0,
+            "served_kw": 23.943028989937034,
+            "controlled_curtailment_kw": 0.0,
+            "shortage_kw": 26.056971010062966,
+            "target_kw": 40.0,
+            "target_shortage_kw": 16.056971010062966
+          }
+        ],
+        "nodes": [
+          {
+            "node": 1,
+            "energized": false,
+            "linear_voltage_pu": null
+          },
+          {
+            "node": 2,
+            "energized": true,
+            "linear_voltage_pu": 1.0
+          }
+        ],
+        "lines": [
+          {
+            "line": 7,
+            "closed": false,
+            "p_kw": 0.0,
+            "q_kvar": 0.0,
+            "limit_kva": 100.0
+          }
+        ],
+        "load_kw": 100.0,
+        "served_kw": 73.94302898993703,
+        "controlled_curtailment_kw": 0.0,
+        "shortage_kw": 26.056971010062966,
+        "total_unsupplied_kw": 26.056971010062966,
+        "power_balance_residual_kw": 1.4210854715202004e-14
+      },
+      {
+        "timestamp": "2026-01-01T15:00:00",
+        "step_hours": 1,
+        "grid_kw": 0.0,
+        "grid_kvar": 0.0,
+        "sources": [
+          {
+            "id": "PV",
+            "node": 2,
+            "dispatch_kw": 49.49747468305833,
+            "reactive_kvar": 0.0,
+            "on": true,
+            "startup_command": false,
+            "available_kw": 49.49747468305833,
+            "online_limit_kw": 49.49747468305833,
+            "renewable_curtailment_kw": 0,
+            "fuel_remaining_kwh": null
+          },
+          {
+            "id": "D",
+            "node": 2,
+            "dispatch_kw": 39.10697159544998,
+            "reactive_kvar": 0.0,
+            "on": true,
+            "startup_command": false,
+            "available_kw": 80.0,
+            "online_limit_kw": 80.0,
+            "renewable_curtailment_kw": 0,
+            "fuel_remaining_kwh": 86.88266853729556
+          }
+        ],
+        "storage": [
+          {
+            "id": "B",
+            "node": 2,
+            "charge_kw": 0.0,
+            "discharge_kw": 0.0,
+            "reactive_kvar": 0.0,
+            "effective_capacity_kwh": 100.0,
+            "energy_begin_kwh": 12.0,
+            "energy_end_kwh": 12.0,
+            "soc": 0.12
+          }
+        ],
+        "loads": [
+          {
+            "id": "H",
+            "node": 2,
+            "class": "基本保障",
+            "demand_kw": 50.0,
+            "served_kw": 50.0,
+            "controlled_curtailment_kw": 0.0,
+            "shortage_kw": 0.0,
+            "target_kw": 50.0,
+            "target_shortage_kw": 0
+          },
+          {
+            "id": "R",
+            "node": 2,
+            "class": "居民生活",
+            "demand_kw": 50.0,
+            "served_kw": 38.604446278508306,
+            "controlled_curtailment_kw": 0.0,
+            "shortage_kw": 11.395553721491694,
+            "target_kw": 40.0,
+            "target_shortage_kw": 1.3955537214916944
+          }
+        ],
+        "nodes": [
+          {
+            "node": 1,
+            "energized": false,
+            "linear_voltage_pu": null
+          },
+          {
+            "node": 2,
+            "energized": true,
+            "linear_voltage_pu": 1.0
+          }
+        ],
+        "lines": [
+          {
+            "line": 7,
+            "closed": false,
+            "p_kw": 0.0,
+            "q_kvar": 0.0,
+            "limit_kva": 100.0
+          }
+        ],
+        "load_kw": 100.0,
+        "served_kw": 88.6044462785083,
+        "controlled_curtailment_kw": 0.0,
+        "shortage_kw": 11.395553721491694,
+        "total_unsupplied_kw": 11.395553721491694,
+        "power_balance_residual_kw": 0.0
+      },
+      {
+        "timestamp": "2026-01-01T16:00:00",
+        "step_hours": 1,
+        "grid_kw": 0.0,
+        "grid_kvar": 0.0,
+        "sources": [
+          {
+            "id": "PV",
+            "node": 2,
+            "dispatch_kw": 34.99999999999999,
+            "reactive_kvar": 0.0,
+            "on": true,
+            "startup_command": false,
+            "available_kw": 34.99999999999999,
+            "online_limit_kw": 34.99999999999999,
+            "renewable_curtailment_kw": 0,
+            "fuel_remaining_kwh": null
+          },
+          {
+            "id": "D",
+            "node": 2,
+            "dispatch_kw": 15.000000000000007,
+            "reactive_kvar": 0.0,
+            "on": true,
+            "startup_command": false,
+            "available_kw": 80.0,
+            "online_limit_kw": 80.0,
+            "renewable_curtailment_kw": 0,
+            "fuel_remaining_kwh": 71.88266853729556
+          }
+        ],
+        "storage": [
+          {
+            "id": "B",
+            "node": 2,
+            "charge_kw": 0.0,
+            "discharge_kw": 0.0,
+            "reactive_kvar": 0.0,
+            "effective_capacity_kwh": 100.0,
+            "energy_begin_kwh": 12.0,
+            "energy_end_kwh": 12.0,
+            "soc": 0.12
+          }
+        ],
+        "loads": [
+          {
+            "id": "H",
+            "node": 2,
+            "class": "基本保障",
+            "demand_kw": 50.0,
+            "served_kw": 50.0,
+            "controlled_curtailment_kw": 0.0,
+            "shortage_kw": 0.0,
+            "target_kw": 50.0,
+            "target_shortage_kw": 0
+          },
+          {
+            "id": "R",
+            "node": 2,
+            "class": "居民生活",
+            "demand_kw": 50.0,
+            "served_kw": 0.0,
+            "controlled_curtailment_kw": 0.0,
+            "shortage_kw": 50.0,
+            "target_kw": 40.0,
+            "target_shortage_kw": 40.0
+          }
+        ],
+        "nodes": [
+          {
+            "node": 1,
+            "energized": false,
+            "linear_voltage_pu": null
+          },
+          {
+            "node": 2,
+            "energized": true,
+            "linear_voltage_pu": 1.0
+          }
+        ],
+        "lines": [
+          {
+            "line": 7,
+            "closed": false,
+            "p_kw": 0.0,
+            "q_kvar": 0.0,
+            "limit_kva": 100.0
+          }
+        ],
+        "load_kw": 100.0,
+        "served_kw": 50.0,
+        "controlled_curtailment_kw": 0.0,
+        "shortage_kw": 50.0,
+        "total_unsupplied_kw": 50.0,
+        "power_balance_residual_kw": 0.0
+      },
+      {
+        "timestamp": "2026-01-01T17:00:00",
+        "step_hours": 1,
+        "grid_kw": 0.0,
+        "grid_kvar": 0.0,
+        "sources": [
+          {
+            "id": "PV",
+            "node": 2,
+            "dispatch_kw": 18.11733315717647,
+            "reactive_kvar": 0.0,
+            "on": true,
+            "startup_command": false,
+            "available_kw": 18.11733315717647,
+            "online_limit_kw": 18.11733315717647,
+            "renewable_curtailment_kw": 0,
+            "fuel_remaining_kwh": null
+          },
+          {
+            "id": "D",
+            "node": 2,
+            "dispatch_kw": 71.88266684282353,
+            "reactive_kvar": 0.0,
+            "on": true,
+            "startup_command": false,
+            "available_kw": 80.0,
+            "online_limit_kw": 80.0,
+            "renewable_curtailment_kw": 0,
+            "fuel_remaining_kwh": 1.6944720329092888e-06
+          }
+        ],
+        "storage": [
+          {
+            "id": "B",
+            "node": 2,
+            "charge_kw": 0.0,
+            "discharge_kw": 0.0,
+            "reactive_kvar": 0.0,
+            "effective_capacity_kwh": 100.0,
+            "energy_begin_kwh": 12.0,
+            "energy_end_kwh": 12.0,
+            "soc": 0.12
+          }
+        ],
+        "loads": [
+          {
+            "id": "H",
+            "node": 2,
+            "class": "基本保障",
+            "demand_kw": 50.0,
+            "served_kw": 50.0,
+            "controlled_curtailment_kw": 0.0,
+            "shortage_kw": 0.0,
+            "target_kw": 50.0,
+            "target_shortage_kw": 0
+          },
+          {
+            "id": "R",
+            "node": 2,
+            "class": "居民生活",
+            "demand_kw": 50.0,
+            "served_kw": 40.0,
+            "controlled_curtailment_kw": 0.0,
+            "shortage_kw": 10.0,
+            "target_kw": 40.0,
+            "target_shortage_kw": 0
+          }
+        ],
+        "nodes": [
+          {
+            "node": 1,
+            "energized": false,
+            "linear_voltage_pu": null
+          },
+          {
+            "node": 2,
+            "energized": true,
+            "linear_voltage_pu": 1.0
+          }
+        ],
+        "lines": [
+          {
+            "line": 7,
+            "closed": false,
+            "p_kw": 0.0,
+            "q_kvar": 0.0,
+            "limit_kva": 100.0
+          }
+        ],
+        "load_kw": 100.0,
+        "served_kw": 90.0,
+        "controlled_curtailment_kw": 0.0,
+        "shortage_kw": 10.0,
+        "total_unsupplied_kw": 10.0,
+        "power_balance_residual_kw": 0.0
+      },
+      {
+        "timestamp": "2026-01-01T18:00:00",
+        "step_hours": 1,
+        "grid_kw": 100.0,
+        "grid_kvar": 0.0,
+        "sources": [
+          {
+            "id": "PV",
+            "node": 2,
+            "dispatch_kw": 0.0,
+            "reactive_kvar": 0.0,
+            "on": false,
+            "startup_command": false,
+            "available_kw": 8.572527594031473e-15,
+            "online_limit_kw": 0,
+            "renewable_curtailment_kw": 8.572527594031473e-15,
+            "fuel_remaining_kwh": null
+          },
+          {
+            "id": "D",
+            "node": 2,
+            "dispatch_kw": 0.0,
+            "reactive_kvar": 0.0,
+            "on": false,
+            "startup_command": false,
+            "available_kw": 80.0,
+            "online_limit_kw": 0,
+            "renewable_curtailment_kw": 0,
+            "fuel_remaining_kwh": 1.6944720329092888e-06
+          }
+        ],
+        "storage": [
+          {
+            "id": "B",
+            "node": 2,
+            "charge_kw": 0.0,
+            "discharge_kw": 0.0,
+            "reactive_kvar": 0.0,
+            "effective_capacity_kwh": 100.0,
+            "energy_begin_kwh": 12.0,
+            "energy_end_kwh": 12.0,
+            "soc": 0.12
+          }
+        ],
+        "loads": [
+          {
+            "id": "H",
+            "node": 2,
+            "class": "基本保障",
+            "demand_kw": 50.0,
+            "served_kw": 50.0,
+            "controlled_curtailment_kw": 0.0,
+            "shortage_kw": 0.0,
+            "target_kw": 50.0,
+            "target_shortage_kw": 0
+          },
+          {
+            "id": "R",
+            "node": 2,
+            "class": "居民生活",
+            "demand_kw": 50.0,
+            "served_kw": 50.0,
+            "controlled_curtailment_kw": 0.0,
+            "shortage_kw": 0.0,
+            "target_kw": 40.0,
+            "target_shortage_kw": 0
+          }
+        ],
+        "nodes": [
+          {
+            "node": 1,
+            "energized": true,
+            "linear_voltage_pu": 1.0
+          },
+          {
+            "node": 2,
+            "energized": true,
+            "linear_voltage_pu": 0.9998999949995
+          }
+        ],
+        "lines": [
+          {
+            "line": 7,
+            "closed": true,
+            "p_kw": 100.0,
+            "q_kvar": 0.0,
+            "limit_kva": 100.0
+          }
+        ],
+        "load_kw": 100.0,
+        "served_kw": 100.0,
+        "controlled_curtailment_kw": 0.0,
+        "shortage_kw": 0.0,
+        "total_unsupplied_kw": 0.0,
+        "power_balance_residual_kw": 0.0
+      },
+      {
+        "timestamp": "2026-01-01T19:00:00",
+        "step_hours": 1,
+        "grid_kw": 100.0,
+        "grid_kvar": 0.0,
+        "sources": [
+          {
+            "id": "PV",
+            "node": 2,
+            "dispatch_kw": 0.0,
+            "reactive_kvar": 0.0,
+            "on": false,
+            "startup_command": false,
+            "available_kw": 0.0,
+            "online_limit_kw": 0,
+            "renewable_curtailment_kw": 0,
+            "fuel_remaining_kwh": null
+          },
+          {
+            "id": "D",
+            "node": 2,
+            "dispatch_kw": 0.0,
+            "reactive_kvar": 0.0,
+            "on": false,
+            "startup_command": false,
+            "available_kw": 80.0,
+            "online_limit_kw": 0,
+            "renewable_curtailment_kw": 0,
+            "fuel_remaining_kwh": 1.6944720329092888e-06
+          }
+        ],
+        "storage": [
+          {
+            "id": "B",
+            "node": 2,
+            "charge_kw": 0.0,
+            "discharge_kw": 0.0,
+            "reactive_kvar": 0.0,
+            "effective_capacity_kwh": 100.0,
+            "energy_begin_kwh": 12.0,
+            "energy_end_kwh": 12.0,
+            "soc": 0.12
+          }
+        ],
+        "loads": [
+          {
+            "id": "H",
+            "node": 2,
+            "class": "基本保障",
+            "demand_kw": 50.0,
+            "served_kw": 50.0,
+            "controlled_curtailment_kw": 0.0,
+            "shortage_kw": 0.0,
+            "target_kw": 50.0,
+            "target_shortage_kw": 0
+          },
+          {
+            "id": "R",
+            "node": 2,
+            "class": "居民生活",
+            "demand_kw": 50.0,
+            "served_kw": 50.0,
+            "controlled_curtailment_kw": 0.0,
+            "shortage_kw": 0.0,
+            "target_kw": 40.0,
+            "target_shortage_kw": 0
+          }
+        ],
+        "nodes": [
+          {
+            "node": 1,
+            "energized": true,
+            "linear_voltage_pu": 1.0
+          },
+          {
+            "node": 2,
+            "energized": true,
+            "linear_voltage_pu": 0.9998999949995
+          }
+        ],
+        "lines": [
+          {
+            "line": 7,
+            "closed": true,
+            "p_kw": 100.0,
+            "q_kvar": 0.0,
+            "limit_kva": 100.0
+          }
+        ],
+        "load_kw": 100.0,
+        "served_kw": 100.0,
+        "controlled_curtailment_kw": 0.0,
+        "shortage_kw": 0.0,
+        "total_unsupplied_kw": 0.0,
+        "power_balance_residual_kw": 0.0
+      },
+      {
+        "timestamp": "2026-01-01T20:00:00",
+        "step_hours": 1,
+        "grid_kw": 100.0,
+        "grid_kvar": 0.0,
+        "sources": [
+          {
+            "id": "PV",
+            "node": 2,
+            "dispatch_kw": 0.0,
+            "reactive_kvar": 0.0,
+            "on": false,
+            "startup_command": false,
+            "available_kw": 0.0,
+            "online_limit_kw": 0,
+            "renewable_curtailment_kw": 0,
+            "fuel_remaining_kwh": null
+          },
+          {
+            "id": "D",
+            "node": 2,
+            "dispatch_kw": 0.0,
+            "reactive_kvar": 0.0,
+            "on": false,
+            "startup_command": false,
+            "available_kw": 80.0,
+            "online_limit_kw": 0,
+            "renewable_curtailment_kw": 0,
+            "fuel_remaining_kwh": 1.6944720329092888e-06
+          }
+        ],
+        "storage": [
+          {
+            "id": "B",
+            "node": 2,
+            "charge_kw": 0.0,
+            "discharge_kw": 0.0,
+            "reactive_kvar": 0.0,
+            "effective_capacity_kwh": 100.0,
+            "energy_begin_kwh": 12.0,
+            "energy_end_kwh": 11.999999999999975,
+            "soc": 0.11999999999999975
+          }
+        ],
+        "loads": [
+          {
+            "id": "H",
+            "node": 2,
+            "class": "基本保障",
+            "demand_kw": 50.0,
+            "served_kw": 50.0,
+            "controlled_curtailment_kw": 0.0,
+            "shortage_kw": 0.0,
+            "target_kw": 50.0,
+            "target_shortage_kw": 0
+          },
+          {
+            "id": "R",
+            "node": 2,
+            "class": "居民生活",
+            "demand_kw": 50.0,
+            "served_kw": 50.0,
+            "controlled_curtailment_kw": 0.0,
+            "shortage_kw": 0.0,
+            "target_kw": 40.0,
+            "target_shortage_kw": 0
+          }
+        ],
+        "nodes": [
+          {
+            "node": 1,
+            "energized": true,
+            "linear_voltage_pu": 1.0
+          },
+          {
+            "node": 2,
+            "energized": true,
+            "linear_voltage_pu": 0.9998999949995
+          }
+        ],
+        "lines": [
+          {
+            "line": 7,
+            "closed": true,
+            "p_kw": 100.0,
+            "q_kvar": 0.0,
+            "limit_kva": 100.0
+          }
+        ],
+        "load_kw": 100.0,
+        "served_kw": 100.0,
+        "controlled_curtailment_kw": 0.0,
+        "shortage_kw": 0.0,
+        "total_unsupplied_kw": 0.0,
+        "power_balance_residual_kw": 0.0
+      },
+      {
+        "timestamp": "2026-01-01T21:00:00",
+        "step_hours": 1,
+        "grid_kw": 100.0,
+        "grid_kvar": 0.0,
+        "sources": [
+          {
+            "id": "PV",
+            "node": 2,
+            "dispatch_kw": 0.0,
+            "reactive_kvar": 0.0,
+            "on": false,
+            "startup_command": false,
+            "available_kw": 0.0,
+            "online_limit_kw": 0,
+            "renewable_curtailment_kw": 0,
+            "fuel_remaining_kwh": null
+          },
+          {
+            "id": "D",
+            "node": 2,
+            "dispatch_kw": 0.0,
+            "reactive_kvar": 0.0,
+            "on": false,
+            "startup_command": false,
+            "available_kw": 80.0,
+            "online_limit_kw": 0,
+            "renewable_curtailment_kw": 0,
+            "fuel_remaining_kwh": 1.6944720329092888e-06
+          }
+        ],
+        "storage": [
+          {
+            "id": "B",
+            "node": 2,
+            "charge_kw": 0.0,
+            "discharge_kw": 0.0,
+            "reactive_kvar": 0.0,
+            "effective_capacity_kwh": 100.0,
+            "energy_begin_kwh": 11.999999999999975,
+            "energy_end_kwh": 11.999999999999975,
+            "soc": 0.11999999999999975
+          }
+        ],
+        "loads": [
+          {
+            "id": "H",
+            "node": 2,
+            "class": "基本保障",
+            "demand_kw": 50.0,
+            "served_kw": 50.0,
+            "controlled_curtailment_kw": 0.0,
+            "shortage_kw": 0.0,
+            "target_kw": 50.0,
+            "target_shortage_kw": 0
+          },
+          {
+            "id": "R",
+            "node": 2,
+            "class": "居民生活",
+            "demand_kw": 50.0,
+            "served_kw": 50.0,
+            "controlled_curtailment_kw": 0.0,
+            "shortage_kw": 0.0,
+            "target_kw": 40.0,
+            "target_shortage_kw": 0
+          }
+        ],
+        "nodes": [
+          {
+            "node": 1,
+            "energized": true,
+            "linear_voltage_pu": 1.0
+          },
+          {
+            "node": 2,
+            "energized": true,
+            "linear_voltage_pu": 0.9998999949995
+          }
+        ],
+        "lines": [
+          {
+            "line": 7,
+            "closed": true,
+            "p_kw": 100.0,
+            "q_kvar": 0.0,
+            "limit_kva": 100.0
+          }
+        ],
+        "load_kw": 100.0,
+        "served_kw": 100.0,
+        "controlled_curtailment_kw": 0.0,
+        "shortage_kw": 0.0,
+        "total_unsupplied_kw": 0.0,
+        "power_balance_residual_kw": 0.0
+      },
+      {
+        "timestamp": "2026-01-01T22:00:00",
+        "step_hours": 1,
+        "grid_kw": 100.0,
+        "grid_kvar": 0.0,
+        "sources": [
+          {
+            "id": "PV",
+            "node": 2,
+            "dispatch_kw": 0.0,
+            "reactive_kvar": 0.0,
+            "on": false,
+            "startup_command": false,
+            "available_kw": 0.0,
+            "online_limit_kw": 0,
+            "renewable_curtailment_kw": 0,
+            "fuel_remaining_kwh": null
+          },
+          {
+            "id": "D",
+            "node": 2,
+            "dispatch_kw": 0.0,
+            "reactive_kvar": 0.0,
+            "on": false,
+            "startup_command": false,
+            "available_kw": 80.0,
+            "online_limit_kw": 0,
+            "renewable_curtailment_kw": 0,
+            "fuel_remaining_kwh": 1.6944720329092888e-06
+          }
+        ],
+        "storage": [
+          {
+            "id": "B",
+            "node": 2,
+            "charge_kw": 0.0,
+            "discharge_kw": 0.0,
+            "reactive_kvar": 0.0,
+            "effective_capacity_kwh": 100.0,
+            "energy_begin_kwh": 11.999999999999975,
+            "energy_end_kwh": 11.999999999999975,
+            "soc": 0.11999999999999975
+          }
+        ],
+        "loads": [
+          {
+            "id": "H",
+            "node": 2,
+            "class": "基本保障",
+            "demand_kw": 50.0,
+            "served_kw": 50.0,
+            "controlled_curtailment_kw": 0.0,
+            "shortage_kw": 0.0,
+            "target_kw": 50.0,
+            "target_shortage_kw": 0
+          },
+          {
+            "id": "R",
+            "node": 2,
+            "class": "居民生活",
+            "demand_kw": 50.0,
+            "served_kw": 50.0,
+            "controlled_curtailment_kw": 0.0,
+            "shortage_kw": 0.0,
+            "target_kw": 40.0,
+            "target_shortage_kw": 0
+          }
+        ],
+        "nodes": [
+          {
+            "node": 1,
+            "energized": true,
+            "linear_voltage_pu": 1.0
+          },
+          {
+            "node": 2,
+            "energized": true,
+            "linear_voltage_pu": 0.9998999949995
+          }
+        ],
+        "lines": [
+          {
+            "line": 7,
+            "closed": true,
+            "p_kw": 100.0,
+            "q_kvar": 0.0,
+            "limit_kva": 100.0
+          }
+        ],
+        "load_kw": 100.0,
+        "served_kw": 100.0,
+        "controlled_curtailment_kw": 0.0,
+        "shortage_kw": 0.0,
+        "total_unsupplied_kw": 0.0,
+        "power_balance_residual_kw": 0.0
+      },
+      {
+        "timestamp": "2026-01-01T23:00:00",
+        "step_hours": 1,
+        "grid_kw": 98.10000000000002,
+        "grid_kvar": 0.0,
+        "sources": [
+          {
+            "id": "PV",
+            "node": 2,
+            "dispatch_kw": 0.0,
+            "reactive_kvar": 0.0,
+            "on": false,
+            "startup_command": false,
+            "available_kw": 0.0,
+            "online_limit_kw": 0,
+            "renewable_curtailment_kw": 0,
+            "fuel_remaining_kwh": null
+          },
+          {
+            "id": "D",
+            "node": 2,
+            "dispatch_kw": 0.0,
+            "reactive_kvar": 0.0,
+            "on": false,
+            "startup_command": false,
+            "available_kw": 80.0,
+            "online_limit_kw": 0,
+            "renewable_curtailment_kw": 0,
+            "fuel_remaining_kwh": 1.6944720329092888e-06
+          }
+        ],
+        "storage": [
+          {
+            "id": "B",
+            "node": 2,
+            "charge_kw": 0.0,
+            "discharge_kw": 1.8999999999999764,
+            "reactive_kvar": 0.0,
+            "effective_capacity_kwh": 100.0,
+            "energy_begin_kwh": 11.999999999999975,
+            "energy_end_kwh": 10.0,
+            "soc": 0.1
+          }
+        ],
+        "loads": [
+          {
+            "id": "H",
+            "node": 2,
+            "class": "基本保障",
+            "demand_kw": 50.0,
+            "served_kw": 50.0,
+            "controlled_curtailment_kw": 0.0,
+            "shortage_kw": 0.0,
+            "target_kw": 50.0,
+            "target_shortage_kw": 0
+          },
+          {
+            "id": "R",
+            "node": 2,
+            "class": "居民生活",
+            "demand_kw": 50.0,
+            "served_kw": 50.0,
+            "controlled_curtailment_kw": 0.0,
+            "shortage_kw": 0.0,
+            "target_kw": 40.0,
+            "target_shortage_kw": 0
+          }
+        ],
+        "nodes": [
+          {
+            "node": 1,
+            "energized": true,
+            "linear_voltage_pu": 1.0
+          },
+          {
+            "node": 2,
+            "energized": true,
+            "linear_voltage_pu": 0.9999018951877229
+          }
+        ],
+        "lines": [
+          {
+            "line": 7,
+            "closed": true,
+            "p_kw": 98.10000000000002,
+            "q_kvar": 0.0,
+            "limit_kva": 100.0
+          }
+        ],
+        "load_kw": 100.0,
+        "served_kw": 100.0,
+        "controlled_curtailment_kw": 0.0,
+        "shortage_kw": 0.0,
+        "total_unsupplied_kw": 0.0,
+        "power_balance_residual_kw": 0.0
+      }
+    ],
+    "metrics": {
+      "load_energy_kwh": 2400.0,
+      "served_energy_kwh": 2094.763312512078,
+      "shortage_energy_kwh": 305.23668748792204,
+      "controlled_curtailment_energy_kwh": 0.0,
+      "total_unsupplied_energy_kwh": 305.23668748792204,
+      "maximum_shortage_kw": 50.0,
+      "maximum_total_unsupplied_kw": 50.0,
+      "maximum_balance_residual_kw": 1.4210854715202004e-14,
+      "study_dispatch_cost_yuan": 944.2432769987256,
+      "all_load_targets": "failed"
+    },
+    "load_metrics": [
+      {
+        "id": "H",
+        "name": "基本保障",
+        "class": "基本保障",
+        "demand_kwh": 1200.0,
+        "served_kwh": 1200.0,
+        "shortage_kwh": 0.0,
+        "controlled_curtailment_kwh": 0.0,
+        "continuous_target_supply_hours": 24,
+        "maximum_target_interruption_hours": 0,
+        "target_hours": 24.0,
+        "target_status": "passed"
+      },
+      {
+        "id": "R",
+        "name": "居民",
+        "class": "居民生活",
+        "demand_kwh": 1200.0,
+        "served_kwh": 894.763312512078,
+        "shortage_kwh": 305.23668748792204,
+        "controlled_curtailment_kwh": 0.0,
+        "continuous_target_supply_hours": 6,
+        "maximum_target_interruption_hours": 5,
+        "target_hours": 24.0,
+        "target_status": "failed"
+      }
+    ],
+    "solver": [
+      {
+        "objective": "基本保障最低保供",
+        "status": 0,
+        "message": "Optimization terminated successfully. (HiGHS Status 7: Optimal)",
+        "value": 0.0,
+        "gap": 0.0
+      },
+      {
+        "objective": "居民生活最低保供",
+        "status": 0,
+        "message": "Optimization terminated successfully. (HiGHS Status 7: Optimal)",
+        "value": 169.44721210923942,
+        "gap": 0.0
+      },
+      {
+        "objective": "基本保障未供电",
+        "status": 0,
+        "message": "Optimization terminated successfully. (HiGHS Status 7: Optimal)",
+        "value": 0.0,
+        "gap": 0.0
+      },
+      {
+        "objective": "居民生活未供电",
+        "status": 0,
+        "message": "Optimization terminated successfully. (HiGHS Status 7: Optimal)",
+        "value": 305.2366856103907,
+        "gap": 0.0
+      },
+      {
+        "objective": "运行成本与循环",
+        "status": 0,
+        "message": "Optimization terminated successfully. (HiGHS Status 7: Optimal)",
+        "value": 944.2432769987256,
+        "gap": 5.405473480135572e-10
+      }
+    ],
+    "runtime_seconds": 0.09399999999732245,
+    "maximum_integer_violation": 0.0,
+    "maximum_constraint_violation": 2.4868995751603507e-14,
+    "maximum_bound_violation": 0.0,
+    "variables": 733,
+    "constraints": 1183,
+    "checks": [
+      {
+        "name": "逐设备有功守恒",
+        "status": "passed"
+      },
+      {
+        "name": "交流网损及非线性潮流",
+        "status": "not_checked"
+      },
+      {
+        "name": "离网动态稳定与励磁涌流",
+        "status": "not_checked"
+      },
+      {
+        "name": "通信与实际操作时序",
+        "status": "not_checked"
+      }
+    ],
+    "scope": [
+      "外部购电、循环和启动成本为显式研究参数，非地区核定价格；非燃料源运行边际成本在本版忽略。",
+      "确定性全时域优化使用完整已知曲线，不代表实际灾害预测精度。",
+      "逐设备多时段MILP，按基本保障/居民/一般依次最小化目标缺额及非计划缺供，最后降低运行成本。",
+      "线路容量采用内接八边形保守近似；电压为无损LinDistFlow，不含交流网损和动态稳定结论。",
+      "每个失联分区须有可用构网资源，未初始带电时须有黑启动条件；储能构网预留能量为显式研究参数。",
+      "曲线为分段常值；到位和启动时间向后对齐计算网格，未隐式细分时段。",
+      "燃料采用可转化电量kWh上限，未含未提供的空载耗油；储能预留有效额定能量的指定比例，燃料构网机组预留初始可发电量的指定比例，均不随时间步长变化。",
+      "电源停运可重新启动；未建候选默认不参与。负荷调节须显式开启，计划削减与非计划缺供分账。",
+      "当前变压器仅处理变比1的理想支路容量；未提供的风光水曲线不会按额定出力补造。"
+    ]
+  }
+}

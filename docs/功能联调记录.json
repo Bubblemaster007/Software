@@ -1,0 +1,59 @@
+{
+  "project_id": "77bbfc9259b44a9497c2382673a22d5e",
+  "baseline_run_id": "b8a5c90defd645beb7a68801fa39ed78",
+  "adjusted_run_id": "d2ef361dc270448ab35f5c4345a5f8eb",
+  "baseline_eens_kwh": 4589.539010582468,
+  "adjusted_eens_kwh": 0.0,
+  "random_batch_id": "0e8162124c9742369606425d35e8dc5d",
+  "planning_id": "1b2e45bc32b34c7196157a8ff54c6f0c",
+  "planning_verification": {
+    "plan_id": "1b2e45bc32b34c7196157a8ff54c6f0c",
+    "baseline": {
+      "loss_of_load_probability": 0.7083333333333334,
+      "loss_of_load_expectation_hours": 17.0,
+      "curtailment_probability": 0.0,
+      "max_power_deficit_kw": 433.6897201949276,
+      "max_curtailment_kw": 0.0,
+      "expected_energy_deficit_kwh": 4589.539010582468,
+      "expected_curtailment_energy_kwh": 0.0,
+      "critical_load_supply_ratio": 1.0,
+      "important_load_restoration_ratio": 0.9922065445815562,
+      "mobile_reachability": 1.0,
+      "island_required_hours": 24.0,
+      "research_island_required_hours": 0.0,
+      "network_disconnected_load_hours": 0.0,
+      "extreme_event_hours": 0.0
+    },
+    "verified": {
+      "loss_of_load_probability": 0.625,
+      "loss_of_load_expectation_hours": 15.0,
+      "curtailment_probability": 0.0,
+      "max_power_deficit_kw": 334.847411972366,
+      "max_curtailment_kw": 0.0,
+      "expected_energy_deficit_kwh": 3024.8127643047264,
+      "expected_curtailment_energy_kwh": 0.0,
+      "critical_load_supply_ratio": 1.0,
+      "important_load_restoration_ratio": 0.9999999999999999,
+      "mobile_reachability": 1.0,
+      "island_required_hours": 24.0,
+      "research_island_required_hours": 0.0,
+      "network_disconnected_load_hours": 0.0,
+      "extreme_event_hours": 0.0
+    },
+    "run_id": "04b4fc3b5f1b4f768c4d5e6244daf2db",
+    "interpretation": "建议量按新增资源计入，沿用基准接入位置与时序；故障场景容量上限继续生效"
+  },
+  "fault_run_id": "e66096783540461da6c75024382dcdf3",
+  "network_snapshot_hours": 24,
+  "verified_steps": [
+    "工程保存",
+    "网络平衡",
+    "策略调整复算",
+    "随机故障样本",
+    "源储配置试算及复核",
+    "故障与修复拓扑",
+    "结果归档",
+    "CSV与HTML报告",
+    "策略对比报告"
+  ]
+}
