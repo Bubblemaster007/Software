@@ -18,3 +18,6 @@ __pycache__/
 *.db-*
 *.sqlite*
 *.log
+
+# Historical verification archives may contain database snapshots
+/docs/*.zip
