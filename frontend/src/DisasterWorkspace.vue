@@ -1,4 +1,8 @@
 <script setup lang="ts">
+import {useParameterTransaction} from './useParameterTransaction';
+import ParameterDialog from './ParameterDialog.vue';
+const settingsOpen=ref(false);
+defineExpose({openSettings:()=>settingsOpen.value=true});
 import {computed,ref,watch,onBeforeUnmount} from 'vue';
 import {apiError} from './apiError';
 const props=defineProps<{projectId:string;section:string}>();
@@ -27,7 +31,7 @@ async function refresh(){const g=++generation;clearTimeout(timer);busy.value=fal
  try{const [p,e,h]=await Promise.all([api('/api/projects/'+props.projectId),api('/api/engineering/projects/'+props.projectId),api('/api/study-jobs?project_id='+props.projectId)]);const n=p.state.network||await api('/api/network/case33');if(g!==generation)return;project.value=p;engineering.value=e;network.value=n;jobs.value=h.filter((j:any)=>j.module==='disaster_scan');add();if(jobs.value.length)await inspect(jobs.value[0].id)}catch(e){if(g===generation)error.value=String(e)}}
 async function poll(id:string,g:number){if(g!==generation)return;try{const d=await api('/api/study-jobs/'+id);if(g!==generation||job.value?.id!==id)return;if(terminal.has(d.status)){const full=await api('/api/study-jobs/'+id+'?include_input=true&include_result=true');if(g!==generation||job.value?.id!==id)return;job.value=full;const h=await api('/api/study-jobs?project_id='+props.projectId);if(g===generation)jobs.value=h.filter((j:any)=>j.module==='disaster_scan')}else{job.value=d;timer=setTimeout(()=>poll(id,g),1200)}}catch(e){if(g===generation){error.value=String(e);timer=setTimeout(()=>poll(id,g),3000)}}}
 async function inspect(id:string){clearTimeout(timer);const g=generation;try{const d=await api('/api/study-jobs/'+id+'?include_input=true&include_result=true');if(g!==generation||d.project_id!==props.projectId)return;job.value=d;if(!terminal.has(d.status))timer=setTimeout(()=>poll(id,g),500)}catch(e){if(g===generation)error.value=String(e)}}
-async function submit(){const g=generation;busy.value=true;error.value='';try{if(!engineering.value?.revision||!project.value)throw Error('请先保存本工程的设备及负荷台账');const extra=JSON.parse(advanced.value);if(!extra||Array.isArray(extra)||typeof extra!=='object')throw Error('调度参数须为JSON对象');const base={...extra,project_id:props.projectId,project_revision:project.value.revision,engineering_revision:engineering.value.revision,name:name.value,steps:steps.value,step_hours:dt.value,grid_available_kw:numeric(grid.value)};
+async function submit(){commitSettings(false);const g=generation;busy.value=true;error.value='';try{if(!engineering.value?.revision||!project.value)throw Error('请先保存本工程的设备及负荷台账');const extra=JSON.parse(advanced.value);if(!extra||Array.isArray(extra)||typeof extra!=='object')throw Error('调度参数须为JSON对象');const base={...extra,project_id:props.projectId,project_revision:project.value.revision,engineering_revision:engineering.value.revision,name:name.value,steps:steps.value,step_hours:dt.value,grid_available_kw:numeric(grid.value)};
  const f=fragilities.value.map(({target,weakness,...values})=>{const split=target.indexOf(':');return {...values,kind:target.slice(0,split),target_id:target.slice(split+1)}});
  const parameters={base,name:name.value,intensities:numeric(intensities.value),durations_hours:numeric(durations.value),event_start_step:eventStart.value,samples:samples.value,seed:seed.value,fragilities:f,criterion:criterion.value,maximum_unsupplied_kwh:budget.value,required_success_probability:probability.value,confidence:confidence.value,judgement:judgement.value,wall_time_seconds:wallTime.value,weakness_targets:fragilities.value.filter(f=>f.weakness).map(f=>f.target)};
  const d=await api('/api/study-jobs',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({module:'disaster_scan',parameters})});if(g!==generation)return;job.value=d;jobs.value=[d,...jobs.value];timer=setTimeout(()=>poll(d.id,g),300)}catch(e){if(g===generation)error.value=String(e)}finally{if(g===generation)busy.value=false}}
@@ -35,11 +39,12 @@ async function cancel(){const id=job.value?.id,g=generation;if(!id)return;try{co
 async function retry(){const id=job.value?.id,g=generation;busy.value=true;try{const d=await api('/api/study-jobs/'+id+'/retry',{method:'POST'});if(g===generation){job.value=d;jobs.value=[d,...jobs.value];timer=setTimeout(()=>poll(d.id,g),200)}}catch(e){if(g===generation)error.value=String(e)}finally{if(g===generation)busy.value=false}}
 watch(()=>props.projectId,refresh,{immediate:true});onBeforeUnmount(()=>{++generation;clearTimeout(timer)});
 const fmt=(n:any,d=3)=>typeof n==='number'?n.toFixed(d):'—';
+const commitSettings=useParameterTransaction(settingsOpen,{name,dt,steps,eventStart,intensities,durations,grid,samples,seed,wallTime,criterion,budget,probability,confidence,judgement,advanced});
 </script>
 <template>
-<article><h3>承灾极限分析 · {{section}}</h3><p>按强度与持续时长抽样设备故障，逐场景调用实际多节点源储MILP。参考概率和共因相关结构须有来源；当前为用户参数下的条件研究，边界限于已扫描范围，动态稳定、涌流与通信未校核。</p><p v-if="error" class="error">{{error}}</p>
+<article><h3>承灾扫描参数</h3><p>参数集中编辑，任务和结果沿用冻结输入。编辑后在弹窗内明确提交。</p><button class="settings-trigger" @click="settingsOpen=true">承灾扫描参数</button></article><ParameterDialog transactional @apply="commitSettings()" v-model:open="settingsOpen" title="承灾扫描参数"><article><h3>承灾极限分析 · {{section}}</h3><p>按强度与持续时长抽样设备故障，逐场景调用实际多节点源储MILP。参考概率和共因相关结构须有来源；当前为用户参数下的条件研究，边界限于已扫描范围，动态稳定、涌流与通信未校核。</p><p v-if="error" class="error">{{error}}</p>
  <div class="actions"><button @click="refresh" :disabled="busy">重新读取输入与任务</button><span>工程版本 {{project?.revision||'—'}} / 台账版本 {{engineering?.revision||0}} / 当前最多2个后台研究任务</span></div>
- <template v-if="section==='分析设置'">
+ <template >
  <div class="fields">
  <label>任务名称<input v-model="name"></label><label>时间步 / h<select v-model.number="dt"><option :value=".25">0.25</option><option :value=".5">0.5</option><option :value="1">1</option></select></label>
  <label>总步数<input type="number" v-model.number="steps" min="1" max="672"></label><label>事件起始步（从0计）<input type="number" v-model.number="eventStart" min="0"></label>
@@ -61,7 +66,7 @@ const fmt=(n:any,d=3)=>typeof n==='number'?n.toFixed(d):'—';
  <details><summary>调度高级参数 JSON：曲线、基准故障、燃料与构网条件等</summary><p>覆盖DispatchInput中除工程版本、名称、步数、时间步、外部供电以外的字段。负荷和源储曲线来自已保存台账，不会隐式截取或重采样。</p><textarea v-model="advanced" rows="8" spellcheck="false"></textarea></details>
  <button class="primary" @click="submit" :disabled="busy||!engineering?.revision">{{busy?'正在提交…':'冻结输入并提交后台扫描'}}</button>
  </template>
-</article>
+</article></ParameterDialog>
 <article v-if="job"><h3>任务 {{job.name}} · {{statusNames[job.status]||job.status}}</h3><p>{{job.id}} · 输入摘要 {{job.input_sha256}}</p>
  <p v-if="job.input">本档案判据：{{job.input.parameters.criterion==='energy_budget'?'总未供电量 ≤ '+job.input.parameters.maximum_unsupplied_kwh+' kWh':'逐负荷分类目标'}}；{{job.input.parameters.judgement==='empirical'?'经验成功比例':'Wilson置信下界'}} ≥ {{job.input.parameters.required_success_probability}}；置信度 {{job.input.parameters.confidence}}；每工况样本 {{job.input.parameters.samples}}，种子 {{job.input.parameters.seed}}。表格和结论取自冻结参数。</p>
  <progress :value="job.progress?.fraction||0" max="1"></progress><p>{{job.progress?.phase}} · 已完成 {{job.progress?.completed||0}} / {{job.progress?.total||'—'}} · 当前强度 {{job.progress?.intensity??'—'}} · 时长 {{job.progress?.duration_hours??'—'}} h</p>

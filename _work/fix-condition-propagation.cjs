@@ -1,0 +1,1 @@
+const fs=require('fs');let s=fs.readFileSync('backend/app.py','utf8');s=s.replaceAll("model=source.get('model','aggregate'),engineering_revision=","model=source.get('model','aggregate'),operating_condition=source.get('operating_condition'),engineering_revision=");fs.writeFileSync('backend/app.py',s);

@@ -35,7 +35,10 @@ class EditableNetworkTests(unittest.TestCase):
    self.payload['failed_lines']=ids
    self.assertEqual(self.c.post('/api/balance',json=self.payload).status_code,422)
  def test_source_data_conversion(self):
-  files=self.c.get('/api/alashankou').json()['files'];loads=[f for f in files if f['kind']=='load'];self.assertEqual(len(loads),2)
+  files=self.c.get('/api/alashankou').json()['files'];loads=[f for f in files if f['kind']=='load'];self.assertTrue(loads)
+  self.assertTrue(all('6.22' not in f['name'] for f in loads))
+  for f in files:
+   if '6.22' in f['name']:self.assertEqual(self.c.get('/api/alashankou/'+f['id']+'/preview').status_code,410)
   for f in loads:
    mw=self.c.get('/api/alashankou/'+f['id']+'/preview?unit=MW');self.assertEqual(mw.status_code,200,mw.text)
    kw=self.c.get('/api/alashankou/'+f['id']+'/preview?unit=kW').json()
@@ -47,7 +50,7 @@ class EditableNetworkTests(unittest.TestCase):
    self.assertEqual(run.status_code,200,run.text)
    self.assertEqual(run.json()['source_import'],d['source_import'])
    self.assertAlmostEqual(run.json()['metrics']['expected_energy_deficit_kwh'],0)
-   self.assertIn('阿拉山口源荷来源',self.c.get('/api/runs/'+run.json()['id']+'/report').text)
+  self.assertIn('风光荷输入来源与转换',self.c.get('/api/runs/'+run.json()['id']+'/report').text)
   wind=next(f for f in files if f['kind']=='wind_monthly')
   d=self.c.get('/api/alashankou/'+wind['id']+'/preview').json();self.assertEqual(d['kind'],'wind_monthly');self.assertNotIn('csv',d)
 if __name__=='__main__':unittest.main()

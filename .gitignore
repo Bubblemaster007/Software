@@ -14,6 +14,7 @@ __pycache__/
 # Local project data and original research materials
 /data/
 /SourceData/
+/阿拉山口_重建风光荷与拓扑_20261121/
 *.db
 *.db-*
 *.sqlite*

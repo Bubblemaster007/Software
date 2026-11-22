@@ -30,6 +30,12 @@ app.include_router(workspace_router)
 app.include_router(network_router)
 from backend.alashankou import router as alashankou_router
 app.include_router(alashankou_router)
+from backend.input_datasets import router as input_datasets_router
+app.include_router(input_datasets_router)
+from backend.source_import import router as source_import_router
+app.include_router(source_import_router)
+from backend.workflow_progress import router as workflow_progress_router
+app.include_router(workflow_progress_router)
 from backend.engineering import router as engineering_router
 from backend.development_plan import router as development_plan_router
 from backend.effect_evaluation import router as effect_evaluation_router
@@ -95,6 +101,7 @@ class Request(BaseModel):
  engineering_revision:int|None=Field(None,ge=0)
  scenario_id:str|None=None
  production_sequence_id:str|None=None
+ operating_condition:Literal['normal','extreme']|None=None
  network:Network|None=None
  source_import:dict|None=None
  network_parameters:NetworkParameters=Field(default_factory=NetworkParameters)
@@ -119,6 +126,7 @@ def demo():
 @app.post('/api/balance')
 def balance(req:Request):
  try:
+  if req.source_import and any(x in str(req.source_import.get('file','')) for x in ('6.22','6．22','6月22')):raise ValueError('6.22典型日已退出计算输入，请重新选择历史风光荷数据')
   df=pd.read_csv(io.StringIO(req.csv));required=['timestamp','load_kw','wind_kw','pv_kw']
   if list(df.columns)!=required:raise ValueError('首版CSV列必须依次为 timestamp,load_kw,wind_kw,pv_kw')
   if not 2<=len(df)<=8760:raise ValueError('需提供2至8760条逐小时数据')
@@ -207,6 +215,7 @@ def balance(req:Request):
   phase_input=hourly.assign(simulation_id='single',event_id='configured',power_loss_mw=hourly.power_deficit_kw/1000,curtailment_mw=hourly.curtailment_kw/1000)
   phase_summary,_=compute_phase_metrics(phase_input,1,1e-9,'用户输入单轨迹；比例为缺供时段占比')
   result={'project_id':req.project_id,'project_revision':req.project_revision,'scenario_id':effective_scenario_id,'stages':[stage.model_dump() for stage in stages],'phase_metrics':json.loads(phase_summary.to_json(orient='records',force_ascii=False)),'id':uuid.uuid4().hex,'created':datetime.now().isoformat(timespec='seconds'),'parameters':params,'metrics':metrics,'rows':json.loads(hourly.to_json(orient='records',date_format='iso')),'strategies':json.loads(trigger_strategies(metrics).to_json(orient='records',force_ascii=False)),'input_csv':req.csv,'model':req.model,'failed_lines':req.failed_lines,'branch_limit_kw':req.branch_limit_kw,'algorithm':'topic2.'+req.model+'.v1','scope':('辐射网络节点线性调度与交流潮流复核；仅校核与根节点连通区域，不含孤岛动态稳定' if req.model=='case33' else '汇总逐小时调度；不含节点潮流与稳定校核')}
+  result['operating_condition']=req.operating_condition
   result['scenario_snapshot']=scenario if effective_scenario_id else None
   if network_details:result['network_details']=network_details
   if engineering_ref is not None:
@@ -226,14 +235,16 @@ def balance(req:Request):
   with closing(db()) as c,c:c.execute('INSERT INTO runs VALUES(?,?,?)',(result['id'],result['created'],json.dumps(result,ensure_ascii=False,allow_nan=False)))
   return result
  except (ValueError,KeyError,TypeError,RuntimeError) as e:raise HTTPException(422,str(e))
-def run_archive_page(project_id,limit,offset,kind='all'):
+def run_archive_page(project_id,limit,offset,kind='all',operating_condition=None):
  conditions=[];arguments=[]
  if project_id is not None:conditions.append("json_extract(payload,'$.project_id')=?");arguments.append(project_id)
  if kind=='random':conditions.append("json_extract(payload,'$.random_batch_id') IS NOT NULL")
  elif kind=='adjustment':conditions.append("json_extract(payload,'$.baseline_run_id') IS NOT NULL AND json_extract(payload,'$.random_batch_id') IS NULL")
  elif kind=='baseline':conditions.append("json_extract(payload,'$.baseline_run_id') IS NULL AND json_extract(payload,'$.random_batch_id') IS NULL")
+ if operating_condition in ('normal','extreme'):conditions.append("json_extract(payload,'$.operating_condition')=?");arguments.append(operating_condition)
+ elif operating_condition=='unknown':conditions.append("json_extract(payload,'$.operating_condition') IS NULL")
  where=(' WHERE '+' AND '.join(conditions)) if conditions else ''
- keys=['id','created','project_id','project_revision','model','scenario_id','baseline_run_id','random_batch_id','plan_id','algorithm']
+ keys=['id','created','project_id','project_revision','model','scenario_id','baseline_run_id','random_batch_id','plan_id','algorithm','operating_condition']
  columns=','.join("json_extract(payload,'$."+key+"')" for key in keys)
  with closing(db()) as c:
   total=c.execute('SELECT COUNT(*) FROM runs'+where,arguments).fetchone()[0]
@@ -243,8 +254,8 @@ def run_archive_page(project_id,limit,offset,kind='all'):
 def runs(project_id:str|None=None,limit:int=Query(100,ge=1,le=100),offset:int=Query(0,ge=0)):
  return run_archive_page(project_id,limit,offset)['items']
 @app.get('/api/run-archive')
-def run_archive(project_id:str,limit:int=Query(20,ge=1,le=100),offset:int=Query(0,ge=0),kind:Literal['all','baseline','adjustment','random']='all'):
- return run_archive_page(project_id,limit,offset,kind)
+def run_archive(project_id:str,limit:int=Query(20,ge=1,le=100),offset:int=Query(0,ge=0),kind:Literal['all','baseline','adjustment','random']='all',operating_condition:Literal['all','normal','extreme','unknown']='all'):
+ return run_archive_page(project_id,limit,offset,kind,operating_condition)
 @app.get('/api/runs/{run_id}')
 def get_run(run_id:str):
  with closing(db()) as c,c:r=c.execute('SELECT payload FROM runs WHERE id=?',(run_id,)).fetchone()
@@ -270,7 +281,7 @@ def report(run_id:str):
  if r.get('strategy_adjustments'):
   html+='<h2>策略调整参数</h2><pre>'+escape(json.dumps(r['strategy_adjustments'],ensure_ascii=False,indent=2))+'</pre>'
  html+='<h2>网络接入与电压约束</h2>'+table([r.get('network_parameters',{'wind_node':18,'pv_node':30})]) if r.get('model')=='case33' else ''
- if r.get('source_import'):html+='<h2>阿拉山口源荷来源</h2>'+table([r['source_import']])
+ if r.get('source_import'):html+='<h2>风光荷输入来源与转换</h2>'+table([r['source_import']])
  if r.get('network'):
   html+='<h2>计算网络快照</h2>'+table([{k:v for k,v in r['network'].items() if k not in ('nodes','lines')}])+table(r['network']['nodes'])+table(r['network']['lines'])
  html+='<h2>阶段与故障设置</h2>'+table(r.get('stages',[]))
@@ -417,7 +428,7 @@ def verify_plan(plan_id:str):
   raise HTTPException(422,'该建议包含移动资源，尚缺接入时序与位置，不能自动复核')
  params=dict(source['parameters'])
  for key in ['storage_power_kw','storage_energy_kwh','emergency_gen_kw']:params[key]+=plan['recommended_plan'][key]
- req=Request(csv=source['input_csv'],parameters=Parameters(**params),model=source.get('model','aggregate'),engineering_revision=source.get('engineering',{}).get('revision'),network=source.get('network'),source_import=source.get('source_import'),network_parameters=source.get('network_parameters',{}),stages=source.get('stages',[]),failed_lines=source.get('failed_lines',[]),branch_limit_kw=source.get('branch_limit_kw',5000),scenario_id=source.get('scenario_id'),production_sequence_id=source.get('production_sequence_id'),project_id=source.get('project_id'),project_revision=(project_record(source['project_id'])['revision'] if source.get('project_id') else None))
+ req=Request(csv=source['input_csv'],parameters=Parameters(**params),model=source.get('model','aggregate'),operating_condition=source.get('operating_condition'),engineering_revision=source.get('engineering',{}).get('revision'),network=source.get('network'),source_import=source.get('source_import'),network_parameters=source.get('network_parameters',{}),stages=source.get('stages',[]),failed_lines=source.get('failed_lines',[]),branch_limit_kw=source.get('branch_limit_kw',5000),scenario_id=source.get('scenario_id'),production_sequence_id=source.get('production_sequence_id'),project_id=source.get('project_id'),project_revision=(project_record(source['project_id'])['revision'] if source.get('project_id') else None))
  checked=balance(req)
  checked['verification_of_plan']=plan_id
  checked['baseline_run_id']=source['id']
@@ -445,7 +456,7 @@ def evaluate_strategy(req:StrategyEvaluation):
  frame=pd.read_csv(io.StringIO(source['input_csv']))
  frame['wind_kw']*=req.wind_scale
  frame['pv_kw']*=req.pv_scale
- checked=balance(Request(csv=(source['input_csv'] if req.wind_scale==1 and req.pv_scale==1 else frame.to_csv(index=False)),parameters=req.parameters,model=source.get('model','aggregate'),engineering_revision=source.get('engineering',{}).get('revision'),network=source.get('network'),source_import=source.get('source_import'),network_parameters=source.get('network_parameters',{}),stages=source.get('stages',[]),failed_lines=source.get('failed_lines',[]),branch_limit_kw=source.get('branch_limit_kw',5000),scenario_id=source.get('scenario_id'),production_sequence_id=(source.get('production_sequence_id') if req.wind_scale==1 and req.pv_scale==1 else None),project_id=source.get('project_id'),project_revision=(project_record(source['project_id'])['revision'] if source.get('project_id') else None)))
+ checked=balance(Request(csv=(source['input_csv'] if req.wind_scale==1 and req.pv_scale==1 else frame.to_csv(index=False)),parameters=req.parameters,model=source.get('model','aggregate'),operating_condition=source.get('operating_condition'),engineering_revision=source.get('engineering',{}).get('revision'),network=source.get('network'),source_import=source.get('source_import'),network_parameters=source.get('network_parameters',{}),stages=source.get('stages',[]),failed_lines=source.get('failed_lines',[]),branch_limit_kw=source.get('branch_limit_kw',5000),scenario_id=source.get('scenario_id'),production_sequence_id=(source.get('production_sequence_id') if req.wind_scale==1 and req.pv_scale==1 else None),project_id=source.get('project_id'),project_revision=(project_record(source['project_id'])['revision'] if source.get('project_id') else None)))
  checked['baseline_run_id']=source['id']
  checked['strategy_adjustments']=req.model_dump(exclude={'source_run_id'})
  checked['interpretation']='同一时间轴、阶段、拓扑与故障场景下复算；资源沿用基准接入位置，故障场景容量上限仍生效；风光系数调整出力，不等同装机优化。'
@@ -477,7 +488,7 @@ def random_balance(req:RandomBalanceRequest):
  for index in range(req.samples):
   seed=req.seed+index
   scene=sequential_scenario(SequentialInput(project_id=source['project_id'],name=f'随机平衡{batch_id[:8]}-样本{index+1}',csv=source['input_csv'],resource=req.resource,rated_kw=req.rated_kw,rate_per_hour=req.rate_per_hour,repair_hours=req.repair_hours,seed=seed))
-  result=balance(Request(csv=source['input_csv'],parameters=Parameters(**source['parameters']),project_id=source['project_id'],project_revision=revision,scenario_id=scene['id'],production_sequence_id=source.get('production_sequence_id'),model=source.get('model','aggregate'),engineering_revision=source.get('engineering',{}).get('revision'),network=source.get('network'),source_import=source.get('source_import'),network_parameters=source.get('network_parameters',{}),stages=source.get('stages',[]),failed_lines=source.get('failed_lines',[]),branch_limit_kw=source.get('branch_limit_kw',5000)))
+  result=balance(Request(csv=source['input_csv'],parameters=Parameters(**source['parameters']),project_id=source['project_id'],project_revision=revision,scenario_id=scene['id'],production_sequence_id=source.get('production_sequence_id'),model=source.get('model','aggregate'),operating_condition=source.get('operating_condition'),engineering_revision=source.get('engineering',{}).get('revision'),network=source.get('network'),source_import=source.get('source_import'),network_parameters=source.get('network_parameters',{}),stages=source.get('stages',[]),failed_lines=source.get('failed_lines',[]),branch_limit_kw=source.get('branch_limit_kw',5000)))
   result['random_batch_id']=batch_id;result['baseline_run_id']=source['id']
   with closing(db()) as c,c:c.execute('UPDATE runs SET payload=? WHERE id=?',(json.dumps(result,ensure_ascii=False,allow_nan=False),result['id']))
   items.append({'sample':index+1,'seed':seed,'scenario_id':scene['id'],'run_id':result['id'],'failure_events':len(scene['failures']),**result['metrics']})
@@ -493,6 +504,7 @@ def random_balance(req:RandomBalanceRequest):
  for name,group in pd.DataFrame(phase_samples).groupby('stage',sort=False):
   phase_summary.append({'stage':name,'shortage_sample_probability':float((group.maximum_electricity_shortage_mw>1e-9).mean()),'mean_shortage_hour_pct':float(group.electricity_shortage_probability_pct.mean()),'mean_energy_deficit_mwh':float(group.expected_energy_not_served_mwh.mean())})
  result={'id':batch_id,'project_id':source['project_id'],'created':datetime.now().isoformat(timespec='seconds'),'source_run_id':source['id'],'parameters':req.model_dump(),'summary':summary,'phase_summary':phase_summary,'samples':items,'scope':'等权连续故障样本；种子为起始种子加样本序号。仅抽样指定资源故障，源荷与运行阶段固定。Wilson95%区间仅表示有限样本的不确定性，未校准灾害模型或源荷联合分布。'}
+ result['operating_condition']=source.get('operating_condition')
  result['model']=source.get('model','aggregate')
  if result['model']=='case33':result['scope']+='IEEE33模型逐时调度并交流潮流复核，仅处理根节点连通区域；电压统计不能代替孤岛动态稳定判别。'
  with closing(batch_db()) as c,c:c.execute('INSERT INTO random_batches VALUES(?,?,?,?)',(batch_id,result['project_id'],result['created'],json.dumps(result,ensure_ascii=False,allow_nan=False)))

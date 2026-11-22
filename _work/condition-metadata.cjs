@@ -1,0 +1,32 @@
+const fs=require('fs');let p=fs.readFileSync('frontend/src/useEngineeringProject.ts','utf8');
+p=p.replace("const operatingCondition=ref('极端保供');", "const operatingCondition=ref('未指定');");
+p=p.replace("function state(){return {network:","function state(){return {operatingCondition:operatingCondition.value,network:");
+p=p.replace("state:{csv:'timestamp", "state:{operatingCondition:'常规运行',csv:'timestamp");
+p=p.replace("const v=p.state;customNetwork.value", "const v=p.state;operatingCondition.value=v.operatingCondition||'未指定';customNetwork.value");
+p=p.replace("function applyScenario(id:string){scenarioId.value=id;", "function applyScenario(id:string){operatingCondition.value='极端保供';scenarioId.value=id;");
+p=p.replace("productionId.value=id;productionCsv.value=value;scenarioId.value=embeddedScenarioId||null", "productionId.value=id;productionCsv.value=value;scenarioId.value=embeddedScenarioId||null;operatingCondition.value='极端保供'");
+p=p.replace("body:JSON.stringify({network:customNetwork.value,source_import:","body:JSON.stringify({operating_condition:operatingCondition.value==='常规运行'?'normal':operatingCondition.value==='极端保供'?'extreme':null,network:customNetwork.value,source_import:");
+p=p.replace("model.value!==(result.value.model||'aggregate')", "model.value!==(result.value.model||'aggregate')");
+// Keep selected result filtering separate from input operating condition.
+p=p.replace("const selectedModeResult=computed", "const resultCondition=ref('all');const filteredHistory=computed(()=>history.value.filter(h=>resultCondition.value==='all'||(h.operating_condition||'unknown')===resultCondition.value));\nconst selectedModeResult=computed");
+p=p.replace('return {focusStage,','return {resultCondition,filteredHistory,operatingCondition,focusStage,');
+if(!p.includes('return {resultCondition'))p=p.replace(/return \{(?=[^\n]*projectSettingsTab)/,'return {resultCondition,filteredHistory,operatingCondition,');
+fs.writeFileSync('frontend/src/useEngineeringProject.ts',p);
+let app=fs.readFileSync('frontend/src/App.vue','utf8').replace('const {focusStage,','const {resultCondition,filteredHistory,operatingCondition,focusStage,');
+app=app.replace('<select aria-label="计算模式"','<select aria-label="输入运行工况" v-model="operatingCondition" :disabled="busy"><option>未指定</option><option>常规运行</option><option>极端保供</option></select><select aria-label="计算模式"');
+app=app.replace('<select v-if="balanceMode===\'汇总／网络平衡\'" aria-label="当前平衡结果"','<select v-if="balanceMode===\'汇总／网络平衡\'" aria-label="结果工况筛选" v-model="resultCondition"><option value="all">全部结果工况</option><option value="normal">常规运行结果</option><option value="extreme">极端保供结果</option><option value="unknown">工况未记录</option></select><select v-if="balanceMode===\'汇总／网络平衡\'" aria-label="当前平衡结果"');
+app=app.replace('v-for="h in history" :value="h.id"','v-for="h in filteredHistory" :value="h.id"');fs.writeFileSync('frontend/src/App.vue',app);
+let host=fs.readFileSync('frontend/src/WorkspaceHost.vue','utf8').replace('v-model="operatingCondition"><option>常规运行</option>','v-model="operatingCondition"><option>未指定</option><option>常规运行</option>');
+host=host.replace("subsection==='故障与恢复场景'&&operatingCondition==='极端保供'", "subsection==='故障与恢复场景'");
+host=host.replace("<div v-show=\"subsection==='故障与恢复场景'\">", "<div v-show=\"subsection==='故障与恢复场景'\"><p v-if=\"operatingCondition!=='极端保供'\" class=\"notice\">当前未选择极端保供工况；常规运行无需故障。可预览历史场景，明确应用后将使用极端保供输入标签。</p>");
+fs.writeFileSync('frontend/src/WorkspaceHost.vue',host);
+let report=fs.readFileSync('frontend/src/ReportWorkspace.vue','utf8');
+report=report.replace("const loading=ref(false)","const condition=ref('all');\nconst loading=ref(false)");
+report=report.replace('offset,kind],async','offset,kind,condition],async');
+report=report.replace("+'&kind='+kind.value", "+'&kind='+kind.value+'&operating_condition='+condition.value");
+report=report.replace('<p>共{{total}}条匹配结果', '<label>运行工况<select v-model="condition" @change="offset=0"><option value="all">全部</option><option value="normal">常规运行</option><option value="extreme">极端保供</option><option value="unknown">工况未记录</option></select></label><p>共{{total}}条匹配结果');
+report=report.replace('<th>来源</th>','<th>运行工况</th><th>来源</th>').replace("<td>{{r.random_batch_id?", "<td>{{r.operating_condition==='normal'?'常规运行':r.operating_condition==='extreme'?'极端保供':'工况未记录'}}</td><td>{{r.random_batch_id?");
+fs.writeFileSync('frontend/src/ReportWorkspace.vue',report);
+let backend=fs.readFileSync('backend/app.py','utf8').replace("model=source.get('model','aggregate'),engineering_revision=", "model=source.get('model','aggregate'),operating_condition=source.get('operating_condition'),engineering_revision=");
+// Random batches have their own sampled condition, inherited only if explicitly recorded in the baseline.
+backend=backend.replace("result['model']=source.get('model','aggregate')", "result['operating_condition']=source.get('operating_condition')\n result['model']=source.get('model','aggregate')");fs.writeFileSync('backend/app.py',backend);

@@ -1,0 +1,15 @@
+参数窗口取消/应用接入范围（2026-11-22）
+SourceStudy: seed, horizons
+SourceAnalysis: growth, wind, pv, window, seed
+SequenceWorkspace: eventCsv, start, smooth, ramp, scenarioId
+ScenarioWorkspace: devices, mode, name, seed, hazard, resource, rating, rate, repair
+DeviceDispatch: deviceSchedules, lineSchedules, parameters, grid, initial, continuationEnabled, continuationText
+RandomBalance: settings
+AnnualWorkspace: name, mode, start, dt, seriesSteps, forecastSteps, commitSteps, wallSeconds, grid, hardTargets, candidates, provenance, input
+NativePipeline: input, seed, samples
+DisasterWorkspace: name, dt, steps, eventStart, intensities, durations, grid, samples, seed, wallTime, criterion, budget, probability, confidence, judgement, advanced
+RestorationWorkspace: name, mode, minutes, steps, crews, operationMinutes, evaluations, wall, closed, manualSources, manualLoads, manualSwitches, advanced
+StrategyWorkspace: parameters, wind, pv
+ModuleWorkspace: values
+运行命令接受当前参数作为本次提交输入；应用按钮不提交计算。工程与台账保存机制保持独立。
+InvestmentWorkspace: 候选资源、配置目标、规划阶段、经济参数、场景、校核输入、一二次及组网参数使用同一实例草稿。取消恢复进入本次窗口前状态，应用不提交。

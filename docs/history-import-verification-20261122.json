@@ -1,0 +1,23 @@
+[
+  {
+    "dataset": "alashankou-2023",
+    "rows": 8760,
+    "timestamps_identical": true,
+    "power_values_identical": true,
+    "output": "data\\import-ready\\alashankou-2023_standard_kw.csv"
+  },
+  {
+    "dataset": "alashankou-2025",
+    "rows": 8760,
+    "timestamps_identical": true,
+    "power_values_identical": true,
+    "output": "data\\import-ready\\alashankou-2025_standard_kw.csv"
+  },
+  {
+    "dataset": "extreme-muswellbrook-2019",
+    "rows": 8760,
+    "timestamps_identical": true,
+    "power_values_identical": true,
+    "output": "data\\import-ready\\extreme-muswellbrook-2019_standard_kw.csv"
+  }
+]

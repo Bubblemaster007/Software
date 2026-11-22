@@ -34,7 +34,7 @@ def read_rows(p):
 def catalog():
  result=[]
  for p in files():
-  kind='load' if '典型负荷曲线' in p.name and p.suffix=='.xlsx' else 'wind_monthly' if '风场' in p.name and p.suffix=='.xlsx' else 'reference'
+  kind='load' if '典型负荷曲线' in p.name and p.suffix=='.xlsx' and not any(x in p.name for x in ('6.22','6．22','6月22')) else 'wind_monthly' if '风场' in p.name and p.suffix=='.xlsx' else 'reference'
   result.append({'id':key(p),'name':p.name,'path':str(p.relative_to(BASE)),'kind':kind,'bytes':p.stat().st_size})
  return {'files':result,'notes':['典型负荷为5分钟总有功，原表未标功率单位；应用前请选择并核实单位。','风场为月发电量，不能作为逐小时风电；装机列标题为兆瓦但数值疑似千瓦，保留原值待核实。','PDF/DWG/DOC为原始参考资料；未自动推断实际线路阻抗和连接关系。']}
 def find(file_id):
@@ -47,6 +47,7 @@ def download(file_id:str):
 @router.get('/{file_id}/preview')
 def preview(file_id:str,unit:str=Query('MW',pattern='^(MW|kW)$')):
  p=find(file_id)
+ if any(x in p.name for x in ('6.22','6．22','6月22')):raise HTTPException(410,'6.22典型日已退出计算输入，请使用历史风光荷数据入口')
  if p.suffix!='.xlsx':raise HTTPException(422,'请选择典型负荷或风场Excel')
  try:
   rows=read_rows(p)

@@ -1,0 +1,23 @@
+const fs=require('node:fs'),ts=require('typescript'),assert=require('node:assert/strict');
+(async()=>{
+ const js=ts.transpileModule(fs.readFileSync('frontend/src/workflowProgress.ts','utf8'),{compilerOptions:{module:ts.ModuleKind.ES2022}}).outputText;
+ const {workflowStatuses,taskProgress}=await import('data:text/javascript;base64,'+Buffer.from(js).toString('base64'));
+ const empty={scenario_count:0,source_study_count:0,production_count:0,run_count:0,adjustment_count:0,jobs:[]};
+ const input={snapshot:empty,ready:true,error:false,dataReady:false,dataSaved:false,dirty:false,working:{}};
+ let s=workflowStatuses(input);assert.equal(s['数据准备'].label,'未完成');assert.equal(s['场景生成'].label,'待生成');assert.equal(s['平衡分析'].label,'未完成');
+ s=workflowStatuses({...input,dataReady:true,dataSaved:true});assert.equal(s['数据准备'].label,'已完成');
+ assert.equal(workflowStatuses({...input,dataReady:true})['数据准备'].label,'待保存');
+ assert.equal(taskProgress([{id:'q',status:'queued'},{id:'r',status:'running'}]).label,'计算中');
+ assert.equal(taskProgress([{id:'f',status:'failed'}]).tone,'failed');
+ assert.equal(taskProgress([{id:'i',status:'incomplete'}]).label,'未完整');
+ assert.equal(taskProgress([{id:'s',status:'succeeded',matches_saved_input:false}]).label,'待复算');
+ s=workflowStatuses({...input,snapshot:{...empty,run_count:1,latest_run:{id:'r',matches_saved_input:true}},dirty:true});
+ assert.equal(s['平衡分析'].label,'待复算');assert.equal(s['成果管理'].label,'已完成');
+ assert.equal(workflowStatuses({...input,working:{scenario:true}})['场景生成'].label,'计算中');
+ assert.equal(workflowStatuses({...input,ready:false,error:true})['平衡分析'].label,'状态未知');
+ assert.equal(workflowStatuses({...input,snapshot:{...empty,scenario_count:4}})['场景生成'].label,'已生成待应用');
+ assert.equal(workflowStatuses({...input,snapshot:{...empty,scenario_evidence:{state:'applied'}}})['场景生成'].label,'已应用');
+ assert.equal(workflowStatuses({...input,snapshot:{...empty,scenario_evidence:{state:'applied'}},dirty:true})['场景生成'].label,'待核对');
+ assert.equal(taskProgress([{id:'old-study',status:'succeeded',created:1},{id:'new-native',status:'failed',created:'2026-11-22T00:00:00'}]).label,'计算失败');
+ console.log('PASS: 五阶段空状态、准备保存、运行优先级、失败/未完整、旧输入待复算、归档与读取失败');
+})();

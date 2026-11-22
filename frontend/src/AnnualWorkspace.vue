@@ -1,4 +1,7 @@
 <script setup lang="ts">
+import {useParameterTransaction} from './useParameterTransaction';
+import ParameterDialog from './ParameterDialog.vue';
+const settingsOpen=ref(false);
 import {ref, computed, watch, onBeforeUnmount} from 'vue';
 import {apiError} from './apiError';
 
@@ -88,7 +91,7 @@ async function openWindow(id: string) {
   const data = await api('/api/study-jobs/' + jobId + '/annual-windows/' + id);
   if (current === generation && selected.value?.id === jobId) detail.value = data;
 }
-async function submit() {
+async function submit() {commitSettings(false);
   const current = generation;
   busy.value = true;
   error.value = '';
@@ -149,6 +152,7 @@ watch(() => props.projectId, async () => {
   try { await readInputs(); await refresh(); } catch (caught) { reportError(caught); }
 }, {immediate: true});
 onBeforeUnmount(() => { ++generation; clearTimeout(timer); });
+const commitSettings=useParameterTransaction(settingsOpen,{name,mode,start,dt,seriesSteps,forecastSteps,commitSteps,wallSeconds,grid,hardTargets,candidates,provenance,input});
 </script>
 
 <template>
@@ -157,7 +161,7 @@ onBeforeUnmount(() => { ++generation; clearTimeout(timer); });
     <p>读取已保存工程的辐射网与台账。逐窗口优化，提交前缀后传递源储能量、启停、运行小时和保供中断前史。统计累计实际提交区间，支持完整日历年与指定时段。</p>
     <p>工程版本 {{project?.revision ?? '—'}} · 台账版本 {{engineering?.revision ?? '—'}}。前瞻窗口最多672步且最长168小时，支持2至100节点。年度全局最优性与项目规模性能验收待完成。</p>
     <p v-if="error" class="error" role="alert">{{error}}</p>
-    <div class="fields">
+    <button class="settings-trigger" @click="settingsOpen=true">年度滚动参数</button><ParameterDialog transactional @apply="commitSettings()" v-model:open="settingsOpen" title="年度滚动参数"><div class="fields">
       <label>名称<input v-model="name" :disabled="busy"></label>
       <label>覆盖范围<select v-model="mode" :disabled="busy"><option value="calendar_year">完整日历年</option><option value="series">指定时段</option></select></label>
       <label>开始时间<input type="datetime-local" v-model="start" :disabled="busy"></label>
@@ -181,7 +185,7 @@ onBeforeUnmount(() => { ++generation; clearTimeout(timer); });
       <pre>{"source_curve_kw":{},"load_curve_kw":{},"base":{"load_target_start_hours":{}}}</pre>
     </details>
     <button class="primary" @click="submit" :disabled="busy||!engineering?.revision||!provenance.trim()">{{busy?'正在提交…':'提交年度滚动任务'}}</button>
-  </article>
+  </ParameterDialog></article>
   <article>
     <h3>年度滚动任务档案</h3>
     <button @click="refresh">刷新年度任务</button>

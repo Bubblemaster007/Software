@@ -1,0 +1,11 @@
+const fs=require('fs');let s=fs.readFileSync('frontend/src/workflowProgress.ts','utf8');
+s=s.replace("result['平衡分析']=taskProgress(s.jobs.filter((j:any)=>['device_dispatch','annual_dispatch','native'].includes(j.module)))||", "const balanceJobs=s.jobs.filter((j:any)=>['device_dispatch','annual_dispatch','native'].includes(j.module));const activeBalance=balanceJobs.some((j:any)=>['queued','running','cancel_requested'].includes(j.status));\n  result['平衡分析']=(activeBalance||!s.latest_run?.created_epoch||balanceJobs[0]?.created_epoch>=s.latest_run.created_epoch?taskProgress(balanceJobs):null)||");
+fs.writeFileSync('frontend/src/workflowProgress.ts',s);
+let p=fs.readFileSync('frontend/src/useEngineeringProject.ts','utf8');p=p.replace(/const menus=\[[^\n]*\];\n/,'').replace(/const chart=ref<HTMLElement>\(\);\nlet plot:ECharts\|undefined;\nlet chartRequest=0;\n/,'').replace(/import type \{ECharts\} from 'echarts\/core';\n/,'');
+p=p.replace(',menus,',',');
+p=p.replace("model.value!==(result.value.model||'aggregate')||", "model.value!==(result.value.model||'aggregate')||(result.value.operating_condition??null)!==(operatingCondition.value==='常规运行'?'normal':operatingCondition.value==='极端保供'?'extreme':null)||");
+p=p.replace("result.value=null;layout.bottom.value=''", "result.value=null;resultCondition.value='all';layout.bottom.value=''");
+fs.writeFileSync('frontend/src/useEngineeringProject.ts',p);
+let app=fs.readFileSync('frontend/src/App.vue','utf8').replace(',menus,',',');fs.writeFileSync('frontend/src/App.vue',app);
+let record=fs.readFileSync('docs/参数草稿事务范围.txt','utf8').replace('SourceStudy: seed','SourceStudy: seed, horizons').replace('ScenarioWorkspace: mode,','ScenarioWorkspace: devices, mode,').replace('DeviceDispatch: parameters,','DeviceDispatch: deviceSchedules, lineSchedules, parameters,').replace('SequenceWorkspace: start,','SequenceWorkspace: eventCsv, start,');
+record+='InvestmentWorkspace: 候选资源、配置目标、规划阶段、经济参数、场景、校核输入、一二次及组网参数使用同一实例草稿。取消恢复进入本次窗口前状态，应用不提交。\n';fs.writeFileSync('docs/参数草稿事务范围.txt',record);

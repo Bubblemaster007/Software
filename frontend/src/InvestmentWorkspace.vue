@@ -1,7 +1,8 @@
 <script setup lang="ts">
+import {useParameterTransaction} from './useParameterTransaction';
 import InvestmentExperiments from './InvestmentExperiments.vue';
 import {ref,computed,watch,onBeforeUnmount} from 'vue';import {apiError} from './apiError';
-const props=defineProps<{projectId:string;section:string}>();
+const props=defineProps<{projectId:string;section:string;editing?:boolean}>();
 const emit=defineEmits<{context:[value:any]}>();
 const experimentParameters=ref<any>(null);
 const project=ref<any>(null),engineering=ref<any>(null),jobs=ref<any[]>([]),job=ref<any>(null),candidates=ref<any[]>([]);
@@ -49,10 +50,14 @@ async function saveJointDraft(){try{const value=JSON.parse(jointText.value);if(!
 async function saveFlexDraft(){try{const value=JSON.parse(flexText.value);if(!value||Array.isArray(value)||typeof value!=='object')throw Error('灵活组网参数必须是JSON对象');const r=await api('/api/drafts/灵活组网?project_id='+encodeURIComponent(props.projectId),{method:'PUT',headers:{'Content-Type':'application/json'},body:JSON.stringify({values:value})});error.value='已保存灵活组网草稿 · '+r.updated}catch(e){error.value=String(e)}}
 function exportDraft(name:string,text:string){const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([text],{type:'application/json'}));a.download=name+'-'+props.projectId.slice(0,8)+'.json';a.click()}
 function loadExperimentBaseline(){try{experimentParameters.value=planningParameters();error.value=''}catch(e){error.value=String(e)}}
-async function submit(){const g=generation,s=++selection;clearTimeout(timer);busy.value=true;error.value='';try{const parameters=planningParameters();
+async function submit(){commitSettings(false);const g=generation,s=++selection;clearTimeout(timer);busy.value=true;error.value='';try{const parameters=planningParameters();
  const d=await api('/api/study-jobs',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({module:'investment',parameters})});if(g!==generation||s!==selection)return;job.value=d;jobs.value=[d,...jobs.value];timer=setTimeout(()=>poll(d.id,g),200)}catch(e){if(g===generation&&s===selection)error.value=String(e)}finally{if(g===generation)busy.value=false}}
 async function action(type:string){const id=job.value?.id,g=generation,s=++selection;if(!id)return;try{const d=await api('/api/study-jobs/'+id+'/'+type,{method:'POST'});if(g===generation&&s===selection){job.value=d;clearTimeout(timer);timer=setTimeout(()=>poll(d.id,g),200)}}catch(e){if(g===generation&&s===selection)error.value=String(e)}}
 watch(()=>props.projectId,refresh,{immediate:true});watch(()=>[props.projectId,props.section],()=>{if(props.projectId&&props.section==='一二次协同规划')readJointDraft();if(props.projectId&&props.section==='灵活组网')readFlexDraft()},{immediate:true});onBeforeUnmount(()=>{++generation;++selection;clearTimeout(timer)});
+const editSession=ref(false);
+const commitSettings=useParameterTransaction(editSession,{candidates,name,minutes,steps,probability,targetPolicy,riskScope,discount,salvage,budget,wall,gap,protectedClasses,stages,scenarioText,validationText,advanced,jointText,flexText});
+watch(()=>props.editing,value=>editSession.value=!!value);
+defineExpose({acceptSettings:()=>commitSettings(false)});
 </script>
 <template>
 <article><h3>源储协同配置 · {{section}}</h3><p>联合优化候选源储的接入位置、建设年份和场景运行，使用带权联合机会约束与折现成本。支持固定设备块与连续定容混合配置，连续储能独立优化功率和能量。每个ID最多投运一次，追加/替换单元分别建ID；未建设设备不贡献出力、储能初始电量、无功或构网能力。</p><p v-if="error" class="error">{{error}}</p><div class="actions"><button @click="refresh" :disabled="busy">重新读取台账与任务</button><span>工程版本 {{project?.revision||'—'}} / 台账版本 {{engineering?.revision||0}}</span></div>

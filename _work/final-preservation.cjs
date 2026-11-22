@@ -1,0 +1,11 @@
+const fs=require('fs');let s=fs.readFileSync('frontend/src/DeviceDispatch.vue','utf8');
+s=s.replace("watch(result,draw);const resize=()=>plot?.resize();", "watch(result,draw);const resize=()=>plot?.resize();let chartObserver:ResizeObserver|undefined;watch(chart,element=>{chartObserver?.disconnect();if(element){chartObserver=new ResizeObserver(resize);chartObserver.observe(element)}},{flush:'post'});");
+s=s.replace("++token;++drawToken;plot?.dispose();window.removeEventListener('resize',resize)", "++token;++drawToken;chartObserver?.disconnect();plot?.dispose();window.removeEventListener('resize',resize)");fs.writeFileSync('frontend/src/DeviceDispatch.vue',s);
+let p=fs.readFileSync('frontend/src/useEngineeringProject.ts','utf8');
+p=p.replace('const projectSettingsTab = ref("工程信息");','const versionsOpen=ref(false);\n  const projectSettingsTab = ref("工程信息");');
+p=p.replace('const commandRegistry = useCommands(\n    [', 'const commandRegistry = useCommands(\n    [{id:"project.versions",label:"数据版本管理",execute:()=>versionsOpen.value=true,enabled:()=>!!project.value},');
+p=p.replace('        "project.settings",','        "project.settings",\n        "project.versions",');
+p=p.replace('  return {\n', '  return {\n    versionsOpen,');
+p=p.replace('projectSettingsOpen.value = false;\n      balanceMode.value', 'projectSettingsOpen.value = false;versionsOpen.value=false;\n      balanceMode.value');fs.writeFileSync('frontend/src/useEngineeringProject.ts',p);
+let a=fs.readFileSync('frontend/src/App.vue','utf8');a=a.replace('import TaskPanel', 'import DataGovernance from "./DataGovernance.vue";\nimport TaskPanel').replace('  globalMenus,','  globalMenus,\n  versionsOpen,');const end=a.lastIndexOf('</template>');a=a.slice(0,end)+'<ParameterDialog v-model:open="versionsOpen" title="数据版本管理"><DataGovernance v-if="versionsOpen" :project-id="project?.id || \'\'" section="数据版本管理"/></ParameterDialog>'+a.slice(end);fs.writeFileSync('frontend/src/App.vue',a);
+let t=fs.readFileSync('frontend/scripts/test-result-context.mjs','utf8').replace("assert.doesNotMatch(html,/>网络结果</);assert.doesNotMatch(html,/最大弃电功率/);", "assert.doesNotMatch(html,/>网络结果</);assert.match(html,/弃电电力极大值/);assert.match(html,/未计算/);").replace('缺失字段隐藏','缺失字段明确未计算');fs.writeFileSync('frontend/scripts/test-result-context.mjs',t);

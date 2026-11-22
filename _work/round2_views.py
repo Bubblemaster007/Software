@@ -1,0 +1,31 @@
+from pathlib import Path
+r=Path('frontend/src')
+p=r/'ScenarioSettingsWorkspace.vue';s=p.read_text(encoding='utf-8');start=s.index('@change="async e=>');end=s.index('"></label>',start);s=s[:start]+'@change="importEvent'+s[end:];s=s.replace(".at(-1)?.split(',')[0]",".slice(-1)[0]?.split(',')[0]");p.write_text(s,encoding='utf-8')
+p=r/'DataWorkspace.vue';s=p.read_text(encoding='utf-8');s=s.replace('function openProperties(){', 'function openNetworkImport(){networkEditor.value?.openImport()}\nfunction openProperties(){').replace('defineExpose({openEditor,openProperties,openDatasetPicker})','defineExpose({openEditor,openProperties,openDatasetPicker,openNetworkImport})');
+s=s.replace('<template><p v-if="source" class="notice">输入来源：{{source.name||source.file}} · {{source.first_timestamp}} — {{source.last_timestamp}} · {{source.output_unit||\'kW\'}}<br><small>SHA-256：{{source.sha256}}</small></p>', '''<template><div v-if="tab==='源荷时序'" class="source-summary"><strong>{{source?.name||'当前工程源荷'}}</strong><span>{{rows[0]?.[0]||'尚无数据'}} — {{rows[rows.length-1]?.[0]||'—'}}</span><span>{{rows.length}}小时 · 1小时粒度 · {{source?.output_unit||'kW'}}</span><span>{{rows.length?(inspection.totalIssues?'数据待修正':'已导入，格式通过'):'待导入'}}</span><details v-if="source"><summary>来源与质量详情</summary><p>{{source.file}}</p><p>SHA-256：{{source.sha256}}</p><p v-for="note in source.notes">{{note}}</p><pre>{{source.quality_counts}}</pre></details></div>''')
+s=s.replace('<SeriesPreview v-show="!dataEditorOpen&&!datasetPickerOpen" :csv="csv"/>', '<article v-if="!rows.length&&!dataEditorOpen&&!datasetPickerOpen" class="source-empty"><h3>导入历史风光荷数据开始分析</h3><p>选择已有数据集、导入本地CSV，或手动录入真实源荷。</p><button class="primary" @click="openDatasetPicker">▱ 导入数据</button></article><SeriesPreview v-if="rows.length" v-show="!dataEditorOpen&&!datasetPickerOpen" :csv="csv"/>')
+s+='\n<style scoped>.source-summary{display:flex;gap:8px 16px;align-items:center;flex-wrap:wrap;padding:10px 12px;background:white;border:1px solid #dce3ea;border-radius:6px;margin-bottom:12px;font-size:12px;min-width:0}.source-summary span{overflow-wrap:anywhere}.source-summary details{width:100%;margin:0}.source-summary details p{overflow-wrap:anywhere}.source-empty{text-align:center;padding:60px 16px}</style>\n';p.write_text(s,encoding='utf-8')
+p=r/'NetworkEditor.vue';s=p.read_text(encoding='utf-8');s=s.replace('defineExpose({openEditor,openProperties});',"const importInput=ref<HTMLInputElement>();function openImport(){openEditor();importInput.value?.click()}\ndefineExpose({openEditor,openProperties,openImport});")
+s=s.replace('<input type="file" accept=".json" hidden @change="upload"','<input ref="importInput" type="file" accept=".json" hidden @change="upload"')
+s=s.replace('JSON已载入草稿，请校验并应用。','JSON已载入草稿；应用新拓扑后将解除旧场景及线路故障，请校验后明确应用。')
+p.write_text(s,encoding='utf-8')
+# Compact ordinary balance parameters; scene is now the sole fault/condition source.
+p=r/'BalanceWorkspace.vue';s=p.read_text(encoding='utf-8');s=s.replace('const {taskFocus,layout,','const {scene,navigateWorkspace,taskFocus,layout,')
+start=s.index('    <p v-if="scenarioId || activeProductionId"');end=s.index('    <template v-if="balanceMode',start)
+s=s[:start]+'''    <article class="confirmed-scenario-summary"><div class="actions"><strong>{{scene.confirmed.value?.name||'场景尚未确认'}}</strong><span>{{scene.confirmed.value?.snapshot.condition||'工况待确认'}}</span><span>{{inspectTimeSeries(csv).count}}小时 · {{scene.confirmed.value?.faultMode==='manual'?'手动线路故障':scene.confirmed.value?.faultMode==='random'?'随机设备故障':'无设备故障'}} · {{scene.valid.value?'场景有效':'待重新确认'}}</span><button @click="navigateWorkspace('scenario.workspace')">修改场景</button></div><p>{{csv.trim().split(/\\r?\\n/)[1]?.split(',')[0]}} — {{csv.trim().split(/\\r?\\n/).slice(-1)[0]?.split(',')[0]}} · 全时域故障 {{scene.confirmed.value?.snapshot.failedLines.length||0}}条 · 阶段故障 {{scene.confirmed.value?.snapshot.stages.reduce((n:number,s:any)=>n+(s.failed_lines?.length||0),0)||0}}条次</p></article>
+'''+s[end:]
+start=s.index('      :tabs="');end=s.index('      v-model:active',start)
+s=s[:start]+''':compact="true" :tabs="model==='case33'?['资源参数','网络约束']:['资源参数']"\n'''+s[end:]
+start=s.index('        ><article v-show="parameterTab === \'计算模型\'"');end=s.index('        <article v-show="parameterTab === \'资源参数\'"',start)
+s=s[:start]+'''        ><p>当前模型（只读）：{{model==='case33'?'节点网络平衡':'汇总逐时平衡'}}。模型切换使用工作区顶部唯一选择器，场景与故障在场景生成设置中修改。</p>
+'''+s[end:]
+s=s.replace("parameterTab === '网络与故障'","parameterTab === '网络约束'")
+start=s.index('            <div>\n              <p>全时域故障点');end=s.index('            <label class="field"',start);s=s[:start]+s[end:]
+start=s.index('        <div v-show="parameterTab === \'运行阶段\'"');end=s.index('</template',start)
+s=s[:start]+s[end:]
+s=s.replace('<label v-for="(_, key) in parametersDraft.parameters" class="field"','<div class="balance-parameter-grid"><label v-for="(_, key) in parametersDraft.parameters" class="field"')
+s=s.replace('          <p>\n            关键、重要负荷','</div>          <p>\n            关键、重要负荷')
+s+='\n<style scoped>.balance-parameter-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:0 16px}.balance-parameter-grid .field{display:grid;grid-template-columns:minmax(0,1fr) 110px;gap:8px;align-items:center;font-size:12px}.balance-parameter-grid input{width:110px;min-width:0}.confirmed-scenario-summary{padding:10px 12px}.confirmed-scenario-summary .actions strong{margin-right:auto}.confirmed-scenario-summary p{font-size:11px;margin-bottom:0}@media(max-width:650px){.balance-parameter-grid{grid-template-columns:minmax(0,1fr)}}</style>\n';p.write_text(s,encoding='utf-8')
+p=r/'ParameterDialog.vue';s=p.read_text(encoding='utf-8').replace('    transactional?: boolean;','    transactional?: boolean;\n    compact?:boolean;')
+s=s.replace('class="parameter-dialog"','class="parameter-dialog" :class="{\'compact-parameter-dialog\':compact}"',1)
+s+='\n<style>.parameter-dialog.compact-parameter-dialog{width:min(810px,calc(100vw - 32px));height:auto;max-height:calc(100dvh - 48px)}.compact-parameter-dialog .parameter-dialog-body{max-height:calc(100dvh - 220px)}.compact-parameter-dialog .parameter-dialog-body .field input{width:110px;flex:0 0 110px}.compact-parameter-dialog .parameter-dialog-body .field{min-height:36px;margin:2px 0;padding:5px 0}</style>\n';p.write_text(s,encoding='utf-8')
